@@ -170,7 +170,7 @@ function getTreeUpgradeCost(upg, add=0) {
 	if (upg == 9) return pow10(lvl).mul(1e50)
 	if (upg == 10) return pow10(lvl).mul(1e60)
 	if (upg == 11) return pow10(lvl).mul(1e70)
-	if (upg == 12) return pow10((lvl + 5) * (lvl + 15))
+	if (upg == 12) return pow10(10 * (lvl + 8))
 	return E(1/0)
 }
 
