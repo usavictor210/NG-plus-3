@@ -167,10 +167,10 @@ function getTreeUpgradeCost(upg, add=0) {
 	if (upg == 6) return E_pow(6, lvl).mul(1e21)
 	if (upg == 7) return pow2(lvl * 4).mul(4e22)
 	if (upg == 8) return pow2(lvl).mul(3e23)
-	if (upg == 9) return pow10(lvl).mul(1e50)
-	if (upg == 10) return pow10(lvl).mul(1e60)
-	if (upg == 11) return pow10(lvl).mul(1e70)
-	if (upg == 12) return pow10(10 * (lvl + 8))
+	if (upg == 9) return pow10(lvl + 35)
+	if (upg == 10) return pow10(lvl + 40)
+	if (upg == 11) return pow10(lvl + 50)
+	if (upg == 12) return pow10(lvl * 10 + 60)
 	return E(1/0)
 }
 
@@ -194,6 +194,7 @@ function getTreeUpgradeStrength(upg) {
 	let min = 1/0
 	if (upg == 12) return 1
 	if (upg == 1)  min =  4
+	if (upg == 2)  min =  6
 	if (upg == 6)  min =  4
 	return Math.min(tmp.qu.tree_str, min)
 }
@@ -212,9 +213,9 @@ function getTreeUpgradeEffect(upg) {
 	if (upg == 6) return pow10(lvl / 2)
 	if (upg == 7) return lvl ? pow2(Math.sqrt(tmp.rep.eff.max(1).log10()) / 20 * Math.log10(lvl + 9)) : E(1)
 	if (upg == 8) return Math.log10(player.meta.bestAntimatter.add(10).log10()) * Math.sqrt(lvl)
-	if (upg == 9) return lvl * 10
+	if (upg == 9) return lvl * 30
 	if (upg == 10) return lvl * 1e4
-	if (upg == 11) return lvl / 200 + 1
+	if (upg == 11) return lvl / 150 + 1
 	if (upg == 12) return lvl / 3
 	return 0
 }
@@ -406,11 +407,11 @@ function getTreeUpgradeEfficiencyText(){
 
 	let text = ""
 	if (todSave.r.decays) {
-		text += "Radioactive Decays: +" + (todSave.r.decays / 3).toFixed(1) + "x, "
+		text += "Radioactive Decays: +" + (todSave.r.decays / 4).toFixed(1) + "x, "
 		if (hasBLMilestone(14)) text += "Bosonic Milestone 15: " + shorten(blEff(14)) + "x to prior, "
 	}
 	if (getTreeUpgradeLevel(12) > 0) text += "Tree Upgrade 12: +" + shorten(getTreeUpgradeEffect(12)) + "x, "
-	if (PHANTOM.amt > 0) text += "Phantomal Paradigms: +" + shorten(PHANTOM.amt / 3) + "x, "
+	if (PHANTOM.amt > 0) text += "Phantomal Paradigms: +" + shorten(PHANTOM.amt / 5) + "x, "
 	if (hasNB(7)) text += "Neutrino Boost 7: +" + shorten(NT.eff("boost", 7)) + "x, "
 	if (hasAch("ng3p62")) text += "'Finite Time' Reward: +0.1x, "
 
@@ -419,10 +420,10 @@ function getTreeUpgradeEfficiencyText(){
 }
 
 function getTreeUpgradeEfficiency(mod) {
-	let r = getRadioactiveDecays() / 3
+	let r = getRadioactiveDecays() / 4
 	r += getTreeUpgradeEffect(12)
 
-	r += PHANTOM.amt / 3
+	r += PHANTOM.amt / 5
 	if (hasBLMilestone(14)) r *= blEff(14)
 	if (hasNB(7) && mod != "noNB") r += NT.eff("boost", 7, 0)
 	if (hasAch("ng3p62")) r += 0.1
@@ -430,7 +431,7 @@ function getTreeUpgradeEfficiency(mod) {
 }
 
 function getRDNerf() {
-	return getRadioactiveDecays() * 20
+	return getRadioactiveDecays() * 30
 }
 
 function getBU1Power() {

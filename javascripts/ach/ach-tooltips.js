@@ -433,12 +433,12 @@ function setR20Tooltip(){
 }
 
 function setR21Tooltip(){
-	// Row 21 (ng3p7) (5/8)
+	// Row 21 (ng3p7) (3/8)
 	//ng3p71/////
 	let uc = el("Underchallenged")
 	let mi = el("Meta-Infinity confirmed?")
 	let wd = el("Weak Decay")
-	let radioDecay = el("Radioactive Decaying to the max!")
+	//ng3p75/////
 	//ng3p76/////
 	//ng3p77/////
 	//ng3p78/////
@@ -447,12 +447,11 @@ function setR21Tooltip(){
 	uc.setAttribute('ach-tooltip', "Get "+shortenCosts(pow10(1e4))+" EP in Big Rips. Reward: Eternities can't go below your Eternitied gain, and gain Banked Eternities on any Quantum reset.")
 	mi.setAttribute('ach-tooltip', "Get "+shorten(Number.MAX_VALUE)+" Infinities.")
 	wd.setAttribute('ach-tooltip', "Get "+shortenCosts(pow10(1e9))+" preons without Big Ripping in this Fundament. Reward: Normal duplicant autobuyer buys max.")
-	radioDecay.setAttribute('ach-tooltip', "Get a Radioactive Decay. Reward: Produce 1 galaxy worth of Neutrinos per second.")
 }
 
 function setR22Tooltip(){
-	// Row 22 (ng3p8) (3/8)
-	let ghostierthanbefore = el("Even Ghostlier than before")
+	// Row 22 (ng3p8) (2/8)
+	//ng3p81/////
 	//ng3p82/////
 	//ng3p83/////
 	//ng3p84/////
@@ -462,7 +461,6 @@ function setR22Tooltip(){
 	//ng3p88/////
 
 	//ACHIEVEMENT ROW 22
-	ghostierthanbefore.setAttribute("ach-tooltip", "Unlock Bosonic Lab. Reward: Meta-antimatter effect uses best MA in current Fundament, and obtain all missing achievements prior to the Photons row.")
 	ee.setAttribute('ach-tooltip', "Get "+shorten(Number.MAX_VALUE)+" Eternities.")
 	btco.setAttribute('ach-tooltip', "Complete Paired Challenge 1 after getting "+shortenCosts(pow10(1.65e9)) + " antimatter in Quantum Challenges 6 and 8. Reward: Fundaments lose 25% of Radioactive Decays.")
 }

@@ -8,7 +8,7 @@ let PHOTON = {
 		return {
 			amt: E(0),
 			sel: [0, -1],
-			slots: [[0, false], [0, false], [0, false], [0, false], [0, false]]
+			slots: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0]]
 		}
 	},
 
@@ -44,14 +44,22 @@ let PHOTON = {
 			if (ghSave.photons.sel[0] == 0) ghSave.photons.amt = this.photon_prod().mul(ghSave.photons.slots[i][0]).add(ghSave.photons.amt)
 			if (ghSave.photons.sel[0] == 1) replicantiIncrease(ghSave.photons.slots[i][0] * 10)
 			if (ghSave.photons.sel[0] == 2) treeOfDecayUpdating(ghSave.photons.slots[i][0])
-			ghSave.photons.slots[i] = [0, false]
+
+			ghSave.photons.slots[i][1]--
+			if (ghSave.photons.slots[i][1] == 0) ghSave.photons.slots[i] = [0, 0]
 		} else ghSave.photons.sel[1] = i
+	},
+	emits() {
+		let r = 1
+		if (hasAch("ng3p75")) r++
+		if (hasAch("ng3p78")) r++
+		if (hasAch("ng3p82")) r++
+		return r
 	},
 
 	/* Feature - Lights */
 	photon_prod() {
-		let r = pow10(player.dilation.freeGalaxies / 2e4 - 3)
-
+		let r = pow10(player.dilation.freeGalaxies / 1e4 - 5)
 		if (hasNB(11))               r = r.mul(NT.eff("boost", 11))
 		if (hasNanoReward("photon")) r = r.mul(tmp.qu.nf.eff.photon)
 		if (PHANTOM.amt >= 1)        r = r.mul(pow2(PHANTOM.amt))
@@ -134,7 +142,7 @@ let PHOTON = {
 		for (var i = 0; i < 3; i++) el("ph_fea_" + i).className = "photon " + (ps.sel[0] == i ? "choosed" : "")
 		for (var i = 0; i < 5; i++) {
 			el("ph_slot_" + i).innerHTML = ps.slots[i][0] ? (
-				(ps.slots[i][1] ? "Emit<br>+" : "Energizing<br>") +
+				(ps.slots[i][1] ? `Emit (${ps.slots[i][1] === true ? 1 : ps.slots[i][1]})<br>+` : "Energizing<br>") +
 				`${shorten(ps.slots[i][0])}s`
 			) : `Energize`
 			el("ph_slot_" + i).className = "photon slot " + (ps.sel[1] == i ? "choosed" : "")

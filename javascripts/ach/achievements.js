@@ -187,8 +187,8 @@ const allAchievements = {
 	ng3p84 : "Big Rip isn't enough",
 	ng3p85 : "Everlasting Eternities",
 	ng3p86 : "Back to Challenge One",
-	ng3p87 : "ng3p87",
-	ng3p88 : "ng3p88",
+	ng3p87 : "Under Circumstances",
+	ng3p88 : "That's a Mach!",
 
 	ng3p91 : "The Holy Particle",
 	ng3p92 : "Bright as the Anti-Sun",

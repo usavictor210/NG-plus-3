@@ -492,8 +492,9 @@ let RESETS = {
 			ghSave.reference = 10
 			ghSave.photons.amt = E(0)
 
+			let emit = PHOTON.emits()
 			ghSave.photons.sel[1] = -1
-			for (var i of ghSave.photons.slots) if (i[0]) i[1] = true
+			for (var i of ghSave.photons.slots) if (i[0]) i[1] = emit
 		}
 	}
 }
