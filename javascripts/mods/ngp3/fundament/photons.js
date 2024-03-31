@@ -75,7 +75,7 @@ let PHOTON = {
 				desc: e => `Tickspeed reduction multiplies per-ten multiplier by ${shorten(e)}x.`
 			}, {
 				name: "red",
-				req: 1e100,
+				req: 100,
 				eff: exp => Math.min(1 + Math.sqrt(exp), 3),
 				desc: e => `Raise 2nd Neutrino Boost by ^${e.toFixed(3)}.`
 			}, {
@@ -101,7 +101,7 @@ let PHOTON = {
 			}, {
 				name: "violet",
 				req: 1e100,
-				eff: exp => exp * 4,
+				eff: exp => exp * 2,
 				desc: e => `Nanorewards scale +${shorten(e)} later.`
 			}, {
 				name: "ultraviolet",
