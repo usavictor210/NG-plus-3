@@ -424,27 +424,20 @@ let HOW_TO = [
 		mod: _ => ngp3,
 		req: _ => ghSave?.lab?.unl,
 
-		title: "Bosonic Lab",
-		tab: "bl",
+		title: "W & Z Bosons",
 		layer: "fundament",
-		desc: `<b>Hypotheses</b><br>
-		You can place down Hypotheses in a 5x5 grid. A pair of adjacent Hypotheses boosts things depending on their types.
-		<br><br>
-		<b>Bosonic Milestones</b><br>
-		At a specific amount of best Bosonic Matter, you'll unlock a Bosonic Milestone. Best Bosonic Matter strengthens some milestones.
-		<br><br>
-		<b>W & Z Bosons</b><br>
-		There are 3 Capaciators which can be filled up to a total of 5 W+ and W- Bosons. On filling with all 5 W+ Bosons, you unlock the next Capaciator.<br><br>
-		Hypercharge must be at least 0 to activate boosts.<br>
-		- W+ = If assigned, +1 Hypercharge and empowers an assigned Capaciator.<br>
-		- W- = If assigned, -1 Hyperchargebr>
-		- Z0 = -1 Hypercharge`
+		desc: `
+			You can place down W+/- and Z Chargers in a 7x7 grid.<br>
+			W+ increases strength to adjacent Chargers and W- decreass strength to adjacent Chargers.<br>
+			Chargers with positive strength provide positive hypercharge and chargers with negative strength provide negative hypercharge.<br><br>
+			There are Positive and Negative Hypercharge Milestones.<br>
+			[UNDER CONSTRUCTION]
+		`
 	}, {
 		mod: _ => ngp3,
 		req: _ => ghSave?.hb?.unl,
 
 		title: "Higgs Field",
-		tab: "bl",
 		layer: "fundament",
 		desc: `At ??? Bosonic Matter, you can reset Bosonic Matter and W & Z Bosons for Higgs. You'll unlock Higgs Field where you can swap boosts between different rows.
 		<br>
@@ -454,7 +447,6 @@ let HOW_TO = [
 		req: _ => ghSave?.gw?.unl,
 
 		title: "Gravity Well",
-		tab: "bl",
 		layer: "fundament",
 		desc: `???`
 	}, {

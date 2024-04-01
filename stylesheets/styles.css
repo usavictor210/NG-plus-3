@@ -2430,26 +2430,6 @@ div.lDe {
 	text-shadow: 0 0 6px #f50;
 	cursor: pointer
 }
-.milestonereward.bl {
-	background: repeating-linear-gradient(#620d65, transparent 50%, #620d65 100%), repeating-linear-gradient(90deg, transparent, #c73415 50%, transparent 100%), #191919;
-	background-size: 200% 200%;
-	border: 2px solid;
-	color: white;
-	animation: bl 4s linear infinite
-}
-.milestonereward.bl, .milestonerewardlocked.bl {
-	font-size: 10.5px;
-	height: 72px;
-	border-color: #b70b;
-}
-@keyframes bl { 
-	0%{
-		background-position: 0 0
-	}
-	100%{
-		background-position: 0 200%, 0 200%, 0 0
-	}
-}
 
 .hypo {
 	display: inline-block;
@@ -2459,31 +2439,31 @@ div.lDe {
 	color: #0007;
 	font-weight: bold
 }
-.hypo.hypo0 {
+.hypo.hypo2 {
 	background: #b67f33;
 	box-shadow: 0px 0px 12px #b67f33;
 }
-.hypo.hypo1 {
+.hypo.hypo3 {
 	background: #b341e0;
 	box-shadow: 0px 0px 12px #b341e0
 }
-.hypo.hypo2 {
+.hypo.hypo4 {
 	background: #32c832;
 	box-shadow: 0px 0px 12px #32c832
 }
-.hypo.hypo3 {
+.hypo.hypo5 {
 	background: #e900ff;
 	box-shadow: 0px 0px 12px #6a00ff
 }
-.hypo.hypo4 {
+.hypo.hypo6 {
 	background: #3f6fff;
 	box-shadow: 0px 0px 12px #002fbf
 }
-.hypo.hypo5 {
+.hypo.hypo7 {
 	background: #26f4c1;
 	box-shadow: 0px 0px 12px #26f4c1
 }
-.hypo.hypo6 {
+.hypo.hypo8 {
 	background: #6a6ca3;
 	box-shadow: 0px 0px 12px #6a6ca3
 }
@@ -2516,45 +2496,6 @@ div.lDe {
 #hypo_field td {
 	margin: auto;
 	padding: 0
-}
-
-.wz_capacitor {
-	position: relative;
-	margin: auto;
-
-	height: 150px;
-	width: 0;
-
-	cursor: pointer;
-	transition-duration: 0.2s
-}
-.wz_capacitor button {
-	position: absolute;
-	top: 0;
-	height: 150px;
-	width: 75px;
-	font-size: 35px;
-
-	cursor: pointer;
-	transition-duration: 0.2s
-}
-.wz_capacitor button.plus {
-	right: 0;
-	border-radius: 75px 0 0 75px
-}
-.wz_capacitor button.minus {
-	border-radius: 0 75px 75px 0;
-	left: 0;
-}
-.wz_capacitor button.can {
-	background: linear-gradient(#310, #103);
-	border: 3px solid #b50;
-	box-shadow: inset 0 0 24px 0 #b50;
-	color: #f50;
-}
-.wz_capacitor button.can:hover {
-	border: 5px solid #f50;
-	box-shadow: inset 0 0 36px 0 #f50
 }
 
 .qu_upg.hb {

@@ -1,6 +1,6 @@
 //VERSION: 2.31
 let ngp3_ver = 2.31
-let ngp3_build = 20240330
+let ngp3_build = 20240331
 function doNGP3Updates() {
 	if (!aarMod.ngp3_build) aarMod.ngp3_build = 0
 	if (aarMod.ngp3_build < 20221230) quSave.multPower = 0
@@ -49,6 +49,7 @@ function doNGP3Updates() {
 			ghSave.photons = PHOTON.setup()
 			ghSave.hb = HIGGS.setupSave()
 		}
+		if (aarMod.ngp3_build < 20240331) ghSave.lab = blSave = LAB.setup()
 
 		if (!ghSave.reached && !ghSave.times) {
 			delete player.ghostify
@@ -298,7 +299,6 @@ function doPerSecondNGP3Stuff(quick) {
 		el('metaboostAuto').style.display=speedrunMilestones > 14?"":"none"
 		el("autoBuyerQuantum").style.display = speedrunMilestones >= 23 ? "" : "none"
 		updateBreakEternity()
-		BL_JOKE.updateHTML()
 	}
 	if (!mod.ngp3) return
 
@@ -423,7 +423,7 @@ function doNGP3UnlockStuff() {
 
 	if (ghostified) {
 		if (!PHOTON.unlocked() && PHOTON.req()) PHOTON.unlock()
-		if (!LAB.unlocked() && LAB.req() && !BL_JOKE.started()) LAB.unlock()
+		if (!LAB.unlocked() && LAB.req()) LAB.unlock()
 	}
 	if (quantumed) {
 		let MAbool = player.meta.bestAntimatter.lt(getQuantumReq())
@@ -524,7 +524,7 @@ function setupNGP3HTMLAndData() {
 	setupAutomatorHTML()
 	NT.setupTab()
 	PHOTON.setupTab()
-	LAB.setupTab()
+	BL_HYPOTHESES.setupTab()
 	HIGGS.setupTab()
 
 	//META

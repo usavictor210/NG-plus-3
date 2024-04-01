@@ -126,7 +126,7 @@ const NGP3_FEATURES = {
 	},
 	bl: {
 		name: "Bosonic Lab",
-		tab: _ => TAB_CORE.open("bl_hy"),
+		tab: _ => TAB_CORE.open("wz"),
 
 		met: _ => LAB.unlocked(),
 		req: _ => 1,

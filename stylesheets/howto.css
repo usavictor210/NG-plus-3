@@ -83,22 +83,6 @@ button:hover {
 	cursor: pointer
 }
 
-.bl {
-	background: repeating-linear-gradient(black, transparent), linear-gradient(#710, #307) !important;
-	box-shadow: inset 0 0 6px 0 #b50;
-	text-shadow: 0 0 6px #f50;
-	color: #db7;
-	border: 1px solid #b50;
-	border-radius: 4px
-}
-
-.bl:hover {
-	box-shadow: inset 0 0 24px 0 #b50;
-	color: #f50;
-	text-shadow: 0 0 6px #f50;
-	cursor: pointer
-}
-
 @keyframes fundamenttext { 
 	0%{
 		border-color: #690072;

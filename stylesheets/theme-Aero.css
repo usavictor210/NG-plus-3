@@ -1275,7 +1275,7 @@ td .timestudybought.pos_study {
 	background: #fff3
 }
 
-.bosonic_btn, .wz_capacitor button.can, .milestonereward.bl {
+.bosonic_btn {
 	background: linear-gradient(#710, #307) !important;
 	background-size: 100%;
 	text-shadow: 0 0 6px #f50;
@@ -1284,20 +1284,6 @@ td .timestudybought.pos_study {
 }
 #bl_amt, #bl_best {
     animation: ghostifytext 15s linear infinite, antiGlow 25s linear infinite;
-}
-
-.wz_capacitor button.plus {
-	border-radius: 75px 0 0 75px !important
-}
-.wz_capacitor button.minus {
-	border-radius: 0 75px 75px 0 !important;
-}
-#wz_w, #wz_z {
-    animation: ghostifytext 15s linear infinite, wbGlow 15s linear infinite alternate;
-}
-#wz_hc:not(.red) {
-    color: #222 !important;
-    text-shadow: 0 0 5px #ccc;
 }
 
 .qu_upg.hb {

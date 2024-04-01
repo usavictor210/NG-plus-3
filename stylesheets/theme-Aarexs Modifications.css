@@ -548,7 +548,7 @@ strong { color: #0072e5 }
 	border: 2px solid #b70b !important;
 	color: #e5e5e5 !important;
 }
-.bosonic_btn:hover, .milestonereward.bl, .milestonerewardlocked.bl {
+.bosonic_btn:hover {
     border-color: #b70 !important;
 }
 .hypo_btn {

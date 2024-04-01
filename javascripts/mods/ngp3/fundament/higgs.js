@@ -156,8 +156,8 @@ let HIGGS = {
 		let hb = ghSave.hb.amt
 		el("hb_amt").innerHTML = getFullExpansion(hb)
 		el("hb_btn").innerHTML = `
-			Reset Bosons for +${getFullExpansion(Math.max(this.pres.bulk() - hb, 0))} Higgs.<br>
-			(Req: ${shorten(blSave.best_bosons)} / ${shorten(this.pres.req(hb))} Bosonic Matter)
+			Reset for +${getFullExpansion(Math.max(this.pres.bulk() - hb, 0))} Higgs.<br>
+			(Req: ${shorten(blSave.best_bosons)} / ${shorten(this.pres.req(hb))} Bosons)
 		`
 
 		el("hb_mass_div").style.display = this.unlocked() ? "" : "none"

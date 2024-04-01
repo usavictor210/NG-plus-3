@@ -397,7 +397,6 @@
 					<div id="eterchallengetimesum"></div>
 					<br>
 				</div>
-				<button class="qu_upg storebtn" id="bl_portion_1" onclick='BL_JOKE.find(1)' style='opacity: 0.1'>You agree that you will remain hidden in eternity.</button>
 			</div><div id="tab_stats_qu">
 				<h1>Quantum</h1>
 				<div id="quantumed"></div>
@@ -2809,7 +2808,6 @@
 						<td><button class="dilationupg" id="masteryportal" onclick="enterMasteryPortal()"></button></td>
 					</tr>
 				</table>
-				<button class="qu_upg storebtn" id="bl_portion_2" onclick='BL_JOKE.find(2)' style='opacity: 0.1'>You agree that your interior knowledge is shared to ours.</button>
 				<div style="height: 150px;"></div>
 			</div>
 			<div id="tab_ts_respec">
@@ -3477,8 +3475,7 @@
 						<td><button id='positronupg4' onclick='buyPositronUpg(4)'></button></td>
 					</tr>
 				</table>
-				<button class='storebtn' onclick="maxPositronUpg()" style='height: 24px'>Max all</button><br>
-				<button class="qu_upg storebtn" id="bl_portion_3" onclick='BL_JOKE.find(3)' style='opacity: 0.1'>You agree that you are willing to sacrifice yourself.</button>
+				<button class='storebtn' onclick="maxPositronUpg()" style='height: 24px'>Max all</button>
 			</div>
 			<div id='tab_decay'>
 				<span id="todspeed"></span><br>
@@ -3641,8 +3638,6 @@
 			<div id="tab_ph">
 				<div id="gphUnl"></div>
 				<div id="gphDiv" style='display: none'>
-					<b id='bl_req'>Get 1 Ultraviolet Light to unlock Bosonic Lab.</b><br><br>
-
 					<b id='ph_amt' style='font-size: 25px'></b> Photons
 					<span ach-tooltip="Based on Tachyonic Galaxies" id='ph_prod' style='font-size: 15px'></span><br>
 
@@ -3660,8 +3655,7 @@
 					</div><br>
 					<div class='table_flex' id="light_table"></div>
 
-					<i style="opacity: 0.1">You were too spectral. Tributes to Ghostify!</i><br>
-					<button class="qu_upg storebtn" id="bl_portion_4" onclick='BL_JOKE.find(4)' style='opacity: 0.1'>You agree to research what lies beyond physics.</button>
+					<i style="opacity: 0.1">You were too spectral. Tributes to Ghostify!</i>
 				</div>
 			</div>
 			<div id="tab_auto_ant">
@@ -3713,61 +3707,34 @@
 				</i>
 			</div>
 		</div>
-		<div id="tab_bl">
-			<table id="tabs_bl"></table>
-			<div id="tab_bl_hy" style='display: none'>
+		<div id="tab_wz">
+			<b id='wz_req'>Get 1 Ultraviolet Light to unlock Bosonic Lab.</b>
+			<div id="wz_div">
+				<span id="bl_amt" style="font-size:25px">0</span> Bosons
+				<span id='bl_prod' style='font-size: 15px'></span><br>
+
 				<button class='storebtn' style='width: 120px; height: 36px' onclick="BL_HYPOTHESES.clear()">Clear</button>
 				<button class='storebtn' style='width: 120px; height: 36px' onclick="BL_HYPOTHESES.export()">Export</button>
-				<button class='storebtn' style='width: 120px; height: 36px' onclick="BL_HYPOTHESES.import()">Import</button><br>
+				<button class='storebtn' style='width: 120px; height: 36px' onclick="BL_HYPOTHESES.import()">Import</button>
+				<br><br>
 
 				<div id='hypo_choice'></div><br>
-				Stability: <span id='hypo_stable'></span>
 				<table id="hypo_field" style="margin: auto"></table><br>
 
-				<h2>Bonds</h2>
-				<i style='opacity: 0.5'>Hold shift to show all effects.</i>
-				<div id="hypo_bonds"></div>
+				<h2>Effects</h2>
+				<span id="wz_pos" style="font-size:25px">0</span> Positive Hypercharge<br>
+				<span id="wz_neg" style="font-size:25px">0</span> Negative Hypercharge<br>
+				<div id='wz_eff'></div>
 			</div>
-			<div id="tab_bl_wf">
-				<b class='red'>Might be reworked...</b><br><br>
-				<table style="margin: 0 auto">
-					<td style='width: 240px; text-align: center'>
-						<span id="wz_w" style='font-size: 24px'>0</span>
-						W Bosons
-					</td><td style='width: 240px; text-align: center'>
-						<span id="wz_z" style='font-size: 24px'>0</span>
-						Z0 Bosons
-					</td><td style='width: 240px; text-align: center'>
-						<span id="wz_hc" style='font-size: 24px'>0</span>
-						Hypercharge
-					</td>
-				</table>
-				<table id="wz_capacitors" style='margin: auto'></table>
-				<b class='red' id="wz_deactive">Nullified! Assign more W- Bosons or weaken a Capacitor.</b>
+		</div><div id="tab_hb">
+			<span id="hb_amt" style="font-size:25px">0</span> Higgs<br>
+			<div id="hb_mass_div">
+				<span id="hb_mass" style="font-size:15px">0</span> Higgs Mass
 			</div>
-			<div id="tab_hb">
-				<span id="hb_amt" style="font-size:25px">0</span> Higgs<br>
-				<div id="hb_mass_div">
-					<span id="hb_mass" style="font-size:15px">0</span> Higgs Mass
-				</div>
-				<button class="qu_upg hb" id="hb_btn" onclick="HIGGS.pres.reset()"></button>
-				<br><br>
+			<button class="qu_upg hb" id="hb_btn" onclick="HIGGS.pres.reset()"></button>
+			<br><br>
 
-				<div id="hb_field" style='display: none'></div>
-			</div>
-			<div id="tab_mil_bl">
-				<b class='red'>Might be removed...</b><br><br>
-				<span id="bl_amt" style="font-size:25px"></span> Bosonic Matter<br>
-				<span id="bl_prod"></span><br>
-				<table id="bl_milestone_table" style='margin: auto'></table>
-			</div>
-			<div id="tab_bl_real">
-				Discover 5 hidden portions throughout the game before agreeing the contract.<br>
-				<b class='red'>Violating will end this contract early.</b>
-				<br><br>
-				<button class="qu_upg storebtn" onclick="BL_JOKE.sign()">Sign this contract</button>
-				<button class="qu_upg unavailablebtn" id='bl_unl' onclick="BL_JOKE.unlock()"><b>Unlock Bosonic Lab</b><br>(Requires ?? Light Emissions)</button>
-			</div>
+			<div id="hb_field" style='display: none'></div>
 		</div>
 
 		<!-- FOOTER -->
@@ -3799,7 +3766,7 @@
 			<br>
 
 			<b>(NG+3 v2.31: Ghostify Respecced)</b><br>
-			<b class="red">(Beta: 3/30/24 Build)</b><br>
+			<b class="red">(Beta: 3/31/24 Build)</b><br>
 			By <a href="https://aarextiaokhiao.github.io/">Aarex</a>, pg132, and usavictor.
 			<br><br>
 
@@ -3877,8 +3844,7 @@
 			<br><br>
 			<b>Others</b><br>
 			<button class="storebtn longbtn" id='rsBtn' style="font-size: 11px;" onclick="toggle_mod('rs')">Eternity Respecced: OFF</button>
-			<button class="storebtn longbtn" id='aauBtn' onclick="toggle_mod('aau')" ach-tooltip="Start with all achievements unlocked.">AAU: OFF</button><br>
-			<button class="qu_upg storebtn" id="bl_portion_5" onclick='BL_JOKE.find(5)' style='opacity: 0.1'>You agree to explore other places.</button>
+			<button class="storebtn longbtn" id='aauBtn' onclick="toggle_mod('aau')" ach-tooltip="Start with all achievements unlocked.">AAU: OFF</button>
 		</div>
 	</div>
 	<div class="popup optionmenu" id="animationoptions">

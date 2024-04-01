@@ -1089,8 +1089,8 @@ function updateHotkeys() {
 	if (hasAch("ng3p61")) html += ", F to Fundament"
 	html += "."
 	if (mod.rs) html += "<br>You can hold shift while buying time studies to buy all up until that point, see each study's number, and save study trees."
-	if (BL_JOKE.started() && ghSave.lab_real.signed) html += "<br><b onclick='BL_JOKE.findKey()'>Hotkeys</b> do not work while holding control."
-	else html += "<br>Hotkeys do not work while holding control."
+	html += "<br>Hotkeys do not work while holding control."
+
 	el("hotkeysDesc").innerHTML = html
 }
 

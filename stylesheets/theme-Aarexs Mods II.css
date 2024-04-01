@@ -609,15 +609,6 @@ button, div.storebtn {
 #bl_amt, #bl_best {
 	color: #c73415
 }
-#wz_w, #wz_z, #wz_hc {
-	color: #7b267e;
-}
-#wz_hc:not(.red) {
-	color: #e55be5 !important
-}
-.milestonereward.bl {
-	color: #e5e5e5 !important
-}
 
 .qu_upg.hb {
 	background: radial-gradient(#e5e500, transparent 50%, transparent 100%), radial-gradient(#727200, #727200, transparent 60%, transparent 100%), linear-gradient(transparent, #727200 50%, transparent 100%), radial-gradient(#3f3f00, #191919 50%, #3f3f00 100%);
