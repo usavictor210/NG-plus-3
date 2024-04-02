@@ -128,7 +128,7 @@ const NGP3_FEATURES = {
 		name: "Bosonic Lab",
 		tab: _ => TAB_CORE.open("wz"),
 
-		met: _ => LAB.unlocked(),
+		met: _ => WZ_FIELD.unlocked(),
 		req: _ => 1,
 		req_res: _ => tmp.funda.photon.light[7],
 		req_disp: (amt, req) => `${shorten(amt)} / ${shorten(req)} Ultraviolet Light`

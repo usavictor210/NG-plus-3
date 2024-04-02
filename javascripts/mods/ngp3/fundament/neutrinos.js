@@ -364,7 +364,7 @@ function buyNeutrinoMult(max) {
 
 function getNeutrinoMultBase() {
 	let r = 5
-	if (hasBLMilestone(10)) r += blEff(10)
+	if (hasWZMilestone(10)) r += blEff(10)
 	return r
 }
 

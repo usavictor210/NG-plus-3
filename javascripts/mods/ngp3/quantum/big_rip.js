@@ -43,7 +43,7 @@ function getSpaceShardsGain() {
 		if (isBreakUpgActive(6)) ret = ret.mul(tmp.qu.beu[6])
 	}
 	if (hasNU(9)) {
-		if (hasBLMilestone(4)) ret = ret.mul(pow10(Math.pow(Decimal.max(getEternitied(), 1).log10(), 4/3) / 40))
+		if (hasWZMilestone(4)) ret = ret.mul(pow10(Math.pow(Decimal.max(getEternitied(), 1).log10(), 4/3) / 40))
 		else ret = ret.mul(Decimal.max(getEternitied(), 1).pow(0.1))
 	}
 
@@ -404,7 +404,7 @@ function updateBreakEternity() {
 	el("breakUpgRow3").style.display = getBEUnls() > 7 ? "" : "none"
 	el("breakUpg7").style.visibility = broke ? "visible" : "hidden"
 	el("breakUpg7Max").style.visibility = broke ? "visible" : "hidden"
-	el("beShortcut").style.display = broke && !LAB.unlocked() ? "" : "none"
+	el("beShortcut").style.display = broke && !WZ_FIELD.unlocked() ? "" : "none"
 	if (broke) {
 		for (var u = 1; u <= getBEUnls(); u++) el("breakUpg" + u + "Cost").textContent = shortenDimensions(getBreakUpgCost(u))
 		el("breakUpg7MultIncrease").textContent = shortenDimensions(getBEEPMultBase())

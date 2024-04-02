@@ -1,6 +1,6 @@
 //VERSION: 2.31
 let ngp3_ver = 2.31
-let ngp3_build = 20240331
+let ngp3_build = 20240401
 function doNGP3Updates() {
 	if (!aarMod.ngp3_build) aarMod.ngp3_build = 0
 	if (aarMod.ngp3_build < 20221230) quSave.multPower = 0
@@ -49,7 +49,7 @@ function doNGP3Updates() {
 			ghSave.photons = PHOTON.setup()
 			ghSave.hb = HIGGS.setupSave()
 		}
-		if (aarMod.ngp3_build < 20240331) ghSave.lab = blSave = LAB.setup()
+		if (aarMod.ngp3_build < 20240331) ghSave.lab = blSave = WZ_FIELD.setup()
 
 		if (!ghSave.reached && !ghSave.times) {
 			delete player.ghostify
@@ -396,7 +396,7 @@ function ngP3AchieveCheck() {
 	if (MTS.bought >= 48) giveAchievement("The Theory of Ultimate Studies")
 	if (tmp.funda.photon?.unls >= 6) giveAchievement("Here comes the light")
 
-	if (LAB.unlocked()) giveAchievement("Even Ghostlier than before")
+	if (WZ_FIELD.unlocked()) giveAchievement("Even Ghostlier than before")
 	if (PHANTOM.amt >= 7) giveAchievement("Here lies dimensions")
 	if (PHANTOM.amt >= 8) giveAchievement("Impending Doom")
 	if (nG(getEternitied(), Number.MAX_VALUE)) giveAchievement("Everlasting Eternities")
@@ -423,7 +423,7 @@ function doNGP3UnlockStuff() {
 
 	if (ghostified) {
 		if (!PHOTON.unlocked() && PHOTON.req()) PHOTON.unlock()
-		if (!LAB.unlocked() && LAB.req()) LAB.unlock()
+		if (!WZ_FIELD.unlocked() && WZ_FIELD.req()) WZ_FIELD.unlock()
 	}
 	if (quantumed) {
 		let MAbool = player.meta.bestAntimatter.lt(getQuantumReq())
@@ -524,7 +524,7 @@ function setupNGP3HTMLAndData() {
 	setupAutomatorHTML()
 	NT.setupTab()
 	PHOTON.setupTab()
-	BL_HYPOTHESES.setupTab()
+	WZ_FIELD.setupTab()
 	HIGGS.setupTab()
 
 	//META

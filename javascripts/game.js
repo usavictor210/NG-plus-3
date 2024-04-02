@@ -2149,7 +2149,7 @@ function gameLoop(diff, quick) {
 		ngp3DilationUpdating()
 		if (ghostified) {
 			if (HIGGS.unlocked()) HIGGS.calc(diff) // Higgs Field
-			if (LAB.unlocked()) LAB.calc(diff) // Bosonic Lab
+			if (WZ_FIELD.unlocked()) WZ_FIELD.calc(diff) // Bosonic Lab
 			if (PHOTON.unlocked()) PHOTON.calc(diff) // Photons
 			automatorTick(diff)
 		}

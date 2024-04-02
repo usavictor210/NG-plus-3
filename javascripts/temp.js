@@ -55,8 +55,8 @@ function updateIntergalacticTemp() {
 
 	var gal = player.galaxies
 	if (!bigRipped()) {
-		if (hasBLMilestone(5)) gal += blEff(5, 0)
-		if (hasBLMilestone(6)) gal *= blEff(6)
+		if (hasWZMilestone(5)) gal += blEff(5, 0)
+		if (hasWZMilestone(6)) gal *= blEff(6)
 	}
 
 	var exp = Math.min(Math.sqrt(Math.log10(Math.max(gal, 1))) * 2, 2.5)

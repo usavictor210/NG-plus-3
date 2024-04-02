@@ -1,5 +1,12 @@
-//Real
-const BOSONIC_LAB = LAB = {
+function hasWZMilestone(type, i) {
+	return tmp.funda.wz && tmp.funda.wz.mil[type] > i
+}
+
+function wzEff(type, i) {
+	return tmp.funda.wz.eff[type][i]
+}
+
+const WZ_FIELD = {
 	/* CORE */
 	//Unlock
 	req: _ => tmp.funda.photon?.unls >= 8,
@@ -9,7 +16,6 @@ const BOSONIC_LAB = LAB = {
 		notifyFeature("bl")
 	},
 
-	//Calculation
 	setup() {
 		return {
 			bosons: E(0),
@@ -17,72 +23,35 @@ const BOSONIC_LAB = LAB = {
 			hypo_field: {}
 		}
 	},
+
+	/* CALCULATION */
 	calc(dt) {
 		blSave.bosons = blSave.bosons.add(this.prod().mul(dt))
 		blSave.best_bosons = blSave.best_bosons.max(blSave.bosons)
 	},
 	temp() {
 		if (!this.unlocked()) return
-		let data = tmp.funda.lab || {}
-		tmp.funda.lab = data
 
-		if (data.lim == undefined) BL_HYPOTHESES.recalc()
-		BL_HYPOTHESES.temp()
-	},
+		let data = tmp.funda.wz || {}
+		tmp.funda.wz = data
 
-	/* BOSONS */
-	// Goal: 10M Bosons (100/s Boson production + x10 from Milestones)
-	prod() {
-		let r = E(0)
-		if (hasBLMilestone(12)) r = r.mul(blEff(12))
-		if (hasBLMilestone(19)) r = r.mul(blEff(19))
-		if (HIGGS.unlocked()) r = r.mul(hbEff(0))
-		return r
-	},
+		if (data.lim == undefined) WZ_FIELD.recalc()
 
-	/* HTML */
-	updateTab() {
-		el("wz_req").style.display = !LAB.unlocked() ? "" : "none"
-		el("wz_div").style.display = LAB.unlocked() ? "" : "none"
-		if (!LAB.unlocked()) return
-
-		el("bl_amt").textContent = shorten(blSave.bosons)
-		el("bl_prod").textContent = shorten(this.prod()) + "/s"
-		BL_HYPOTHESES.update()
-	}
-}
-
-function hasBLMilestone(i) {
-	/*if (!LAB.unlocked()) return
-	return blSave.best_bosons.gte(LAB.milestones[i].req)*/
-
-	return false
-}
-
-function blEff(i, def) {
-	return /*tmp.funda.lab?.ms[i] ||*/ def
-}
-
-//Subfeatures
-const BL_HYPOTHESES = {
-	/* CALCULATION */
-	temp() {
-		tmp.funda.lab.eff = {}
-		for (let i in tmp.funda.lab.mil) {
-			tmp.funda.lab.eff[i] = []
-			for (let j = 0; j < tmp.funda.lab.mil[i]; j++) {
-				tmp.funda.lab.eff[i][j] = this.milestones[i][j].eff()
+		tmp.funda.wz.eff = {}
+		for (let i in tmp.funda.wz.mil) {
+			tmp.funda.wz.eff[i] = []
+			for (let j = 0; j < tmp.funda.wz.mil[i]; j++) {
+				tmp.funda.wz.eff[i][j] = this.milestones[i][j].eff()
 			}
 		}
 	},
 	recalc() {
-		tmp.funda.lab.lim = []
-		tmp.funda.lab.str = []
-		tmp.funda.lab.amt = []
+		let data = tmp.funda.wz
+		data.lim = [], data.str = [], data.amt = []
 		for (let [i, j] of Object.entries(this.data)) {
-			tmp.funda.lab.lim[i] = j.lim ? j.lim() : 1/0
-			tmp.funda.lab.str[i] = 0
-			tmp.funda.lab.amt[i] = 0
+			data.lim[i] = j.lim ? j.lim() : 1/0
+			data.str[i] = 0
+			data.amt[i] = 0
 		}
 
 		for (let [i, j] of Object.entries(blSave.hypo_field)) {
@@ -94,27 +63,36 @@ const BL_HYPOTHESES = {
 				this.addStr(x, y-1, add)
 				this.addStr(x, y+1, add)
 			}
-			tmp.funda.lab.amt[j]++
+			data.amt[j]++
 		}
 
-		tmp.funda.lab.ch = { pos: 0, neg: 0 }
+		data.ch = { pos: 0, neg: 0 }
 		for (let [i, j] of Object.entries(this.data)) {
-			if (tmp.funda.lab.str[i] > 0) tmp.funda.lab.ch.pos += tmp.funda.lab.amt[i] * tmp.funda.lab.str[i] * j.mult
-			if (tmp.funda.lab.str[i] < 0) tmp.funda.lab.ch.neg -= tmp.funda.lab.amt[i] * tmp.funda.lab.str[i] * j.mult
+			if (data.str[i] > 0) data.ch.pos += data.amt[i] * data.str[i] * j.mult
+			if (data.str[i] < 0) data.ch.neg -= data.amt[i] * data.str[i] * j.mult
 		}
 
-		tmp.funda.lab.mil = {}
+		data.mil = {}
 		for (let i in this.milestones) {
-			tmp.funda.lab.mil[i] = 0
+			data.mil[i] = 0
 			for (let j of this.milestones[i]) {
-				if (tmp.funda.lab.ch[i] < j.req) break
-				tmp.funda.lab.mil[i]++
+				if (data.ch[i] < j.req) break
+				data.mil[i]++
 			}
 		}
 	},
 	addStr(x, y, add) {
 		let j = blSave.hypo_field[x+";"+y]
-		if (j > 1) tmp.funda.lab.str[j] += add
+		if (j > 1) tmp.funda.wz.str[j] += add
+	},
+
+	/* BOSONS */
+	prod() {
+		let r = E(0)
+		if (hasWZMilestone(12)) r = r.mul(blEff(12))
+		if (hasWZMilestone(19)) r = r.mul(blEff(19))
+		if (HIGGS.unlocked()) r = r.mul(hbEff(0))
+		return r
 	},
 
 	/* HYPOTHESES */
@@ -167,39 +145,46 @@ const BL_HYPOTHESES = {
 	/* FIELD */
 	clear() {
 		blSave.hypo_field = {}
-		BL_HYPOTHESES.recalc()
+		WZ_FIELD.recalc()
 	},
 	export: _ => exportData(PRESET_DATA.bl.get()),
 	import: _ => PRESET_DATA.bl.load(prompt("Insert your preset here. Your field will be overwritten on import!")),
 	choose(x) {
-		BL_HYPOTHESES.hypo_chosen = x
+		WZ_FIELD.hypo_chosen = x
 	},
 	place(x) {
-		let i = BL_HYPOTHESES.hypo_chosen
+		let i = WZ_FIELD.hypo_chosen
 		if (blSave.hypo_field[x] === i) delete blSave.hypo_field[x]
-		else if (tmp.funda.lab.lim[i] > tmp.funda.lab.amt[i]) blSave.hypo_field[x] = i
-		BL_HYPOTHESES.recalc()
+		else if (tmp.funda.wz.lim[i] > tmp.funda.wz.amt[i]) blSave.hypo_field[x] = i
+		WZ_FIELD.recalc()
 	},
 
 	/* HTML */
 	setupTab() {
 		let choices = ""
-		for (let [i, h] of Object.entries(this.data)) choices += `<button class='hypo_btn' id='hypo_choice_${i}'  onclick="BL_HYPOTHESES.choose(${i})"><span class="hypo hypo${i}">${h.sym}</span></button>`
+		for (let [i, h] of Object.entries(this.data)) choices += `<button class='hypo_btn' id='hypo_choice_${i}'  onclick="WZ_FIELD.choose(${i})"><span class="hypo hypo${i}">${h.sym}</span></button>`
 		el("hypo_choice").innerHTML = choices
 
 		let field = "<tr>"
 		for (let x = 0; x < 7; x++) {
 			for (let y = 0; y < 7; y++) {
-				field += `<td><button class='hypo_btn' onclick='BL_HYPOTHESES.place("${y};${x}")'><span class="hypo" id="hypo_${y};${x}"></span></button></td>`
+				field += `<td><button class='hypo_btn' onclick='WZ_FIELD.place("${y};${x}")'><span class="hypo" id="hypo_${y};${x}"></span></button></td>`
 			}
 			field += "</tr><tr>"
 		}
 		el("hypo_field").innerHTML = field
 	},
-	update() {
+	updateTab() {
+		el("wz_req").style.display = !WZ_FIELD.unlocked() ? "" : "none"
+		el("wz_div").style.display = WZ_FIELD.unlocked() ? "" : "none"
+		if (!WZ_FIELD.unlocked()) return
+
+		el("bl_amt").textContent = shorten(blSave.bosons)
+		el("bl_prod").textContent = shorten(this.prod()) + "/s"
+
 		for (let [i, j] of Object.entries(this.data)) {
-			let msg = `${getFullExpansion(tmp.funda.lab.amt[i])} / ${getFullExpansion(tmp.funda.lab.lim[i])} placed`
-			if (i >= 2) msg += `, per charger: ${Math.abs(j.mult * tmp.funda.lab.str[i]).toFixed(2)} ${tmp.funda.lab.str[i] < 0 ? "Negative" : "Positive"} Hypercharge (${tmp.funda.lab.str[i].toFixed(2)}x)`
+			let msg = `${getFullExpansion(tmp.funda.wz.amt[i])} / ${getFullExpansion(tmp.funda.wz.lim[i])} placed`
+			if (i >= 2) msg += `, per charger: ${Math.abs(j.mult * tmp.funda.wz.str[i]).toFixed(2)} ${tmp.funda.wz.str[i] < 0 ? "Negative" : "Positive"} Hypercharge (${tmp.funda.wz.str[i].toFixed(2)}x)`
 			msg = `${j.name} (${msg})`
 
 			el("hypo_choice_" + i).className = "hypo_btn " + (this.hypo_chosen == i ? "chosen" : "")
@@ -207,8 +192,8 @@ const BL_HYPOTHESES = {
 			el("hypo_choice_" + i).setAttribute("ach-tooltip", msg)
 		}
 
-		el("wz_pos").textContent = shorten(tmp.funda.lab.ch.pos)
-		el("wz_neg").textContent = shorten(tmp.funda.lab.ch.neg)
+		el("wz_pos").textContent = shorten(tmp.funda.wz.ch.pos)
+		el("wz_neg").textContent = shorten(tmp.funda.wz.ch.neg)
 
 		for (let x = 0; x < 7; x++) {
 			for (let y = 0; y < 7; y++) {
@@ -220,8 +205,8 @@ const BL_HYPOTHESES = {
 		}
 
 		let msg = ""
-		for (let i in tmp.funda.lab.eff) {
-			for (let [i2, j] of Object.entries(tmp.funda.lab.eff[i])) msg += shorten(this.milestones[i][i2].req) + (i == "pos" ? " Positive" : " Negative") + " Hypercharge: " + this.milestones[i][i2].desc(j) + "<br>"
+		for (let i in tmp.funda.wz.eff) {
+			for (let [i2, j] of Object.entries(tmp.funda.wz.eff[i])) msg += shorten(this.milestones[i][i2].req) + (i == "pos" ? " Positive" : " Negative") + " Hypercharge: " + this.milestones[i][i2].desc(j) + "<br>"
 		}
 		el("wz_eff").innerHTML = msg
 	},
@@ -230,7 +215,7 @@ const BL_HYPOTHESES = {
 PRESET_DATA.bl = {
 	name: "W & Z Field",
 	in: _ => isTabShown("wz"),
-	unl: _ => LAB.unlocked(),
+	unl: _ => WZ_FIELD.unlocked(),
 
 	get() {
 		let str = ""
@@ -259,7 +244,7 @@ PRESET_DATA.bl = {
 					continue
 				}
 
-				let unl = BL_HYPOTHESES.data[entry[2]]?.unl
+				let unl = WZ_FIELD.data[entry[2]]?.unl
 				check = unl && unl()
 
 				if (!check) {
@@ -267,7 +252,7 @@ PRESET_DATA.bl = {
 					continue
 				}
 
-				check = tmp.funda.lab.lim[entry[2]] >= amts[entry[2]]
+				check = tmp.funda.wz.lim[entry[2]] >= amts[entry[2]]
 				if (!check) {
 					$.notify("[X] Invalid: Overflow")
 					continue
@@ -277,7 +262,7 @@ PRESET_DATA.bl = {
 				amts[entry[2]]++
 			}
 			blSave.hypo_field = newField
-			BL_HYPOTHESES.temp()
+			WZ_FIELD.temp()
 		} else {
 			$.notify("[X] Invalid preset type!")
 		}

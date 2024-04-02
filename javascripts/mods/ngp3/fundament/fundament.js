@@ -13,7 +13,7 @@ function setupFundament() {
 		neutrinos: NT.setup(),
 
 		photons: PHOTON.setup(),
-		lab: LAB.setup(),
+		lab: WZ_FIELD.setup(),
 		hb: HIGGS.setupSave()
 	}
 }
@@ -33,7 +33,7 @@ function loadFundament(unl) {
 
 	updateBraveMilestones()
 	updateAutoGhosts(true)
-	delete BL_HYPOTHESES.hypo_chosen
+	delete WZ_FIELD.hypo_chosen
 }
 
 function unlockFundament() {
@@ -126,7 +126,7 @@ function updateGhostifyTempStuff() {
 	if (!ghostified) return
 	if (tmp.funda == undefined) tmp.funda = {}
 	HIGGS.temp()
-	LAB.temp()
+	WZ_FIELD.temp()
 	PHOTON.temp()
 	NT.temp()
 }
@@ -264,8 +264,8 @@ TABS = Object.assign(TABS, {
 
 	nt: { name: "Neutrinos", update: _ => NT.update() },
 	ph: { name: "Photons", update: _ => PHOTON.update() },
-	wz: { name: "W & Z Field", class: "bosonic_btn", unl: _ => PHOTON.unlocked(), update: _ => LAB.updateTab() },
-	hb: { name: "Higgs Field", class: "bosonic_btn", unl: _ => LAB.unlocked(), update: _ => HIGGS.updateTab() },
+	wz: { name: "W & Z Field", class: "bosonic_btn", unl: _ => PHOTON.unlocked(), update: _ => WZ_FIELD.updateTab() },
+	hb: { name: "Higgs Field", class: "bosonic_btn", unl: _ => WZ_FIELD.unlocked(), update: _ => HIGGS.updateTab() },
 
 	auto_ant: { name: "Automator Ants", update: _ => updateAutomatorHTML() },
 	mil_brave: { name: "Brave Milestones" }
