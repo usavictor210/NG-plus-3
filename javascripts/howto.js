@@ -439,7 +439,7 @@ let HOW_TO = [
 
 		title: "Higgs Field",
 		layer: "fundament",
-		desc: `At ??? Bosonic Matter, you can reset Bosonic Matter and W & Z Bosons for Higgs. You'll unlock Higgs Field where you can swap boosts between different rows.
+		desc: `At ??? Bosons, you can reset ??? for Higgs. You'll unlock Higgs Field where you can swap boosts between different rows.
 		<br>
 		You generate Higgs Mass which strengthens Higgs Field. However, later rows are weaker. Don't worry, these can be gradually closer to be effective as earlier rows.`,
 	}/*, {
