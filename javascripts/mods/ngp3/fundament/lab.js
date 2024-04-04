@@ -254,7 +254,7 @@ PRESET_DATA.bl = {
 
 				check = tmp.funda.wz.lim[entry[2]] >= amts[entry[2]]
 				if (!check) {
-					$.notify("[X] Invalid: Overflow")
+					$.notify("[X] Invalid: Amount Overflow")
 					continue
 				}
 
