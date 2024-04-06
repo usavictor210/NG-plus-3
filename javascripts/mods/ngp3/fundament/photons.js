@@ -13,7 +13,7 @@ let PHOTON = {
 	},
 
 	//Unlock
-	req: _ => bigRipped() && player.money.gte(pow10(17e8)),
+	req: _ => bigRipped() && player.money.gte(pow10(18e8)),
 	unlocked: _ => ghSave?.photons.unl,
 	unlock() {
 		ghSave.photons.unl = true
@@ -50,7 +50,7 @@ let PHOTON = {
 		} else ghSave.photons.sel[1] = i
 	},
 	emits() {
-		let r = 1
+		let r = 2
 		if (hasAch("ng3p75")) r++
 		if (hasAch("ng3p78")) r++
 		if (hasAch("ng3p82")) r++
@@ -59,7 +59,7 @@ let PHOTON = {
 
 	/* Feature - Lights */
 	photon_prod() {
-		let r = pow10(player.dilation.freeGalaxies / 1e4 - 5)
+		let r = pow10(player.dilation.freeGalaxies / 1e4 - 6)
 		if (hasNB(11))               r = r.mul(NT.eff("boost", 11))
 		if (hasNanoReward("photon")) r = r.mul(tmp.qu.nf.eff.photon)
 		if (PHANTOM.amt >= 1)        r = r.mul(pow2(PHANTOM.amt))
@@ -71,43 +71,43 @@ let PHOTON = {
 			{
 				name: "infrared",
 				req: 1,
-				eff: exp => E_pow(tmp.gal.ts || 1, -exp / 10),
-				desc: e => `Tickspeed reduction multiplies per-ten multiplier by ${shorten(e)}x.`
-			}, {
-				name: "red",
-				req: 100,
-				eff: exp => Math.min(1 + Math.sqrt(exp), 3),
-				desc: e => `Raise 2nd Neutrino Boost by ^${e.toFixed(3)}.`
-			}, {
-				name: "orange",
-				req: 1e100,
-				eff: exp => 1 + exp / 200,
-				desc: e => `Gain ${shorten((e-1)*100)}% more Neutrinos per Big Rip galaxy.`
-			}, {
-				name: "yellow",
-				req: 1e100,
-				eff: exp => Math.min(exp / 1e3, .05),
-				desc: e => `Discharged Galaxies are ${(e*100).toFixed(1)}% efficient.`
-			}, {
-				name: "green",
-				req: 1e100,
-				eff: exp => Math.min(Math.min(exp, exp ** 0.2), 1.5),
+				eff: exp => Math.min(Math.min(exp, exp ** 0.2) / 3, 1.5),
 				desc: e => `Increase Infinity Power effect by +^${shorten(e)}.`
 			}, {
-				name: "blue",
-				req: 1e100,
-				eff: exp => exp / 3 + 1,
-				desc: e => `Raise Emperor Dimensions by ^${shorten(e)}.`
+				name: "red",
+				req: 10,
+				eff: exp => 1 + exp / 400,
+				desc: e => `Gain ${shorten((e-1)*100)}% more Neutrinos per Big Rip galaxy.`
 			}, {
-				name: "violet",
+				name: "orange",
 				req: 1e100,
 				eff: exp => exp * 2,
 				desc: e => `Nanorewards scale +${shorten(e)} later.`
 			}, {
-				name: "ultraviolet",
+				name: "yellow",
+				req: 1e100,
+				eff: exp => exp / 3 + 1,
+				desc: e => `Raise Emperor Dimensions by ^${shorten(e)}.`
+			}, {
+				name: "green",
+				req: 1e100,
+				eff: exp => E_pow(tmp.gal.ts || 1, Math.min(-exp / 5, 1)),
+				desc: e => `Tickspeed reduction multiplies per-ten multiplier by ${shorten(e)}x.`
+			}, {
+				name: "blue",
 				req: 1e100,
 				eff: exp => 1 + exp / 100,
 				desc: e => `Strengthen Meta-Dimension Boosts by +${shorten((e-1)*100)}% per boost.`
+			}, {
+				name: "violet",
+				req: 1e100,
+				eff: exp => Math.min(1 + Math.sqrt(exp), 3),
+				desc: e => `Raise 2nd Neutrino Boost by ^${e.toFixed(3)}.`
+			}, {
+				name: "ultraviolet",
+				req: 1e100,
+				eff: exp => Math.min(exp / 1e3, .05),
+				desc: e => `Discharged Galaxies are ${(e*100).toFixed(1)}% efficient.`
 			}
 		],
 		eff: (x, def = 1) => tmp.funda.photon?.eff[x] ?? def,
@@ -130,7 +130,7 @@ let PHOTON = {
 		el("gphUnl").style.display = unl ? "none" : ""
 		el("gphDiv").style.display = unl ? "" : "none"
 		if (!unl) {
-			el("gphUnl").textContent = "Get "+shortenCosts(pow10(17e8))+" antimatter in Big Rip to unlock Photons."
+			el("gphUnl").textContent = "Get "+shortenCosts(pow10(18e8))+" antimatter in Big Rip to unlock Photons."
 			return
 		}
 

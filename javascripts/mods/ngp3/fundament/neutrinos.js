@@ -53,7 +53,7 @@ const NEUTRINO = NT = {
 		},
 		gain() { 
 			let r = E_pow(getNeutrinoMultBase(), ghSave.neutrinos.multPower - 1)
-			r = E_pow(lightEff(2), brSave.bestGals).mul(r)
+			r = E_pow(lightEff(1), brSave.bestGals).mul(r)
 			if (mod.p3ep) r = r.mul(pow10(player.galaxies / 1e5))
 			return r
 		},
@@ -98,7 +98,7 @@ const NEUTRINO = NT = {
 				effDesc: e => `Increase TP gain exponent by <b>+^${shorten(e)}</b>.`,
 			}, {
 				cost: E(2),
-				eff: nt => Math.pow(nt, .25 * lightEff(1)) * 1.5,
+				eff: nt => Math.pow(nt, .25 * lightEff(6)) * 1.5,
 				effDesc: e => `Replicate chance boosts itself more. (<b>+^${shorten(e)}</b>)`,
 			}, {
 				cost: E(4),
@@ -255,7 +255,7 @@ const NEUTRINO = NT = {
 				effDesc: e => `(hover)`
 			}, {
 				unl: _ => PHOTON.unlocked(),
-				cost: E(1e28),
+				cost: E(1e30),
 				desc: `Unlock Replicanti Warp. Replicanti interval cost scales slower.`
 			}, {
 				unl: _ => PHOTON.unlocked(),
