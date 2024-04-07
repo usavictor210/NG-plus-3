@@ -75,7 +75,7 @@ let PHOTON = {
 				desc: e => `Increase Infinity Power effect by +^${shorten(e)}.`
 			}, {
 				name: "red",
-				req: 10,
+				req: 100,
 				eff: exp => 1 + exp / 400,
 				desc: e => `Gain ${shorten((e-1)*100)}% more Neutrinos per Big Rip galaxy.`
 			}, {
