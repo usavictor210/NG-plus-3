@@ -148,11 +148,11 @@ const NEUTRINO = NT = {
 				eff: nt => pow10(Math.pow(nt / 40, 1.5)).max(nt),
 				effDesc: e => `Increase IC3 multiplier base by <b>${shorten(e)}x</b>.`,
 			}, {
-				cost: E(1e21),
-				eff: nt => Math.log2(Math.max(nt / 70, 1)) / 200,
+				cost: E(1e22),
+				eff: nt => Math.log2(Math.min(Math.max(nt / 90, 1), 2)) / 200,
 				effDesc: e => `Outside of Big Rip, TS232 regains <b>${shorten(e*100)}%</b> power.`,
 			}, {
-				cost: E(1e24),
+				cost: E(1/0),
 				eff: nt => (nt / 100 + 1) ** 2,
 				effDesc: e => `Gain <b>${shorten(e)}x</b> more Photons.`,
 			}, {

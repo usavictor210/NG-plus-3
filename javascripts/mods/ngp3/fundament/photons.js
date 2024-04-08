@@ -71,11 +71,11 @@ let PHOTON = {
 			{
 				name: "infrared",
 				req: 1,
-				eff: exp => Math.min(Math.min(exp, exp ** 0.2) / 3, 1.5),
+				eff: exp => Math.min(Math.min(exp, exp ** 0.2) / 5, 1.5),
 				desc: e => `Increase Infinity Power effect by +^${shorten(e)}.`
 			}, {
 				name: "red",
-				req: 100,
+				req: 50,
 				eff: exp => 1 + exp / 400,
 				desc: e => `Gain ${shorten((e-1)*100)}% more Neutrinos per Big Rip galaxy.`
 			}, {
