@@ -149,11 +149,11 @@ const NEUTRINO = NT = {
 				effDesc: e => `Increase IC3 multiplier base by <b>${shorten(e)}x</b>.`,
 			}, {
 				cost: E(1e22),
-				eff: nt => Math.log2(Math.min(Math.max(nt / 90, 1), 2)) / 200,
+				eff: nt => Math.min(Math.max(nt / 90 - 1, 0), .5) / 100,
 				effDesc: e => `Outside of Big Rip, TS232 regains <b>${shorten(e*100)}%</b> power.`,
 			}, {
-				cost: E(1/0),
-				eff: nt => (nt / 100 + 1) ** 2,
+				cost: E(1e27),
+				eff: nt => (nt / 200 + 1) ** 3,
 				effDesc: e => `Gain <b>${shorten(e)}x</b> more Photons.`,
 			}, {
 				cost: E(1/0),
@@ -259,14 +259,14 @@ const NEUTRINO = NT = {
 				desc: `Unlock Replicanti Warp. Replicanti interval cost scales slower.`
 			}, {
 				unl: _ => PHOTON.unlocked(),
-				cost: E(1e33),
+				cost: E(1e34),
 				desc: `Tachyonic Galaxies scale Positron softcap later.`,
 
-				eff: _ => player.dilation.freeGalaxies / 2,
+				eff: _ => player.dilation.freeGalaxies * 2,
 				effDesc: e => `+${getFullExpansion(Math.round(e))}`
 			}, {
 				unl: _ => PHOTON.unlocked(),
-				cost: E(1e35),
+				cost: E(1/0),
 				desc: `Replace some Nanobenefits. Improve 7th Nanobenefit.`
 			}, {
 				unl: _ => PHOTON.unlocked(),

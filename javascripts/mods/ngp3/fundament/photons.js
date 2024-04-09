@@ -59,7 +59,7 @@ let PHOTON = {
 
 	/* Feature - Lights */
 	photon_prod() {
-		let r = pow10(player.dilation.freeGalaxies / 1e4 - 6)
+		let r = pow10(player.dilation.freeGalaxies / 5e3 - 18)
 		if (hasNB(11))               r = r.mul(NT.eff("boost", 11))
 		if (hasNanoReward("photon")) r = r.mul(tmp.qu.nf.eff.photon)
 		if (PHANTOM.amt >= 1)        r = r.mul(pow2(PHANTOM.amt))
