@@ -59,7 +59,7 @@ let PHOTON = {
 
 	/* Feature - Lights */
 	photon_prod() {
-		let r = pow10(player.dilation.freeGalaxies / 5e3 - 18)
+		let r = pow10(player.dilation.freeGalaxies / 2e3 - 18)
 		if (hasNB(11))               r = r.mul(NT.eff("boost", 11))
 		if (hasNanoReward("photon")) r = r.mul(tmp.qu.nf.eff.photon)
 		if (PHANTOM.amt >= 1)        r = r.mul(pow2(PHANTOM.amt))
@@ -80,7 +80,7 @@ let PHOTON = {
 				desc: e => `Gain ${shorten((e-1)*100)}% more Neutrinos per Big Rip galaxy.`
 			}, {
 				name: "orange",
-				req: 1e100,
+				req: 300,
 				eff: exp => exp * 2,
 				desc: e => `Nanorewards scale +${shorten(e)} later.`
 			}, {
