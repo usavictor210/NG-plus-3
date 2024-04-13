@@ -156,7 +156,7 @@ const NEUTRINO = NT = {
 				eff: nt => (nt / 200 + 1) ** 3,
 				effDesc: e => `Gain <b>${shorten(e)}x</b> more Photons.`,
 			}, {
-				cost: E(1/0),
+				cost: E(1e50),
 				eff: nt => Math.min(quSave.time / 1e3, nt / 100) + 1,
 				effDesc: e => `Outside of Big Rip, Quantum time slows down Replicanti Slowdown by <b>^${shorten(e)}</b>.`
 			}
@@ -259,21 +259,21 @@ const NEUTRINO = NT = {
 				desc: `Unlock Replicanti Warp. Replicanti interval cost scales slower.`
 			}, {
 				unl: _ => PHOTON.unlocked(),
-				cost: E(1e34),
+				cost: E(1e36),
 				desc: `Tachyonic Galaxies scale Positron softcap later.`,
 
 				eff: _ => player.dilation.freeGalaxies * 2,
 				effDesc: e => `+${getFullExpansion(Math.round(e))}`
 			}, {
 				unl: _ => PHOTON.unlocked(),
-				cost: E(1/0),
+				cost: E(1e50),
 				desc: `Replace some Nanobenefits. Improve 7th Nanobenefit.`
 			}, {
 				unl: _ => PHOTON.unlocked(),
-				cost: E(1/0),
+				cost: E(1e70),
 				desc: `Galaxies raise Meta-Antimatter effect.`,
 
-				eff: _ => player.galaxies / 8e3,
+				eff: _ => player.galaxies / 6e3,
 				effDesc: e => `+^${shorten(e)}`
 			}
 		]
