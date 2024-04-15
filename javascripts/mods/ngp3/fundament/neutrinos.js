@@ -127,8 +127,7 @@ const NEUTRINO = NT = {
 					let nb6exp = mod.p3ep ? .26 : .25
 					if (bigRipped()) nb6exp /= 2
 
-					let r = Math.pow(nt, nb6exp) * .3 + 1
-					return Math.min(r, 2)
+					return Math.min(Math.pow(nt, nb6exp) * .3 + 1, 2)
 				},
 				effDesc: e => `Distant Antimatter Galaxies scale <b>${shorten(e)}x</b> slower.`,
 			}, {
