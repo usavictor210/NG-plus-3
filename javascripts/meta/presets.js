@@ -1,7 +1,7 @@
 let PRESET_DATA = {
 	ts: {
 		name: "Time Studies",
-		unl: _ => (eternitied()) && !mod.rs,
+		unl: _ => eternitied() && !mod.rs,
 		in: _ => isTabShown('ts') || isTabShown('ts_master'),
 
 		get: _ => getStudyTreeStr(),
@@ -21,7 +21,7 @@ let PRESET_DATA = {
 	},
 	ts_er: {
 		name: "Studies [Respecced]",
-		unl: _ => getEternitied() > 0 && mod.rs,
+		unl: _ => eternitied() && mod.rs,
 		in: _ => isTabShown('ts_respec'),
 
 		get: _ => getStudyTreeStr(),
@@ -185,7 +185,7 @@ let PRESET = {
 let PRESET_DIAL = {
 	detect() {
 		delete this.dial
-		for (var [i, data] of Object.entries(PRESET_DATA)) if (data.in()) this.dial = i
+		for (var [i, data] of Object.entries(PRESET_DATA)) if (data.in() && data.unl()) this.dial = i
 
 		this.data = this.dial && PRESET.get({ preset: this.dial })
 
