@@ -50,7 +50,7 @@ let PHOTON = {
 		} else ghSave.photons.sel[1] = i
 	},
 	emits() {
-		let r = 2
+		let r = 1
 		if (hasAch("ng3p75")) r++
 		if (hasAch("ng3p78")) r++
 		if (hasAch("ng3p82")) r++
