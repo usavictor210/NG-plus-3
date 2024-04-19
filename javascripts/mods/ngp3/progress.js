@@ -216,11 +216,12 @@ function doNGP3ProgressBar() {
 	}
 }
 
-/*function setupNGP3ProgressTab() {
+function setupNGP3ProgressTab() {
 	let html = ""
 	for (let i = 0; i < NGP3_FEATURE_LEN; i++) {
-		html += `<td><div class='autoBuyerDiv' id='ngp3_progress_${i}'>
+		html += `<td><div class='autoBuyerDiv' id='ngp3_progress_${i}' style='width: 200px; height: 100px'>
 			<h2>${Object.values(NGP3_FEATURES)[i].name}</h2>
+			<span id='ngp3_progress_${i}_next'></span>
 		</div></td>`
 		if (i % 4 == 3) html += "</tr><tr>"
 	}
@@ -234,5 +235,16 @@ function updateNGP3ProgressTab() {
 	for (let i = 0; i < NGP3_FEATURE_LEN; i++) {
 		el("ngp3_progress_"+i).style.display = i <= tmp.progress.max + 1 ? "block" : ""
 		el("ngp3_progress_"+i).className = i <= tmp.progress.max ? "autoBuyerDiv on" : "autoBuyerDiv"
+		el("ngp3_progress_"+i+"_next").textContent = i == tmp.progress.max ? "Unlocked" : ""
+
+		if (i == tmp.progress.max + 1) {
+			let data = Object.values(NGP3_FEATURES)[i]
+			let amt = E(data.req_res()) 
+			let req = E(data.req())
+
+			var p = Math.min((data.req_log ? amt.max(1).log(req) : amt.div(req).toNumber()) * 100, 100).toFixed(2) + "%"
+			el("ngp3_progress_"+i+"_next").innerHTML = `Next (${p})`
+		}
 	}
-}*/
+
+}
