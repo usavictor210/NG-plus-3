@@ -130,8 +130,8 @@ const NGP3_FEATURES = {
 
 		met: _ => WZ_FIELD.unlocked(),
 		req: _ => 1,
-		req_res: _ => tmp.funda.photon.light[7],
-		req_disp: (amt, req) => `${shorten(amt)} / ${shorten(req)} Ultraviolet Light`
+		req_res: _ => 0,
+		req_disp: (amt, req) => `???`
 	},
 	hb: {
 		name: "Higgs Field",
@@ -233,17 +233,17 @@ function updateNGP3ProgressTab() {
 	if (!mod.ngp3) return
 
 	for (let i = 0; i < NGP3_FEATURE_LEN; i++) {
-		el("ngp3_progress_"+i).style.display = i <= tmp.progress.max + 1 ? "block" : ""
-		el("ngp3_progress_"+i).className = i <= tmp.progress.max ? "autoBuyerDiv on" : "autoBuyerDiv"
-		el("ngp3_progress_"+i+"_next").textContent = i == tmp.progress.max ? "Unlocked" : ""
+		el("ngp3_progress_"+i).style.display = i <= tmp.progress.reached + 1 ? "block" : ""
+		el("ngp3_progress_"+i).className = i <= tmp.progress.reached ? "autoBuyerDiv on" : "autoBuyerDiv"
+		el("ngp3_progress_"+i+"_next").textContent = i == tmp.progress.reached ? "Unlocked" : ""
 
-		if (i == tmp.progress.max + 1) {
+		if (i == tmp.progress.reached + 1) {
 			let data = Object.values(NGP3_FEATURES)[i]
 			let amt = E(data.req_res()) 
 			let req = E(data.req())
 
 			var p = Math.min((data.req_log ? amt.max(1).log(req) : amt.div(req).toNumber()) * 100, 100).toFixed(2) + "%"
-			el("ngp3_progress_"+i+"_next").innerHTML = `Next (${p})`
+			el("ngp3_progress_"+i+"_next").innerHTML = `<b>Next (${p})</b><br>${data.req_disp(amt, req)}`
 		}
 	}
 
