@@ -616,12 +616,16 @@ button b, button span {
     font-weight: bold;
     border-radius: 4px;
     transition-duration: 0.2s;
-    cursor: pointer;
+	& > * {
+		color: #32c832;
+	}
 }
 
-.quantumbtn:hover {
+button.quantumbtn:hover {
+    border: 2px solid #32c832;
     background: #32c832;
     color: #0a640a;
+    cursor: pointer
 }
 
 .ghostifybtn {
@@ -631,14 +635,13 @@ button b, button span {
 	font-weight: bold;
 	border-radius: 4px;
 	transition-duration: 0.2s;
-	animation: ghostifytext 4s linear infinite
+	animation: ghostifytext 4s linear infinite;
+	& > * {
+		animation: ghostifytext 4s linear infinite
+	}
 }
 
-.ghostifybtn div {
-	animation: ghostifytext 4s linear infinite
-}
-
-.ghostifybtn:hover {
+button.ghostifybtn:hover {
 	box-shadow: inset 0px 0px 12px 0px #420072;
 	cursor: pointer
 }

@@ -258,8 +258,7 @@ newsArray = [//always true
 ["Reality actually contains everything (including celestials).", "mod.ngp3", "am49"],
 ["New prestige layer coming soon, Police-ize! When you prestige, you unlock officer dimensions. They behave like all other dimensions except they produce anti-anti-antimatter. This anti-anti-antimatter can be used to purchase more officer dimensions. The anti-anti-antimatter also makes your galaxies feel more safer, providing a boost in galaxy efficiency, based on your highest reached AAAM.", "mod.ngp3", "am50"],
 ['NG+3 is ending soon...', "ghostified", "am51"],
-['You are past the endgame. Congratulations! ~ Aarex', "hasAch('ng3p88')", "am52"],
-["A secret is unlocked in Ghostly News Ticker...", "hasAch('ng3p88')", "am53"],
+['You are past the endgame. Congratulations! ~ Aarex', "hasAch('ng3p98')", "am52"],
 ["You're reading news too much.", "player.newsArray.length >= 215", "am54"],
 ["You're addicted to news.", "player.newsArray.length >= 230", "am55"],
 ["Okay. You can stop reading the news.", "player.newsArray.length >= 245", "am56"],
@@ -493,6 +492,7 @@ newsArray = [//always true
 ["How we suddenly got infinite ghosts?!", "ghostified && ghSave.ghostParticles.gte(Number.MAX_VALUE)", "am195"],
 
 /* PLACEHOLDER
+["[placeholder]", false, "am53"],
 ["[placeholder]", false, "am197"],
 ["[placeholder]", false, "am202"],
 ["[placeholder]", false, "am203"],

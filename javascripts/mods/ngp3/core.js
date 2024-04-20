@@ -1,6 +1,6 @@
 //VERSION: 2.31
 let ngp3_ver = 2.31
-let ngp3_build = 20240419
+let ngp3_build = 20240420
 function doNGP3Updates() {
 	if (!aarMod.ngp3_build) aarMod.ngp3_build = 0
 	if (aarMod.ngp3_build < 20221230) quSave.multPower = 0
@@ -284,7 +284,6 @@ function updateNGP3Temp() {
 		updateMasteryStudyTemp()
 		updateIntergalacticTemp()
 	}
-	updateNGP3Progress()
 }
 
 function doPerSecondNGP3Stuff(quick) {
@@ -299,6 +298,7 @@ function doPerSecondNGP3Stuff(quick) {
 		el('metaboostAuto').style.display=speedrunMilestones > 14?"":"none"
 		el("autoBuyerQuantum").style.display = speedrunMilestones >= 23 ? "" : "none"
 		updateBreakEternity()
+		updateNGP3Progress()
 	}
 	if (!mod.ngp3) return
 

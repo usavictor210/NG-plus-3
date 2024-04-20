@@ -25,6 +25,8 @@ const NGP3_FEATURES = {
 	},
 	qu: {
 		name: "Quantum",
+		layer: "quantumbtn",
+		badge_id: "p3_qu",
 		tab: _ => TAB_CORE.open("qu"),
 
 		met: _ => (quantumed && isQuantumReached()) || bigRipped(),
@@ -56,6 +58,7 @@ const NGP3_FEATURES = {
 	},
 	ant: {
 		name: "Duplicants",
+		badge_id: "p3_ant",
 		met: _ => hasMasteryStudy("d10"),
 		req: _ => 4,
 		req_res: _ => quSave.pairedChallenges.completed,
@@ -106,6 +109,8 @@ const NGP3_FEATURES = {
 	},
 	fu: {
 		name: "Fundament",
+		badge_id: "p3_fu",
+		layer: "ghostifybtn",
 		tab: _ => TAB_CORE.open("funda"),
 
 		met: _ => (!bigRipped() || isQuantumReached()) && ghostified,
@@ -126,6 +131,7 @@ const NGP3_FEATURES = {
 	},
 	bl: {
 		name: "Bosonic Lab",
+		badge_id: "p3_bl",
 		tab: _ => TAB_CORE.open("wz"),
 
 		met: _ => WZ_FIELD.unlocked(),
@@ -141,6 +147,17 @@ const NGP3_FEATURES = {
 		req: _ => 1e7,
 		req_res: _ => blSave.best_bosons,
 		req_log: true,
+		req_disp: (amt, req) => `???`
+	},
+
+	//Special
+	end: {
+		name: "🏁 The End 🏁",
+		badge_id: "p3_end",
+
+		met: _ => hasAch('ng3p98'),
+		req: _ => 1,
+		req_res: _ => 0,
 		req_disp: (amt, req) => `???`
 	}
 }
@@ -192,9 +209,12 @@ function onNotifyFeature(k) {
 }
 
 function updateNGP3Progress() {
+	tmp.progress = { reached: 0, max: NGP3_FEATURE_LEN - 1 }
+
 	let data = Object.values(NGP3_FEATURES)
 	while (NGP3_FEATURE_LEN > tmp.progress.reached - 1 && data[tmp.progress.reached + 1].met()) tmp.progress.reached++
 	while (tmp.progress.max > tmp.progress.reached && !data[tmp.progress.max].met()) tmp.progress.max--
+	updateNGP3ProgressTab()
 }
 
 function doNGP3ProgressBar() {
@@ -219,8 +239,8 @@ function doNGP3ProgressBar() {
 function setupNGP3ProgressTab() {
 	let html = ""
 	for (let i = 0; i < NGP3_FEATURE_LEN; i++) {
-		html += `<td><div class='autoBuyerDiv' id='ngp3_progress_${i}' style='width: 200px; height: 100px'>
-			<h2>${Object.values(NGP3_FEATURES)[i].name}</h2>
+		html += `<td><div class='autoBuyerDiv' id='ngp3_progress_${i}' style='width: 150px; height: 90px'>
+			<b style='font-size: 16px'>${Object.values(NGP3_FEATURES)[i].name}</b><br>
 			<span id='ngp3_progress_${i}_next'></span>
 		</div></td>`
 		if (i % 4 == 3) html += "</tr><tr>"
@@ -232,19 +252,25 @@ function updateNGP3ProgressTab() {
 	el("ngp3_progress_div").style.display = mod.ngp3 ? "" : "none"
 	if (!mod.ngp3) return
 
+	let onType = "on"
 	for (let i = 0; i < NGP3_FEATURE_LEN; i++) {
-		el("ngp3_progress_"+i).style.display = i <= tmp.progress.reached + 1 ? "block" : ""
-		el("ngp3_progress_"+i).className = i <= tmp.progress.reached ? "autoBuyerDiv on" : "autoBuyerDiv"
-		el("ngp3_progress_"+i+"_next").textContent = i == tmp.progress.reached ? "Unlocked" : ""
+		let data = Object.values(NGP3_FEATURES)[i]
+		if (data.layer) onType = data.layer
 
-		if (i == tmp.progress.reached + 1) {
-			let data = Object.values(NGP3_FEATURES)[i]
+		el("ngp3_progress_"+i).style.display = i <= tmp.progress.max + 1 ? "block" : ""
+		el("ngp3_progress_"+i).style.opacity = i != tmp.progress.max ? 0.3 : 1
+		el("ngp3_progress_"+i).className = i <= tmp.progress.max ? "autoBuyerDiv " + onType : "autoBuyerDiv"
+		el("ngp3_progress_"+i+"_next").innerHTML = i == tmp.progress.max ? "Current<br>" : ""
+
+		if (i == tmp.progress.max + 1) {
 			let amt = E(data.req_res()) 
 			let req = E(data.req())
 
 			var p = Math.min((data.req_log ? amt.max(1).log(req) : amt.div(req).toNumber()) * 100, 100).toFixed(2) + "%"
-			el("ngp3_progress_"+i+"_next").innerHTML = `<b>Next (${p})</b><br>${data.req_disp(amt, req)}`
+			el("ngp3_progress_"+i+"_next").innerHTML = `<b>Next (${p})</b><br>${data.req_disp(amt, req)}<br>`
 		}
+
+		if (data.badge_id) el("ngp3_progress_"+i+"_next").innerHTML += hasBadge(data.badge_id) ? "<b class='yellow'>Badge unlocked!</b>" : canGetBadge(data.badge_id) ? `Reward: "${BADGE_TITLE[data.badge_id]}" badge` : ""
 	}
 
 }

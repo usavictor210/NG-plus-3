@@ -1520,7 +1520,6 @@ function updatePerSecond(quick) {
 	updateOrderGoals()
 	updateHotkeys()
 	updateConvertSave(eligibleConvert())
-	updateNGP3ProgressTab()
 
 	// Meta
 	obtainBadges()

@@ -5,6 +5,7 @@ let tmp = {
 		bru: {},
 		beu: {},
 	},
+	progress: {},
 	tab: { in: [], open: {} }
 }
 
@@ -139,7 +140,6 @@ function resetPowers() {
 	tmp.qu.color_eff = { r: 1, g: 1, b: 1 }
 	tmp.qu.chal.reward = {}
 	tmp.qu.ant = {}
-	tmp.progress = { reached: 0, max: NGP3_FEATURE_LEN - 1 }
 	delete tmp.qu.intergal
 	setupNanoRewardTemp()
 

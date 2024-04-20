@@ -13,7 +13,7 @@ const BADGE_LOOKUP = {
 	},
 	ngp3: {
 		//Quantum, Duplicants, Fundament, Bosonic Lab
-		data: ["p3_qu", "p3_ant", "p3_fu", "p3_bl"],
+		data: ["p3_qu", "p3_ant", "p3_fu", "p3_bl", "p3_end"],
 		generate() {
 			return this.data.concat(["sp_qu", "sp_ant", "sp_fu", "tgr"])
 		}
@@ -36,12 +36,14 @@ let BADGE_FRAG = {
 	ant: "Reach Duplicants",
 	fu: "Fundament",
 	bl: "Reach Bosonic Lab",
+	end: "Beat the game",
 }
 let BADGE_TITLE = {
 	p3_qu: "Superposition",
 	p3_ant: "Colonist",
 	p3_fu: "Enlargement",
 	p3_bl: "Arcanist",
+	p3_end: "Culumatist",
 	tgr: "The Grand Run",
 
 	sp_qu: "Unreality Scale",
@@ -54,6 +56,7 @@ let BADGE_TITLE = {
 	m2_ir: "Riftway",
 	m2_dil: "Redilate",
 	m2_fu: "Superpolar",
+	m2_end: "Singulatial Gate",
 
 	m3_gs: "Temporal Stump",
 	m3_inf: "Inaccessible",
@@ -61,6 +64,7 @@ let BADGE_TITLE = {
 	m3_ir: "Subspatial",
 	m3_dil: "Nanotemporal",
 	m3_fu: "Unstoppable",
+	m3_end: "Singulatial Gate II",
 
 	m4_gs: "Vengeanced",
 	m4_inf: "Maximalist",
@@ -68,17 +72,11 @@ let BADGE_TITLE = {
 	m4_ir: "Reality O'Clock",
 	m4_dil: "Lorentz",
 	m4_fu: "Godously Gone",
-
-	m5_gs: "Finity Encountry",
-	m5_inf: "Everascended",
-	m5_eter: "Timeless Up",
-	m5_ir: "Reality?",
-	m5_dil: "Condensing Time",
-	m5_fu: "Freedom Dive",
+	m4_end: "Singulatial Gate III"
 }
 
 function canGetBadge(x) {
-	if (mod.ngmu || mod.ngep || mod.aau || mod.ngm) return
+	if (mod.ngmu || mod.ngep || mod.aau || mod.ngm || betaId != "") return
 
 	const ngmX = !mod.ngp && mod.ngmX
 	const ngp3 = mod.ngp3 && (mod.ngud == 0 || mod.ngud == 3) && !(mod.ngumu || mod.nguep) && mod.ngp < 2
@@ -138,6 +136,7 @@ function obtainBadges() {
 		if (hasMasteryStudy("d10")) onObtainBadgeCheck("p3_ant")
 		if (ghostified) onObtainBadgeCheck("p3_fu")
 		if (WZ_FIELD.unlocked()) onObtainBadgeCheck("p3_bl")
+		if (hasAch('ng3p98')) onObtainBadgeCheck("p3_end")
 	}
 	if (mod.ngud == 3) {
 		if (quantumed) onObtainBadgeCheck("sp_qu")
@@ -177,6 +176,7 @@ function setupBadges() {
 		BADGES = BADGES.concat(list)
 	}
 	el("badges_div").innerHTML = html
+	if (betaId != "") el("badges_info").innerHTML = "Badges are disabled due to a risk of inflation in some testing saves."
 }
 
 function updateBadges() {
