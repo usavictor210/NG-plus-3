@@ -209,11 +209,13 @@ function onNotifyFeature(k) {
 }
 
 function updateNGP3Progress() {
-	tmp.progress = { reached: 0, max: NGP3_FEATURE_LEN - 1 }
+	if (mod.ngp3) {
+		tmp.progress = { reached: 0, max: NGP3_FEATURE_LEN - 1 }
 
-	let data = Object.values(NGP3_FEATURES)
-	while (NGP3_FEATURE_LEN > tmp.progress.reached - 1 && data[tmp.progress.reached + 1].met()) tmp.progress.reached++
-	while (tmp.progress.max > tmp.progress.reached && !data[tmp.progress.max].met()) tmp.progress.max--
+		let data = Object.values(NGP3_FEATURES)
+		while (NGP3_FEATURE_LEN > tmp.progress.reached - 1 && data[tmp.progress.reached + 1].met()) tmp.progress.reached++
+		while (tmp.progress.max > tmp.progress.reached && !data[tmp.progress.max].met()) tmp.progress.max--
+	}
 	updateNGP3ProgressTab()
 }
 
