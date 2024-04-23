@@ -33,7 +33,7 @@ function doNGP3Updates() {
 		}
 
 		if (aarMod.ngp3_build < 20240322 && E(ghSave.ghostParticles).gte(1e20)) {
-			alert("Due to massive balancing changes, you will be pushed back to e20 Spectral Particles!")
+			alert("Due to massive balancing changes, you are sent back to e20 Spectral Particles!")
 
 			resetGHPandNeutrinos()
 			ghSave.neutrinos.upgrades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
