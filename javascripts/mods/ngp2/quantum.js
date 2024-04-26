@@ -286,7 +286,6 @@ function doQuantum(force, auto, qc = {}) {
 			}
 		}
 		quSave.pairedChallenges.current = qc.pc || 0
-		updatePCCompletions()
 	}
 
 	// Quantum Challenges
@@ -299,7 +298,6 @@ function doQuantum(force, auto, qc = {}) {
 		}
 
 		quSave.challenge = qc.qc || []
-		updateQCTimes()
 		updateQuantumChallenges()
 	}
 

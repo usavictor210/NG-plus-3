@@ -388,7 +388,6 @@ let RESETS = {
 				quSave.pairedChallenges.completed = 0
 			}
 			updateQuantumChallenges()
-			updatePCCompletions()
 		},
 		resetDuplicants(bm) {
 			quSave.replicants = getBrandNewDuplicantsData()

@@ -154,6 +154,8 @@ function setupQCHTML() {
 }
 
 function updateQuantumChallenges() {
+	updateQCTimes()
+	updatePCCompletions()
 	if (!hasMasteryStudy("d8")) return
 
 	for (var qc = 1; qc <= 8; qc++) {
@@ -216,6 +218,7 @@ function QCIntensity(num) {
 
 function updateQCTimes() {
 	if (!mod.ngp3) return
+
 	var sumOfCompletedChallengeTimes = 0
 	var completedChallenges = 0
 	let showQuantumChallengeStatsGroup = false
@@ -381,7 +384,7 @@ PRESET_DATA.pc = {
 var ranking=0
 function updatePCCompletions() {
 	el("stats_pc").style.display = "none"
-	if (!mod.ngp3) return
+	if (!hasMasteryStudy("d8")) return
 
 	var r = 0
 	tmp.qu.chal.pc_comp = 0 // PC Completion counters
