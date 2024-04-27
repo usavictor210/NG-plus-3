@@ -156,6 +156,7 @@ function switchAB(rip) {
 }
 
 function updateBigRipTab() {
+	el("bigRipMsg").innerHTML = bigRipped() ? (isQuantumReached() ? "You can now go Fundament!" : `Reach ${shortenCosts(getQCGoal())} antimatter to refresh this universe.`) : "To refresh requires being in Big Rip..."
 	el("bigRipBtn").innerHTML = bigRipped() ? `Refine the rift.<br>+${shortenDimensions(getSpaceShardsGain())} Space Shards` : canDirectlyBigRip() ? "Big Rip the cosmos!" : "Unlock a Paired Challenge with QC6 and 8 combinations to Big Rip."
 	el("bigRipBtn").className = "qu_upg " + (bigRipped() ? "onchallengebtn" : canDirectlyBigRip() ? "bigrip" : "unavailablebtn")
 	el("spaceShards").textContent = shortenDimensions(brSave.spaceShards)
