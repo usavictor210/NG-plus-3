@@ -48,8 +48,8 @@ function isQuantumReached() {
 	let ma = player.meta.bestAntimatter
 	let got = ma.gte(getQuantumReq())
 	if (mod.ngp3) {
-		if (notInQC()) got = got && ECComps("eterc14")
 		if (inAnyQC()) got = got && player.money.gte(getQCGoal())
+		else           got = got && ECComps("eterc14")
 	}
 	return got
 }
