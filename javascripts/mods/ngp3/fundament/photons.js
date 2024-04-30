@@ -97,7 +97,7 @@ let PHOTON = {
 				name: "blue",
 				req: 1e100,
 				eff: exp => 1 + exp / 100,
-				desc: e => `Strengthen Meta-Dimension Boosts by +${shorten((e-1)*100)}% per boost.`
+				desc: e => `Strengthen Meta-Dimension Boosts by ${shorten((e-1)*100)}%.`
 			}, {
 				name: "violet",
 				req: 1e100,
