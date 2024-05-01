@@ -106,7 +106,7 @@ let PHOTON = {
 			}, {
 				name: "ultraviolet",
 				req: 1e100,
-				eff: exp => Math.min(exp / 1e3, .05),
+				eff: exp => Math.min(exp / 1e4, .05),
 				desc: e => `Discharged Galaxies are ${(e*100).toFixed(1)}% efficient.`
 			}
 		],
