@@ -57,30 +57,14 @@ const MTS = MASTERY_STUDIES = {
 		}
 	},
 	unlockReqDisplays: {
-		7() {
-			return shortenDimensions(quantumWorth) + " / " + shortenDimensions(50) + " net Quarks"
-		},
-		8() {
-			return getFullExpansion(quSave.electrons.amount) + " / " + getFullExpansion(16750) + " positrons and 5 minute Speedrun Milestone"
-		},
-		9() {
-			return "Complete Quantum Challenge 8"
-		},
-		10() {
-			return "Complete Paired Challenge 4"
-		},
-		11() {
-			return getFullExpansion(EDsave[1].perm) + " / " + getFullExpansion(10) + " worker limit"
-		},
-		12() {
-			return getFullExpansion(EDsave[8].perm) + " / " + getFullExpansion(10) + " Eighth Emperor Dimensions"
-		},
-		13() {
-			return getFullExpansion(nfSave.rewards) + " / " + getFullExpansion(16) + " Nanorewards"
-		},
-		14() {
-			return ghostified ? "<s>24 Paired Challenge combinations</s> Free!" : getFullExpansion(tmp.qu.chal?.pc_comp) + " / " + getFullExpansion(24) + " Paired Challenge combinations"
-		}
+		7:  () => shortenDimensions(quantumWorth) + " / " + shortenDimensions(50) + " net Quarks",
+		8:  () => getFullExpansion(quSave.electrons.amount) + " / " + getFullExpansion(16750) + " positrons and 5 minute Speedrun Milestone",
+		9:  () => "Complete Quantum Challenge 8",
+		10: () => "Complete Paired Challenge 4",
+		11: () => getFullExpansion(EDsave[1].perm) + " / " + getFullExpansion(10) + " worker limit",
+		12: () => getFullExpansion(EDsave[8].perm) + " / " + getFullExpansion(10) + " Eighth Emperor Dimensions",
+		13: () => getFullExpansion(nfSave.rewards) + " / " + getFullExpansion(16) + " Nanorewards",
+		14: () => ghostified ? "<s>24 Paired Challenge combinations</s> Free!" : getFullExpansion(tmp.qu.chal?.pc_comp) + " / " + getFullExpansion(24) + " Paired Challenge combinations"
 	},
 	types: {t: "time", ec: "ec", d: "dil"},
 	timeStudyEffects: {
