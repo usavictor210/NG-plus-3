@@ -41,6 +41,8 @@ let PHOTON = {
 	/* Feature - Time */
 	sel(i) {
 		if (ghSave.photons.slots[i][1]) {
+			if (ghSave.photons.sel[0] == 2 && bigRipped()) return
+
 			if (ghSave.photons.sel[0] == 0) ghSave.photons.amt = this.photon_prod().mul(ghSave.photons.slots[i][0]).add(ghSave.photons.amt)
 			if (ghSave.photons.sel[0] == 1) replicantiIncrease(ghSave.photons.slots[i][0] * 10)
 			if (ghSave.photons.sel[0] == 2) treeOfDecayUpdating(ghSave.photons.slots[i][0])
