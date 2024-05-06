@@ -17,7 +17,7 @@ const NEUTRINO = NT = {
 	temp() {
 		if (!this.unlocked()) return
 
-		let data = {}
+		let data = { gainOneSec: E(0), gainLastSec: E(0) }
 		tmp.funda.neutrino = data
 
 		data.amt = []
@@ -37,6 +37,10 @@ const NEUTRINO = NT = {
 	/* OTHERS */
 	onGalaxy(bulk) {
 		NT_RES.addType(NT_RES.types[ghSave.neutrinos.generationGain - 1], NT_RES.gain().mul(bulk))
+	},
+	onSec() {
+		tmp.funda.neutrino.gainLastSec = tmp.funda.neutrino.gainOneSec
+		tmp.funda.neutrino.gainOneSec = E(0)
 	},
 	eff(type, x, def = 1) {
 		return tmp.funda.neutrino?.[type][x] ?? def
@@ -67,6 +71,7 @@ const NEUTRINO = NT = {
 		},
 		addType(type, x) {
 			this.setType(type, ghSave.neutrinos[type].add(x))
+			tmp.funda.neutrino.gainOneSec = tmp.funda.neutrino.gainOneSec.add(x)
 		},
 		subType(type, x) {
 			this.setType(type, ghSave.neutrinos[type].sub(ghSave.neutrinos[type].min(x)))
@@ -301,7 +306,7 @@ const NEUTRINO = NT = {
 	},
 	update() {
 		for (var type of NT_RES.types) el(type + "Neutrinos").textContent = shortenDimensions(ghSave.neutrinos[type])
-		el("neutrinosGain").textContent = "+" + shortenDimensions(NT_RES.gain()) + " " + NT_RES.names[ghSave.neutrinos.generationGain - 1] + "Neutrinos per Antimatter Galaxy"
+		el("neutrinosGain").textContent = "+" + shortenDimensions(NT_RES.gain()) + " " + NT_RES.names[ghSave.neutrinos.generationGain - 1] + "Neutrinos per Antimatter Galaxy (+" + shortenDimensions(tmp.funda.neutrino.gainLastSec) + " per sec)"
 
 		for (var [i, bst] of Object.entries(NT.boosts.data)) {
 			i = parseInt(i)+1
