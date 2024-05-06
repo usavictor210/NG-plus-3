@@ -478,6 +478,7 @@ let RESETS = {
 				ghSave.neutrinos.electron = E(0)
 				ghSave.neutrinos.mu = E(0)
 				ghSave.neutrinos.tau = E(0)
+				ntProd = { total: [], next: E(0), average: E(0) }
 			}
 			player.unstableThisGhostify = 0
 

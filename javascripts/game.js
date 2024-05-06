@@ -2558,12 +2558,7 @@ function autoBuyerTick() {
 			}
 		} else player.autobuyers[11].ticks += 1;
 	}
-
 	if (inNGM(2) && player.autobuyers[12]%1 !== 0) galSacABTick()
-	if (player.autobuyers[10]%1 !== 0) galaxyABTick()
-	if (player.autobuyers[9]%1 !== 0) dimBoostABTick()
-	if (inNGM(3) && player.autobuyers[13]%1 !== 0) TSBoostABTick()
-	if (inNGM(4) && player.autobuyers[14]%1 !== 0) TDBoostABTick()
 
 	if (player.autoSacrifice%1 !== 0) {
 		if ((inNGM(2) ? player.autoSacrifice.ticks * 100 >= player.autoSacrifice.interval : true) && calcSacrificeBoost().gte(player.autoSacrifice.priority) && player.autoSacrifice.isOn) {
@@ -2594,6 +2589,12 @@ function autoBuyerTick() {
 			}
 		} else priority[i].ticks += 1;
 	}
+
+	//To fix auto-galaxies on per-0.05s runs.
+	if (player.autobuyers[10]%1 !== 0) galaxyABTick()
+	if (inNGM(3) && player.autobuyers[13]%1 !== 0) TSBoostABTick()
+	if (player.autobuyers[9]%1 !== 0) dimBoostABTick()
+	if (inNGM(4) && player.autobuyers[14]%1 !== 0) TDBoostABTick()
 }
 
 
@@ -2604,6 +2605,7 @@ setInterval(function() {
 
 setInterval(function() {
 	if (player) if (player.infinityUpgrades.includes("autoBuyerUpgrade")) autoBuyerTick()
+	if (ghostified) NEUTRINO.onProd()
 }, 50)
 
 for (let ncid = 2; ncid <= 12; ncid++){
