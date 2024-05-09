@@ -451,7 +451,7 @@ let RESETS = {
 		doReset() {
 			let bm = braveMilestones
 
-			player.infinitiedBank = 0
+			player.infinitiedBank = hasAch("ng3p73") ? 100 : 0
 			player.eternitiesBank = ghostified ? (hasAch("ng3p71") ? 200 : 100) : 0
 			player.dilation.bestTP = E(0)
 			player.meta.bestOverQuantums = E(0)
