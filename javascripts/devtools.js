@@ -130,6 +130,7 @@ dev.quickZone = function() {
 
 		NT_RES.addAll(NT_RES.gain().mul(player.galaxies))
 		quSave.time = 1e4
+		player.infinitiedBank = nMx(player.infinitiedBank, getInfinitiedGain())
 		player.replicanti.amount = pow10(tmp.rep.speeds.exp / Math.log10(tmp.rep.speeds.inc) * 3).max(player.replicanti.amount)
 
 		if (bigRipped()) ghSave.ghostParticles = ghSave.ghostParticles.max(getGHPGain())

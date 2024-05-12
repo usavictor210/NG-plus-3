@@ -155,14 +155,14 @@ function IPonCrunchPassiveGain(diff){
 }
 
 function doCrunchInfinitiesGain(){
-	let infGain
+	let infGain = 1
 	if (player.currentEternityChall == "eterc4") {
-		infGain = 1
 		if (player.infinitied >= 16 - (ECComps("eterc4")*4)) {
 			setTimeout(exitChallenge, 500)
 			onChallengeFail()
 		}
 	} else infGain = getInfinitiedGain()
+
 	player.infinitied = nA(player.infinitied, infGain)
 }
 
