@@ -78,21 +78,21 @@ let PHOTON = {
 			}, {
 				name: "red",
 				req: 50,
-				eff: exp => 1 + exp / 400,
+				eff: exp => Math.cbrt(1 + exp / 150),
 				desc: e => `Gain ${shorten((e-1)*100)}% more Neutrinos per Big Rip galaxy.`
 			}, {
 				name: "orange",
 				req: 300,
-				eff: exp => exp * 2,
+				eff: exp => exp,
 				desc: e => `Nanorewards scale +${shorten(e)} later.`
 			}, {
 				name: "yellow",
-				req: 1e100,
-				eff: exp => exp / 3 + 1,
+				req: 1e3,
+				eff: exp => exp / 6 + 1,
 				desc: e => `Raise Emperor Dimensions by ^${shorten(e)}.`
 			}, {
 				name: "green",
-				req: 1e100,
+				req: 5e4,
 				eff: exp => E_pow(tmp.gal.ts || 1, Math.min(-exp / 5, 1)),
 				desc: e => `Tickspeed reduction multiplies per-ten multiplier by ${shorten(e)}x.`
 			}, {
