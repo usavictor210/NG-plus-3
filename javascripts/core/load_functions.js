@@ -1402,7 +1402,7 @@ function setInfChallengeDisplay(){
 }
 
 function setOtherChallDisplay(){
-	el("galaxy21").innerHTML=(inNGM(3)?"Reduce the Dimension Boost cost multiplier to "+(inNGM(4)?10:5):"Dimension Boost scaling starts 2 boosts later, and increases the cost by 5 each")+".<br>Cost: 1 GP"
+	el("galaxy21").innerHTML=(inNGM(3)?"Reduce the Dimension Boost cost multiplier to "+(inNGM(4)?10:5):"Dimension Boosts scale 2 later, and increases the cost by 5 each")+".<br>Cost: 1 GP"
 	el("galaxy12").innerHTML="Antimatter "+(inNGM(4)?"and Time D":"D")+"imensions gain a multiplier based on time spent in this Galactic Sacrifice.<br>Currently: <span id='galspan12'>x</span>x<br>Cost: "+galCosts[12]+" GP"
 	el("galBuff22").textContent=inNGM(4)?2:5
 	el("galaxy13").innerHTML="Antimatter "+(inNGM(4)?"and Time D":"D")+"imensions gain a multiplier based on your Galaxy Points.<br>Currently: <span id='galspan13'>x</span>x<br>Cost: "+galCosts[13]+" GP"
