@@ -148,7 +148,7 @@ const MTS = MASTERY_STUDIES = {
 		}
 	},
 	timeStudyDescs: {
-		241: "IP multiplier gives 2.2x per upgrade.",
+		241: "IP multiplier rebuyable gives 2.2x IP per each time you bought.",
 		251: "Dimension Boosts scale Remote Galaxies later.",
 		252: "Tachyonic Galaxies scale Remote Galaxies later.",
 		253: "Replicated Galaxies scale Remote Galaxies later.",
