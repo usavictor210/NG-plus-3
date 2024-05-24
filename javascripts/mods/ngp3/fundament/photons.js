@@ -144,7 +144,7 @@ let PHOTON = {
 		for (var i = 0; i < 3; i++) el("ph_fea_" + i).className = "photon " + (ps.sel[0] == i ? "choosed" : "")
 		for (var i = 0; i < 5; i++) {
 			el("ph_slot_" + i).innerHTML = ps.slots[i][0] ? (
-				(ps.slots[i][1] ? `Emit (${ps.slots[i][1] === true ? 1 : ps.slots[i][1]})<br>+` : "Energizing<br>") +
+				(ps.slots[i][1] ? `<b>Emit</b> (${ps.slots[i][1] === true ? 1 : ps.slots[i][1]})<br>+` : "Energizing<br>") +
 				`${shorten(ps.slots[i][0])}s`
 			) : `Energize`
 			el("ph_slot_" + i).className = "photon slot " + (ps.sel[1] == i ? "choosed" : "")
