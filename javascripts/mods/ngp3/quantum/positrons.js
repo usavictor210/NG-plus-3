@@ -3,10 +3,13 @@ function isPositronsOn() {
 }
 
 function updatePositronsTab() {
-	el("normalGalaxies").textContent = getFullExpansion(player.galaxies)
+	let mult = PHOTON.unlocked() ? 1 - lightEff(7, 0) : 1
+	let gal = Math.max(player.galaxies - quSave.electrons.sacGals, 0)
+
+	el("normalGalaxies").textContent = getFullExpansion(player.galaxies) + (PHOTON.unlocked() ? ` (${formatPercentage(mult)}%)` : "")
 	el("sacrificeGal").className = canSacrificeGalaxies() ? "storebtn positron" : "unavailablebtn"
-	el("sacrificeGals").textContent = getFullExpansion(Math.max(player.galaxies-quSave.electrons.sacGals, 0))
-	el("positronsGain").textContent = getFullExpansion(Math.floor(Math.max(player.galaxies-quSave.electrons.sacGals, 0) * getPositronGainFinalMult()))
+	el("sacrificeGals").textContent = getFullExpansion(Math.floor(gal * mult))
+	el("positronsGain").textContent = getFullExpansion(Math.floor(gal * getPositronGainFinalMult()))
 	for (var u = 1; u <= 4; u++) el("positronupg" + u).className = canBuyPositronUpg(u) ? "storebtn positron" : "unavailablebtn"
 
 	updatePositrons()
