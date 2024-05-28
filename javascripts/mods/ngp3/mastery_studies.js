@@ -173,7 +173,7 @@ const MTS = MASTERY_STUDIES = {
 		321: () => `In QC5 or 7, multiplier per 10 normal Dimensions is ${shortenCosts(E("1e430"))}x.`,
 		322: "Tickspeed boosts Dilated Time.",
 		323: "Cancel dilation penalty for the Normal Dimension boost from replicanti.",
-		331: "Dimension Supersonic scales 240,000 later, and the cost increase is reduced by 3.",
+		331: "Dimension Supersonic scales 240,000 later, and reduce the interval scaling by -3.",
 		332: "Gain replicanti faster based on your normal galaxies.",
 		341: "Pilons boost dilated time production at reduced rate.",
 		342: "All Replicated Galaxies are stronger and use the same formula.",
