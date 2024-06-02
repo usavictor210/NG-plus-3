@@ -34,8 +34,8 @@ function updatePositronsEffect() {
 	if (!quSave.autoOptions.sacrifice) tmp.mpte = getPositronBoost()
 
 	el("sacrificedGals").textContent = getFullExpansion(quSave.electrons.sacGals)
-	el("positronsAmount").textContent = getFullExpansion(Math.round(quSave.electrons.amount))
-	el("positronsTranslation").textContent = "^"+getFullExpansion(Math.round(tmp.mpte))
+	el("positronsAmount").textContent = shorten(quSave.electrons.amount)
+	el("positronsTranslation").textContent = "^"+shorten(tmp.mpte)
 	el("positronsEffect").textContent = shorten(getDimensionPowerMultiplier("positrons"))+"x"
 	el("linearPerTenMult").textContent = shorten(getDimensionPowerMultiplier("linear"))+"x"
 }
