@@ -2,10 +2,10 @@ function babyRateUpdating(){
 	var eggonRate = tmp.qu.ant.workers.mul(getEmperorDimensionMultiplier(1)).mul(3)
 	if (eggonRate.lt(30)) {
 		el("eggonRate").textContent = shortenDimensions(eggonRate)
-		el("eggonRateTimeframe").textContent = "minute"
+		el("eggonRateTimeframe").textContent = "m"
 	} else {
 		el("eggonRate").textContent = shortenMoney(eggonRate.div(60))
-		el("eggonRateTimeframe").textContent = "second"
+		el("eggonRateTimeframe").textContent = "s"
 	}
 }
 
