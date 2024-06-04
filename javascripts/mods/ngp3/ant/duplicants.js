@@ -286,10 +286,6 @@ function getHatchSpeed() {
 	return speed
 }
 
-function teleportToEDs() {
-	TAB_CORE.open("dim_emp")
-}
-
 function setupEmpDimensionHTML() {
 	var edsDiv = el("empDimTable")
 	for (let d = 1; d <= 8; d++) {

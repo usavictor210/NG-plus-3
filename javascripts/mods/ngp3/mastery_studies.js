@@ -415,7 +415,7 @@ function buyingDilStudyReplicant(){
 }
 
 function buyingDilStudyED(){
-	teleportToEDs()
+	TAB_CORE.open("dim_emp")
 	el("timestudy361").style.display = ""
 	el("timestudy362").style.display = ""
 }
