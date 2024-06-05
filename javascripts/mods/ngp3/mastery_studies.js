@@ -400,10 +400,6 @@ function getMasteryStudyCostMult(id) {
 	return MTS.costs.time_mults[id] || 1
 }
 
-function buyingD7Changes(){
-	TAB_CORE.open("pos")
-}
-
 function buyingDilStudyQC(){
 	TAB_CORE.open("chal_qu")
 	updateQuantumChallenges()
@@ -425,29 +421,21 @@ function buyingDilStudyNanofield(){
 	NF.shown()
 }
 
-function buyingDilStudyToD(){
-	TAB_CORE.open("tod")
-}
-
-function buyingDilStudyRip(){
-	TAB_CORE.open("rip")
-}
-
 function buyingDilationStudy(id){
-	if (id == 7) buyingD7Changes()
-	if (id == 8) buyingDilStudyQC()
-	if (id == 9) buyingDilStudyQC()
+	if (id == 7)  TAB_CORE.open("pos")
+	if (id == 8)  buyingDilStudyQC()
+	if (id == 9)  buyingDilStudyQC()
 	if (id == 10) buyingDilStudyReplicant()
 	if (id == 11) buyingDilStudyED()
 	if (id == 12) buyingDilStudyNanofield()
-	if (id == 13) buyingDilStudyToD()
-	if (id == 14) buyingDilStudyRip()
+	if (id == 13) TAB_CORE.open("tod")
+	if (id == 14) TAB_CORE.open("rip")
 }
 
 function buyingDilationStudyFirstTime(id){
-	if (id == 7) notifyFeature("pos")
-	if (id == 8) notifyFeature("qc")
-	if (id == 9) notifyFeature("pc")
+	if (id == 7)  notifyFeature("pos")
+	if (id == 8)  notifyFeature("qc")
+	if (id == 9)  notifyFeature("pc")
 	if (id == 10) notifyFeature("ant")
 	if (id == 11) notifyFeature("ed")
 	if (id == 12) notifyFeature("nf")
