@@ -94,7 +94,7 @@ let PHOTON = {
 				name: "green",
 				req: 5e4,
 				eff: exp => E_pow(tmp.gal.ts || 1, Math.min(-exp / 5, 1)),
-				desc: e => `Tickspeed reduction multiplies per-ten multiplier by ${shorten(e)}x.`
+				desc: e => `Tickspeed reduction multiplies per-ten Antimatter Dimension bonus by ${shorten(e)}x.`
 			}, {
 				name: "blue",
 				req: 1e100,
