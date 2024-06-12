@@ -83,7 +83,7 @@ let PHOTON = {
 			}, {
 				name: "orange",
 				req: 300,
-				eff: exp => exp,
+				eff: exp => exp / 2,
 				desc: e => `Nanorewards scale +${shorten(e)} later.`
 			}, {
 				name: "yellow",
