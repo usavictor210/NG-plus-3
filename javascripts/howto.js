@@ -432,7 +432,7 @@ let HOW_TO = [
 			Chargers with positive strength only provide positive hypercharge while ones with negative strength provide negative hypercharge.<br>
 			These hypercharges are separate resources that do not add each other.
 			<br><br>
-			For each hypercharge resource, there are milestones that provide independent effects.
+			There are milestones of each hypercharge type that provide independent effects.
 		`
 	}, {
 		mod: _ => ngp3,
