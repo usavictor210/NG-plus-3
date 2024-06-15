@@ -393,7 +393,7 @@ let HOW_TO = [
 			`
 
 			if (ghSave?.photons?.unl || SPOILERS) msg += `<b>Phantomal Paradigms</b><br>
-				Phantomal Paradigms are a Big Rip replacement to Dimensional Shifts, in which remove some Dimensions for boosts. For example, any Phantomal Paradigm removes the scaling of a Antimatter Dimension tier, but however has a fixed per-ten bonus.  However, these reset on Fundament.`
+				Phantomal Paradigms are a Big Rip replacement to Dimensional Shifts, in which remove some Dimensions for boosts. For example, any Phantomal Paradigm removes the cost scaling of a Antimatter Dimension tier (except the 8th), but however has a fixed per-ten bonus.  However, these reset on Fundament.`
 			else msg += `<b>Unlock Photons to see the next feature.</b>`
 
 			return msg
