@@ -17,8 +17,7 @@ function letter(power, str) {
 var FormatList = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qt', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'UDc', 'DDc', 'TDc', 'QaDc', 'QtDc', 'SxDc', 'SpDc', 'ODc', 'NDc', 'Vg', 'UVg', 'DVg', 'TVg', 'QaVg', 'QtVg', 'SxVg', 'SpVg', 'OVg', 'NVg', 'Tg', 'UTg', 'DTg', 'TTg', 'QaTg', 'QtTg', 'SxTg', 'SpTg', 'OTg', 'NTg', 'Qd', 'UQd', 'DQd', 'TQd', 'QaQd', 'QtQd', 'SxQd', 'SpQd', 'OQd', 'NQd', 'Qi', 'UQi', 'DQi', 'TQi', 'QaQi', 'QtQi', 'SxQi', 'SpQi', 'OQi', 'NQi', 'Se', 'USe', 'DSe', 'TSe', 'QaSe', 'QtSe', 'SxSe', 'SpSe', 'OSe', 'NSe', 'St', 'USt', 'DSt', 'TSt', 'QaSt', 'QtSt', 'SxSt', 'SpSt', 'OSt', 'NSt', 'Og', 'UOg', 'DOg', 'TOg', 'QaOg', 'QtOg', 'SxOg', 'SpOg', 'OOg', 'NOg', 'Nn', 'UNn', 'DNn', 'TNn', 'QaNn', 'QtNn', 'SxNn', 'SpNn', 'ONn', 'NNn', 'Ce',];
 
 function standardize(x, aas) {
-	if (!aas) x = x.toUpperCase()
-	return x
+	return aas ? x : x.toUpperCase()
 }
 
 function getAbbreviation(e, aas) {
@@ -91,7 +90,7 @@ function toTier2Abb(t2, aas) {
 	let h = Math.floor(t2 / 100) % 10
 	let r = ''
 
-	if (t2 < 10) return abbs[0][t2]
+	if (t2 < 10) return standardize(abbs[0][t2], aas)
 	if (t == 1 && o == 0) r += "Vec"
 	else r += abbs[1][o] + abbs[2][t]
 	r += abbs[3][h]
