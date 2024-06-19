@@ -51,7 +51,7 @@ function displayQuantumStats() {
 		setAndMaybeShow("bigRipped", brSave.times, '"You have big ripped the universe " + getFullExpansion(brSave.times) + " time" + (brSave.times == 1 ? "" : "s") + "."')
 		setAndMaybeShow("bestmoneythisrip", bigRipped(), "'Your best antimatter for this Big Rip is ' + shortenMoney(brSave.bestThisRun) + '.'")
 		el("totalmoneybigrip").textContent = 'You have made a total of ' + shortenMoney(brSave.totalAntimatter) + ' antimatter in all Big Rips.'
-		el("bestgalsbigrip").textContent = `You reformed a best-ever of ${getFullExpansion(brSave.bestGals)} Antimatter Galaxies in Big Rips.`
+		el("bestgalsbigrip").textContent = `You reformed a best-ever of ${getFullExpansion(brSave.bestGals)} Antimatter Galaxies through all Big Rips.`
 	}
 }
 
