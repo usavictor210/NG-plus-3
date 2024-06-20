@@ -137,9 +137,10 @@ function universesTimeDisplay(years){
 }
 
 function lifetimeTimeDisplay(years){
+	var age = 77.5 //as of 2022
 	var message = "<br>If you wrote 3 digits of your full antimatter amount every second since you were born as an American,<br> you would "
-	if (years > 79.3) message += "be a ghost for " + ((years - 79.3) / years * 100).toFixed(3) + "% of the session."
-	else message += "waste " + (years / 0.793).toFixed(3) + "% of your projected average lifespan."
+	if (years > age) message += "be a ghost on " + ((years - age) / years * 100).toFixed(3) + "% of the session."
+	else message += "waste " + (years / age * 100).toFixed(3) + "% of American's average lifespan. (2022)"
 	el("infoScale").innerHTML = message
 }
 
