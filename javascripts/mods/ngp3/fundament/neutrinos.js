@@ -271,7 +271,7 @@ const NEUTRINO = NT = {
 			}, {
 				unl: _ => PHOTON.unlocked(),
 				cost: E(1e37),
-				desc: `Tachyonic Galaxies scale Positron softcap later.`,
+				desc: `Tachyonic Galaxies scale Positrons later.`,
 
 				eff: _ => player.dilation.freeGalaxies * 2,
 				effDesc: e => `+${getFullExpansion(Math.round(e))}`
