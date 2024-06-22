@@ -1,6 +1,6 @@
 # Antimatter Dimensions - Aarex's Modifications
 
-This modification adds several mods and supports infinite saves.
+This modification adds several mods and supports infinite saves. It is also the home of New Game Plus 3.
 
 Mods implemented:
 - dan-simon's NG++
