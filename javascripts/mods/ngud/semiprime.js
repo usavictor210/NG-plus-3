@@ -99,7 +99,7 @@ const BH_UDSP = {
 		{
 			req: { dilatedTime: 1 },
 			eff: x => Math.min(1 + x.add(1).log10() / 10, 2),
-			disp: e => `Strengthen the replicanti Dilation upgrade by <b>${shorten(e)}x</b>.`
+			disp: e => `Strengthen the Replicanti Dilation upgrade by <b>${shorten(e)}x</b>.`
 		},
 		{
 			req: { dilatedTime: 1 },
