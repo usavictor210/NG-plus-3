@@ -10,3 +10,6 @@ Mods implemented:
 - Aarex's NG-4 (pre-Respec, original)
 - Aarex's NG+3 (pre-Respec)
 - Soul147's NG+4 (but modified)
+
+Mods will be implemented:
+- loader3229's NG-4 Respecced v3
