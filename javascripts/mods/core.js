@@ -182,6 +182,7 @@ let welcomeMsgs = {
 	["-2"]: "Welcome to NG--, created by Nyan cat! You are always in Dilation and IC3, but there is a new layer called Galactic Sacrifice.",
 	["-3"]: "Welcome to NG-3, the nerfed version of NG--! This mode reduces tickspeed multiplier multiplier and nerfs galaxies, but has a new feature called \"Tickspeed Boosts\" and many more changes to NG--.",
 	["-4"]: "Welcome to NG-4, the nerfed version of NG-3! This mode features even more changes from NG---, and is very hardcore. WIP by Nyan Cat and edited by Aarex.",
+	["-4R"]: "Welcome to NG-4R!",
 
 	["+1"]: "Welcome to NG+ v2, by usavictor and Aarex! You start with many things unlocked to make early game faster.",
 	["+2"]: "Welcome to NG++, by dan-simon! New Dilation upgrades and Meta Dimensions are added to push the endgame further. Tweaked due to NG+ updates.",
@@ -208,7 +209,8 @@ function welcomeMods(mods) {
 	let frag = modFragments(mods)
 	let type = []
 
-	for (var i = 1; i <= 4; i++) if (frag.includes("-"+i)) type.push("-"+i)
+	if (frag.includes("-4R")) type.push("-4R")
+	else for (var i = 1; i <= 4; i++) if (frag.includes("-"+i)) type.push("-"+i)
 	if (frag.includes("ER")) type.push("ER")
 
 	if (frag.includes("UdSP")) type.push("UdSP")

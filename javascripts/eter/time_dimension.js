@@ -155,20 +155,34 @@ function updateTimeShards() {
 	else el("timeShardsPerSec").textContent = "You are getting " + formatQuick(p, 2, inNGM(4) ? Math.min(Math.max(3 - p.e, 1), 3) : 0) + " Time Shards per second."
 }
 
-var timeDimCostMults = [[null, 3, 9, 27, 81, 243, 729, 2187, 6561], [null, 1.5, 2, 3, 20, 150, 1e5, 3e6, 1e8]]
-var timeDimStartCosts = [[null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e3000", "1e3350"], [null, 10, 20, 40, 80, 160, 1e8, 1e12, 1e18]]
+var timeDimCostMults = [[null, 3, 9, 27, 81, 243, 729, 2187, 6561], [null, 1.5, 2, 3, 20, 150, 1e5, 3e6, 1e8], [null, 2, 3, 4, 5, 10, 50, 1e3, 1e5]]
+var timeDimStartCosts = [[null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e3000", "1e3350"], [null, 10, 20, 40, 80, 160, 1e8, 1e12, 1e18], [null, 1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7]]
 
-function getTimeDimCostMult(tier) {
-	return inNGM(4) ? timeDimCostMults[1][tier] : timeDimCostMults[0][tier]
+// NG-4 and NG-4R used antimatter to buy Time Dimension.
+function getTimeDimCostMult(tier, ngm4) {
+	if(ngm4)return timeDimCostMults[aarMod.newGame4MinusRespeccedVersion ? 2 : 1][tier]
+	return timeDimCostMults[0][tier]
 }
 
-function getTimeDimStartCost(tier) {
-	return inNGM(4) ? timeDimStartCosts[1][tier] : timeDimStartCosts[0][tier]
+function getTimeDimStartCost(tier, ngm4) {
+	if(ngm4)return timeDimCostMults[aarMod.newGame4MinusRespeccedVersion ? 2 : 1][tier]
+	return timeDimStartCosts[0][tier]
 }
 
-function timeDimCost(tier, bought) {
+function timeDimCost(tier, bought, ngm4) {
+	if(ngm4){
+		var cost = E_pow(getTimeDimCostMult(tier, ngm4), bought).mul(getTimeDimStartCost(tier, ngm4))
+		if(!aarMod.newGame4MinusRespeccedVersion){
+			return cost;
+		}
+		if (cost.gte(Number.MAX_VALUE)) cost = E_pow(getTimeDimCostMult(tier, ngm4)*1.5, bought).mul(getTimeDimStartCost(tier, ngm4))
+		if (cost.gte("1e5000")) cost = E_pow(getTimeDimCostMult(tier, ngm4)*2, bought).mul(getTimeDimStartCost(tier, ngm4))
+		if (cost.gte("1e50000")) cost = E_pow(getTimeDimCostMult(tier, ngm4)*Math.max(3,bought*bought*[1.7e-10,2.4e-10,3.1e-10,3.8e-10,6.25e-10,1.25e-9,2.5e-9,5e-9][tier-1]), bought).mul(getTimeDimStartCost(tier, ngm4))
+		return cost;
+	}
+	
 	var cost = E_pow(getTimeDimCostMult(tier), bought).mul(getTimeDimStartCost(tier))
-	if (inNGM(2)) return cost
+	//if (inNGM(2)) return cost
 	if (cost.gte(Number.MAX_VALUE)) cost = E_pow(getTimeDimCostMult(tier)*1.5, bought).mul(getTimeDimStartCost(tier))
 	if (cost.gte("1e1300")) cost = E_pow(getTimeDimCostMult(tier)*2.2, bought).mul(getTimeDimStartCost(tier))
 	if (tier > 4) cost = E_pow(getTimeDimCostMult(tier)*100, bought).mul(getTimeDimStartCost(tier))
