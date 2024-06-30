@@ -359,7 +359,7 @@ function startNormalChallenge(x) {
 }
 
 function inNC(x, n) {
-	if (inNGM(4)) return x==0 ? !player.galacticSacrifice.chall : player.galacticSacrifice.chall == x
+	if (inNGM(4)) return x == 0 ? !player.galacticSacrifice.chall : (player.galacticSacrifice != undefined ? player.galacticSacrifice.chall == x : false)
 	return player.currentChallenge == (x==0 ? "" : "challenge" + x)
 }
 

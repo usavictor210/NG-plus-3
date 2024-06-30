@@ -181,7 +181,8 @@ let welcomeMsgs = {
 	["-1"]: "Welcome to NG-, created by slabdrill! Originally made as a save file modification, NG- is now ported as a 'mod'. Everything in the original Antimatter Dimensions is nerfed, making the endgame harder to reach.",
 	["-2"]: "Welcome to NG--, created by Nyan cat! You are always in Dilation and IC3, but there is a new layer called Galactic Sacrifice.",
 	["-3"]: "Welcome to NG-3, the nerfed version of NG--! This mode reduces tickspeed multiplier multiplier and nerfs galaxies, but has a new feature called \"Tickspeed Boosts\" and many more changes to NG--.",
-	["-4"]: "Welcome to NG-4, the nerfed version of NG-3! This mode features even more changes from NG---, and is very hardcore. WIP by Nyan Cat and edited by Aarex.",
+	//["-4"]: "Welcome to NG-4, the nerfed version of NG-3! This mode features even more changes from NG---, and is very hardcore. WIP by Nyan Cat and edited by Aarex.",
+	["-4"]: "Welcome to NG-4R, a completely rebalanced version of NG-4 by loader3229! The mod is made considerably faster than its original version, but features similar content from the old version.",
 	["-4R"]: "Welcome to NG-4R!",
 
 	["+1"]: "Welcome to NG+ v2, by usavictor and Aarex! You start with many things unlocked to make early game faster.",

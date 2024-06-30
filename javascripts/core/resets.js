@@ -4,7 +4,7 @@ let RESETS = {
 		startingAM() {
 			let x = 10
 			if (player.challenges.includes("challenge1")) x = 100
-			if (inNGM(4)) x = 200
+			// if (inNGM(4)) x = 200 // this will be obsoleted following new versions of NG-4R
 			if (hasAch("r37")) x = 1000
 			if (hasAch("r54")) x = 2e5
 			if (hasAch("r55")) x = 1e10

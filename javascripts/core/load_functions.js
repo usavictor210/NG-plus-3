@@ -1171,6 +1171,12 @@ function doNGM4v0tov2111(){
 	if (aarMod.newGame4MinusVersion<2.111) aarMod.newGame4MinusVersion=2.111
 }
 
+function doNGM4RespecCheck() {
+	if (aarMod.newGame4MinusVerion < 2.2) {
+		console.log("Placeholder")
+	}
+}
+
 function doNGSPUpdatingVersion(){
 	if (!mod.udsp) return
 	aarMod.nguspV = 2
