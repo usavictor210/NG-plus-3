@@ -155,6 +155,7 @@ function updateTimeShards() {
 	else el("timeShardsPerSec").textContent = "You are getting " + formatQuick(p, 2, inNGM(4) ? Math.min(Math.max(3 - p.e, 1), 3) : 0) + " Time Shards per second."
 }
 
+// 0:Original 1:NG-4 2:NG-4R
 var timeDimCostMults = [[null, 3, 9, 27, 81, 243, 729, 2187, 6561], [null, 1.5, 2, 3, 20, 150, 1e5, 3e6, 1e8], [null, 2, 3, 4, 5, 10, 50, 1e3, 1e5]]
 var timeDimStartCosts = [[null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e3000", "1e3350"], [null, 10, 20, 40, 80, 160, 1e8, 1e12, 1e18], [null, 1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7]]
 
@@ -195,16 +196,16 @@ function timeDimCost(tier, bought, ngm4) {
 	return cost
 }
 
-function buyTimeDimension(tier, am) {
+function buyTimeDimension(tier, ngm4) {
 	var dim = player["timeDimension"+tier]
 	if (getAmount(1) < 1) {
 		alert("You need to buy a first Antimatter Dimension to be able to buy Time Dimensions.")
 		return
 	}
 	if (!isTDUnlocked(tier)) return false
-	if (getOrSubResourceTD(tier).lt(dim.cost)) return false
+	if (getOrSubResourceTD(tier, ngm4).lt(dim.cost)) return false
 
-	getOrSubResourceTD(tier, dim.cost)
+	getOrSubResourceTD(tier, ngm4, dim.cost)
 	dim.amount = dim.amount.add(1);
 	dim.bought += 1
 	if (inNGM(4)) {
@@ -305,7 +306,7 @@ function nonERFreeTickUpdating(){
 	let easier = inOnlyNGM(2)
 	if (easier) {
 		threshold = hasTimeStudy(171) ? 1.1 : 1.15
-		if (inNGM(3)) threshold = hasTimeStudy(171) ? 1.03 : 1.05
+		if (inNGM(3) && !aarMod.newGame4MinusRespeccedVersion) threshold = hasTimeStudy(171) ? 1.03 : 1.05
 	} else if (hasTimeStudy(171)) {
 		threshold = 1.25
 		if (mod.ngmu) threshold -= 0.08
@@ -319,7 +320,7 @@ function nonERFreeTickUpdating(){
 	player.tickspeed = player.tickspeed.mul(E_pow(tmp.gal.ts, gain))
 	player.postC3Reward = E_pow(getIC3Mult(), gain * getIC3EffFromFreeUpgs()).mul(player.postC3Reward)
 
-	const base = inNGM(4) ? 0.01 : inNGM(3) ? .1 : 1
+	const base = aarMod.newGame4MinusRespeccedVersion ? 1 : inNGM(4) ? 0.01 : inNGM(3) ? .1 : 1
 	player.tickThreshold = E_pow(threshold, player.totalTickGained).mul(base)
 	el("totaltickgained").textContent = "You've gained " + getFullExpansion(player.totalTickGained) + " tickspeed upgrades."
 	tmp.tickUpdate = true
