@@ -32,6 +32,7 @@ function getDimensionProductionPerSecond(tier) {
 	if (tier == 1 && (inNC(7) || player.currentChallenge == "postcngm3_3" || inQC(4))) ret = ret.add(getDimensionProductionPerSecond(2))
 	let tick = dilates(Decimal.div(1e3,getTickspeed()),"tick")
 	if (player.dilation.active && hasNanoReward("dil_exp")) tick = tick.pow(getNanorewardEff("dil_exp"))
+
 	ret = ret.mul(tick)
 	return ret
 }

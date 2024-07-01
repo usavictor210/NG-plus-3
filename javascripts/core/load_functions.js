@@ -1245,6 +1245,7 @@ function updateVersionsONLOAD(){
 	if (aarMod.ngudpV < 1.12) aarMod.ngudpV = 1.12
 	if (aarMod.nguepV < 1.03) aarMod.nguepV = 1.03
 	doNGM4v0tov2111()
+	ngm4retire = inOnlyNGM(4)
 	doNGSPUpdatingVersion()
 	doInitInfMultStuff()
 	dov12tov122()

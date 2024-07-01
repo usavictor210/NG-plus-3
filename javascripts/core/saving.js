@@ -424,6 +424,12 @@ function reset_game() {
 
 //Creation + Mods
 function new_game(type) {
+	if (!type && modChosen.ngmm == 4) {
+		closeToolTip()
+		el("welcome").style.display = "flex"
+		el("welcomeMessage").innerHTML = `You can play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a>. We haven't ported this mod yet.`
+		return
+	}
 	changeSaveDesc(savePlacement, true)
 	save_game(true)
 
