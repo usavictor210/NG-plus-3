@@ -8,18 +8,17 @@ el("save").onclick = function () {
 var noSave=false
 function save_game(silent) {
 	if (!game_loaded || noSave || infiniteDetected) return
-	set_save(meta.save.current, player);
 	if (!silent) $.notify("Game saved", "info")
+
+	set_save(meta.save.current, player)
+	autoSaveSeconds=0
 }
 
 function runAutoSave() {
 	if (!aarMod) return
 
 	autoSaveSeconds++
-	if (autoSaveSeconds >= getAutoSaveInterval()) {
-		save_game()
-		autoSaveSeconds=0
-	}
+	if (autoSaveSeconds >= getAutoSaveInterval()) save_game(true)
 }
 
 //Loading
@@ -166,7 +165,8 @@ function changeSaveDesc(i, exit) {
 	}
 }
 
-function reload() {
+function reload(btn) {
+	if (btn && (aarMod.autoSaveInterval < 15 || autoSaveSeconds >= 60) && !confirm("You didn't turn on autosaving or forget to save. Be warned, you might lose progress. Are you sure?")) return
 	load_game(true)
 }
 
