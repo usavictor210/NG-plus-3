@@ -16,7 +16,9 @@ let TABS = {
 	stats_eter: { name: "Eternity", class: "eternitybtn", unl: _ => eternitied(), update: _ => displayEternityStats() },
 
 	opt: { name: "Options", stab: [ "opt_save", "opt_disp", "opt_key", "opt_other", "opt_sec" ] },
-	opt_save: { name: "Saving" },
+	opt_save: { name: "Saving", update() {
+		el("save").innerHTML = noSave ? `(save disabled)` : `<b style='font-size: 20px'>Save</b><br>(Last saved: ${timeDisplayShort(autoSaveSeconds * 10)})`
+	} },
 	opt_disp: { name: "Display" },
 	opt_key: { name: "Hotkeys" },
 	opt_other: { name: "Others" },
