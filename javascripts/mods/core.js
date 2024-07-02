@@ -267,7 +267,14 @@ function modAbbs(mods = mod, short) {
 	if (plus) r += "+" + (plus > 1 ? plus : "")
 
 	if (mods.ngmm) {
-		r += "-"+(mods.ngmm+1)
+		// if we're going to re-add support for ng-5 we need to change this up
+		if (mod.ngmm == 4 && mods.ngmX == 5) {
+			r += "-4R"
+		} else if (mod.ngmm == 3 && mods.ngmX == 4) {
+			r += "-4C"
+		} else {
+			r += "-"+(mods.ngmm+1)
+		}
 		if (mods.ngm) end += ", NG-"
 	} else if (mods.ngm) r += "-"
 
@@ -281,6 +288,8 @@ function modAbbs(mods = mod, short) {
 var ngm4retire = false
 function ngm4retiremsg() {
 	ngm4retire = true
+	// Do not show in respecced version
+	if (aarMod.newGame4MinusRespeccedVersion) return 
 	el("welcome").style.display = "flex"
 	el("welcomeMessage").innerHTML = `New Game Minus 4 is now retiring. Due to inactivity present on the original mod, we are now porting NG-4R into Aarex's Modifications. Don't worry, New Game Minus 4 will be moved into loader's NG-4R server. Thanks for playing!
 	<br><br>
