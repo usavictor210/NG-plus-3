@@ -10,6 +10,7 @@ function save_game(silent) {
 	if (!game_loaded || noSave || infiniteDetected) return
 	if (!silent) $.notify("Game saved", "info")
 
+	el("reload_progress").innerHTML = getHighestResetResource()
 	set_save(meta.save.current, player)
 	autoSaveSeconds=0
 }
@@ -427,7 +428,8 @@ function new_game(type) {
 	if (!type && modChosen.ngmm == 4) {
 		closeToolTip()
 		el("welcome").style.display = "flex"
-		el("welcomeMessage").innerHTML = `You can play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a>. We haven't ported this mod yet.`
+		el("welcomeMessage").innerHTML = `You can play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a> in loader3229's NG+3R site.<br><br>
+		<a href="https://raw.githack.com/loader3229/NG-plus-3/NG-4R-porting/">Check out the current progress of this port here.</a>`
 		return
 	}
 	changeSaveDesc(savePlacement, true)
@@ -605,7 +607,7 @@ function updateNewPlayer(mode, preset) {
 			eternityconfirm: true,
 			commas: "Commas",
 			updateRate: 50,
-			tabAmount: true,
+			tabAmount: 1,
 			animations: {
 				floatingText: true,
 				bigCrunch: true,

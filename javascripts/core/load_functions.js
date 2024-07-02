@@ -1514,8 +1514,7 @@ function onLoad(noOffline) {
 
 	tmp.tickUpdate = true
 	updateCheckBoxes()
-	toggleTabAmount()
-	toggleTabAmount()
+	updateTabAmount()
 	toggleChallengeRetry()
 	toggleChallengeRetry()
 	toggleBulk()
@@ -1568,6 +1567,8 @@ function onLoad(noOffline) {
 
 	if (mod.rs) updateGalaxyControl()
 	poData=meta.save["presetsOrder"+(mod.rs?"_ers":"")]
+
+	el("reload_progress").innerHTML = getHighestResetResource()
 
 	var removeMaxTD=false, removeMaxMD=false
 	if (hasAch("ngpp17")) {

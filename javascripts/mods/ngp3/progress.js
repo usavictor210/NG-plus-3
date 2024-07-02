@@ -274,5 +274,13 @@ function updateNGP3ProgressTab() {
 
 		if (data.badge_id) el("ngp3_progress_"+i+"_next").innerHTML += hasBadge(data.badge_id) ? "<b class='yellow'>Badge unlocked!</b>" : canGetBadge(data.badge_id) ? `Reward: "${BADGE_TITLE[data.badge_id]}" badge` : ""
 	}
+}
 
+//Highest resource
+function getHighestResetResource() {
+	if (ghostified)               return shortenDimensions(ghSave.ghostParticles) + " Spectral Particles"
+	else if (quantumed)           return shortenDimensions(quantumWorth) + " antiquarks"
+	else if (getEternitied() > 0) return shortenDimensions(player.eternityPoints) + " Eternity Points"
+	else if (getInfinitied() > 0) return shortenDimensions(player.infinityPoints) + " Infinity Points"
+	else                          return shortenMoney(player.money) + " antimatter"
 }

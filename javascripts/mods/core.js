@@ -280,7 +280,7 @@ var ngm4retire = false
 function ngm4retiremsg() {
 	ngm4retire = true
 	el("welcome").style.display = "flex"
-	el("welcomeMessage").innerHTML = `New Game Minus 4 is now retiring. Since years of development, we are now porting NG-4R into Aarex's Modifications. Don't worry, New Game Minus 4 will be moved into loader's NG-4R server. Thanks for playing!
+	el("welcomeMessage").innerHTML = `New Game Minus 4 is now retiring. Due to inactivity present on the original mod, we are now porting NG-4R into Aarex's Modifications. Don't worry, New Game Minus 4 will be moved into loader's NG-4R server. Thanks for playing!
 	<br><br>
 	Play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a>`
 }

@@ -305,9 +305,11 @@ function toggleChallengeRetry() {
 	el("retry").textContent = "Automatically retry challenges: O" + (player.options.retryChallenge ? "N" : "FF")
 }
 
-function toggleTabAmount() {
-	player.options.tabAmount = !player.options.tabAmount
-	el("tabAmount").textContent = "Show Antimatter amount in tab title: O" + (player.options.tabAmount ? "N" : "FF")
+function updateTabAmount(update) {
+	if (update) player.options.tabAmount = (player.options.tabAmount + 1) % 3
+	else if (typeof player.options.tabAmount == "boolean") player.options.tabAmount = player.options.tabAmount ? 1 : 0
+
+	el("tabAmount").textContent = "Tab title: " + ["None", "Antimatter", "Highest reset resource"][player.options.tabAmount]
 }
 
 el("news").onclick = function () {
@@ -2201,7 +2203,11 @@ function gameLoop(diff, quick) {
 function updateDisplays() {
 	//Tab Title
 	let abbs = modAbbs(mod, true)
-	el("z").textContent = (abbs.length > 8 ? "" : "AD: ") + abbs + (player.options.tabAmount ? " | " + shortenMoney(player.money) + (player.money.e >= 1e6 ? "" : " antimatter") : "")
+	el("z").textContent = (abbs.length > 8 ? "" : "AD: ") + abbs + (
+		player.options.tabAmount == 2 ? " | " + getHighestResetResource() :
+		player.options.tabAmount == 1 ? " | " + shortenMoney(player.money) + (player.money.e >= 1e6 ? "" : " antimatter") :
+		""
+	)
 
 	//Display
 	chall23PowerUpdating()
