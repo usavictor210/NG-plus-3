@@ -1171,9 +1171,11 @@ function doNGM4v0tov2111(){
 	if (aarMod.newGame4MinusVersion<2.111) aarMod.newGame4MinusVersion=2.111
 }
 
+// currently unused and will use later
 function doNGM4RespecCheck() {
-	if (aarMod.newGame4MinusVerion < 2.2) {
-		console.log("Placeholder")
+	if (aarMod.newGame4MinusRespeccedVersion != undefined) {
+		// re-add respecced variable if somehow not present
+		aarMod.newGame4MinusRespeccedVersion = 3
 	}
 }
 

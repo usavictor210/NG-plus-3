@@ -244,13 +244,15 @@ function buyGalaxyUpgrade(i) {
 	}
 }
 
+// this changes dimension costs when you call it
 function reduceDimCosts(upg) {
 	let div = 1
 	if (hasAch("r21")) div = 10
 	if (hasGSacUpg(11)) div = galMults.u11()
 	for (var d = 1; d < 9; d++) {
 		var name = dimTiers[d]
-		if (inNGM(4) && !upg) {
+		// If you're in NG-4R do not increase the costs
+		if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion && !upg) {
 			player[name + "Cost"] = player[name + "Cost"].pow(1.25).mul(10)
 			player.costMultipliers[d - 1] = player.costMultipliers[d - 1].pow(1.25)
 		}

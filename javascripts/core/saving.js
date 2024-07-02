@@ -424,15 +424,11 @@ function reset_game() {
 
 //Creation + Mods
 function new_game(type) {
-	//if (!type && modChosen.ngmm == 4) {
-	//	closeToolTip()
-	//	el("welcome").style.display = "flex"
-	//	el("welcomeMessage").innerHTML = `You can play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a>. We haven't ported this mod yet.`
-	//	return
-	//}
+	// Update basic description of save
 	changeSaveDesc(savePlacement, true)
 	save_game(true)
 
+	// bring save to end of list
 	meta.save.current = 1
 	while (meta.save.saveOrder.includes(meta.save.current)) meta.save.current++
 	meta.save.saveOrder.push(meta.save.current)
@@ -462,7 +458,8 @@ function adjustOfflineProgress() {
 	el("offlineInterval").textContent = "Offline progress: " + (aarMod.offline ? (aarMod.offline * 100) + " ticks" : "OFF")
 };
 
-//Player Creation
+// Player Creation
+// this is where mod selections are finalized
 var player
 function updateNewPlayer(mode, preset) {
 	if (mode == "quick") mod = modPresets[preset]
@@ -471,7 +468,7 @@ function updateNewPlayer(mode, preset) {
 	else if (mode != "reset") mod = {}
 
 	player = {
-		money: E(mod.ngmm>2?200:mod.ngp>1?20:10),
+		money: E(mod.ngmm > 2 && mod.ngmm != 4 ? 200 : mod.ngp>1 ? 20 : 10),
 		tickSpeedCost: E(1000),
 		tickspeed: E(mod.ngp>1?500:1000),
 		sacrificed: E(0),
@@ -618,8 +615,11 @@ function updateNewPlayer(mode, preset) {
 			eternityChallRecords: {}
 		}
 	}
+
+	// assign quick alias
 	aarMod = player.aarexModifications
 
+	// Set versions and finalize the player
 	if (mod.ngpp) doNGPlusTwoNewPlayer()
 	if (mod.ngpp > 1) doNGPlusThreeNewPlayer()
 
@@ -993,6 +993,10 @@ function doNGUDSemiprimePlayer() {
 
 function doNGMinusFourPlayer(){
 	aarMod.newGame4MinusVersion = 2.111
+	if (mod.ngmm == 4) {
+		aarMod.newGame4MinusRespeccedVersion = 3
+		
+	}
 	player.tdBoosts = 0
 	player.challengeTimes.push(600 * 60 * 24 * 31)
 	player.autobuyers.push(15)

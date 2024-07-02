@@ -28,7 +28,7 @@ function getDimensionProductionPerSecond(tier) {
 	if (inNC(2) || player.currentChallenge == "postc1") ret = ret.mul(player.chall2Pow)
 	if (tier == 1 && (inNC(3) || player.currentChallenge == "postc1")) ret = ret.mul(player.chall3Pow)
 	if (inNGM(3)) ret = ret.div(10)
-	if (inNGM(4)) ret = ret.div(100)
+	if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) ret = ret.div(100)
 	if (tier == 1 && (inNC(7) || player.currentChallenge == "postcngm3_3" || inQC(4))) ret = ret.add(getDimensionProductionPerSecond(2))
 	let tick = dilates(Decimal.div(1e3,getTickspeed()),"tick")
 	if (player.dilation.active && hasNanoReward("dil_exp")) tick = tick.pow(getNanorewardEff("dil_exp"))
