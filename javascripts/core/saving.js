@@ -246,7 +246,7 @@ function import_save(i = savePlacement) {
 	onImport = false
 
 	// current reality version update number is 19
-	if (save_data.version > 12.2 && save_data.split("AntimatterDimensions")[1] && save_data.split("EndOf")[1]) {
+	if (save_data?.version > 12.2 && save_data.split("AntimatterDimensions")[1] && save_data.split("EndOf")[1]) {
 		$.notify("The Reality Update is incompatible with Aarex's mods.", "error")
 		return
 	}
@@ -470,7 +470,7 @@ function updateNewPlayer(mode, preset) {
 	player = {
 		money: E(mod.ngmm > 2 && mod.ngmm != 4 ? 200 : mod.ngp>1 ? 20 : 10),
 		tickSpeedCost: E(1000),
-		tickspeed: E(mod.ngp>1?500:1000),
+		tickspeed: E(mod.ngp>1?500:mod.ngmm == 4?1e4:1000),
 		sacrificed: E(0),
 		achievements: [],
 		infinityUpgrades: [],
@@ -651,6 +651,7 @@ function updateNewPlayer(mode, preset) {
 	}
 	if (mod.ngmm >= 2) doNGMinusThreeNewPlayer()
 	if (mod.ngmm >= 3) doNGMinusFourPlayer()
+	if (mod.ngmm == 4) doNGMinusFourRespeccedPlayer()
 }
 
 function doNGPlusOneNewPlayer(){ // eventually change to have multiple versions/variations of NG+
@@ -995,13 +996,24 @@ function doNGMinusFourPlayer(){
 	aarMod.newGame4MinusVersion = 2.111
 	if (mod.ngmm == 4) {
 		aarMod.newGame4MinusRespeccedVersion = 3
-		
 	}
 	player.tdBoosts = 0
 	player.challengeTimes.push(600 * 60 * 24 * 31)
 	player.autobuyers.push(15)
 	resetNGM4TDs()
 	reduceDimCosts()
+}
+
+function doNGMinusFourRespeccedPlayer(){
+	aarMod.newGame4MinusRespeccedVersion = 3
+	player.timeless={
+        active: false,
+        shards: new Decimal(0),
+        points: new Decimal(0),
+        upgrades: [],
+        rebuyables: {
+        }
+	}
 }
 
 function doNGMultipliedPlayer(){
