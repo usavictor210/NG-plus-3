@@ -10,6 +10,7 @@ function save_game(silent) {
 	if (!game_loaded || noSave || infiniteDetected) return
 	if (!silent) $.notify("Game saved", "info")
 
+	el("reload_progress").innerHTML = getHighestResetResource()
 	set_save(meta.save.current, player)
 	autoSaveSeconds=0
 }
@@ -602,7 +603,7 @@ function updateNewPlayer(mode, preset) {
 			eternityconfirm: true,
 			commas: "Commas",
 			updateRate: 50,
-			tabAmount: true,
+			tabAmount: 1,
 			animations: {
 				floatingText: true,
 				bigCrunch: true,
