@@ -1341,7 +1341,7 @@ function setDisplaysStuff1(){
 	}
 	var resetSkipCosts=[20,40,80]
 	for (u=1;u<4;u++) el("infi4"+u).innerHTML="You start with the "+(u+4)+"th dimension unlocked"+(!inNGM(3)?"":" and "+(u*4)+" Tickspeed Boosts")+"<br>Cost: "+resetSkipCosts[u-1]+" IP"
-	el("infi44").innerHTML="You start with the 8th dimension unlocked"+(!inNGM(3)?"":", 16 Tickspeed Boosts")+", and a Galaxy<br>Cost: 500 IP"
+	el("infi44").innerHTML="You start with the 8th Antimatter Dimension unlocked"+(!inNGM(3)?"":", 16 Tickspeed Boosts")+", and a Galaxy<br>Cost: 500 IP"
 }
 
 function setChallengeDisplay(){

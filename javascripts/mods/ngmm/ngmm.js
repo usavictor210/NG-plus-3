@@ -305,7 +305,7 @@ function updateGalaxyUpgradesDisplay(){
 
 function galacticUpgradeButtonTypeDisplay() {
 	let t = el("galUpgs")
-	for (let i = 1; i <= 5; i++) { //5 rows
+	for (let i = 1; i <= 5; i++) { // 5 rows
 		var r = t.rows[i-1]
 		if (!galConditions["r"+i] || galConditions["r"+i]()) {
 			r.style.display = ""
