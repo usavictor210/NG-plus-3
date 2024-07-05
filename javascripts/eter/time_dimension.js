@@ -81,7 +81,9 @@ function getTimeDimensionProduction(tier) {
 	ret = ret.mul(getTimeDimensionPower(tier))
 	if (inNGM(4)&&(inNC(2)||player.currentChallenge=="postc1")) ret = ret.mul(player.chall2Pow)
 	if (player.currentEternityChall == "eterc7") ret = dilates(ret.dividedBy(player.tickspeed.dividedBy(1000)))
-	if (inNGM(4)&&(tier>1||!hasAch("r12"))) ret = ret.div(100)
+
+	// 2nd dimension achievement does not have an effect in NG-4R
+	if (!aarMod.newGame4MinusRespeccedVersion || inNGM(4)&&(tier>1||!hasAch("r12"))) ret = ret.div(100)
 	if (player.currentEternityChall == "eterc1") return E(0)
 	return ret
 }
@@ -125,6 +127,7 @@ function getTimeDimensionDescription(tier) {
 }
 
 function updateTimeDimensions() {
+	let maxCost = getMaxTDCost();
 	updateTimeShards()
 	for (let tier = 1; tier <= 8; ++tier) {
 		if (isTDUnlocked(tier)) {
@@ -136,6 +139,9 @@ function updateTimeDimensions() {
 		else el("timeMax" + tier).className = "unavailablebtn"
 		} else el("timeRow" + tier).style.display = "none"
 	}
+	el("itmult").textContent = hasAch('r105') ? 'Infinite Time: ' + shorten(tmp.inf_time) + 'x to all Time Dimensions' : ''
+	if (aarMod.newGame4MinusRespeccedVersion && getNGM4RTBPower() > 0) el("itmult").textContent += ', Tickspeed Boosts are reducing Time Shard requirement by ' + shortenMoney(getNGM4RTBPower()) + ' Tickspeed Upgrades'
+	
 	if (inNGM(4)) {
 		var isShift = player.tdBoosts < (inNC(4) ? 5 : 7)
 		var req = getTDBoostReq()
@@ -143,16 +149,33 @@ function updateTimeDimensions() {
 		el("tdResetLabel").textContent = "Time Dimension "+(isShift ? "Shift" : "Boost") + " (" + getFullExpansion(player.tdBoosts) + "): requires " + getFullExpansion(req.amount) + " " + dimNames[req.tier] + " Time Dimensions"
 		el("tdResetBtn").textContent = "Reset prior features for a " + (isShift ? "new Dimension" : "Boost")
 		el("tdResetBtn").className = (player["timeDimension" + req.tier].bought < req.amount) ? "unavailablebtn" : "storebtn"
-	} else el("tdReset").style.display = "none"
+
+		// Whether this should be important to show in regular NG-4 might not matter compared to NG-4R
+		// as the purchase limit is pushed much earlier in NG-4R
+		if (aarMod.newGame4MinusRespeccedVersion) {
+			el("tdCostLimit").style.display = "inline-block"
+			el("tdCostLimit").textContent = "You can spend up to " + shortenDimensions(maxCost) + " antimatter on Time Dimensions (for each tier)."
+		}
+
+	} else {
+		el("tdReset").style.display = "none"
+		el("tdCostLimit").style.display = "none"
+	}
 }
 
 function updateTimeShards() {
 	let p = getTimeDimensionProduction(1)
-	el("itmult").textContent = mod.ngp3 && hasAch('r105') ? 'Your "Infinite Time" multiplier is currently ' + shorten(tmp.inf_time) + 'x.':''
-	el("timeShardAmount").textContent = shortenMoney(player.timeShards)
-	el("tickThreshold").textContent = shortenMoney(player.tickThreshold)
+
+	// For NG-x mods, displaying decimals is especially important to show how precise the numbers are
+	el("timeShardAmount").textContent = formatQuick(player.timeShards, 2, inNGM(3) ? Math.min(Math.max(3 - player.timeShards.e, 0), 3) : 2)
+	el("tickThreshold").textContent = formatQuick(player.tickThreshold, 2, inNGM(3) ? Math.min(Math.max(3 - player.tickThreshold.e, 0), 3) : 2)
+	
+	//if (player.currentEternityChall == "eterc7") el("timeShardsPerSec").textContent = "You are getting " + shortenDimensions(p) + " Eighth Infinity Dimensions per second."
+	//else el("timeShardsPerSec").textContent = "You are getting " + formatQuick(p, 2, inNGM(4) ? Math.min(Math.max(3 - p.e, 1), 3) : 0) + " Time Shards per second."
+
 	if (player.currentEternityChall == "eterc7") el("timeShardsPerSec").textContent = "You are getting " + shortenDimensions(p) + " Eighth Infinity Dimensions per second."
-	else el("timeShardsPerSec").textContent = "You are getting " + formatQuick(p, 2, inNGM(4) ? Math.min(Math.max(3 - p.e, 1), 3) : 0) + " Time Shards per second."
+	else if (aarMod.newGame4MinusRespeccedVersion) el("timeShardsPerSec").textContent = "You have " + shortenMoney(player.timeShards) + " undilated Time Shards. You are getting " + (inNGM(5) && p < 100 ? shortenND(p) : shortenDimensions(p)) + " undilated Time Shards per " + (tmp.PDunl ? "real-life " : "") + "second."
+	else el("timeShardsPerSec").textContent = "You are getting " + (inNGM(5) && p < 100 ? shortenND(p) : shortenDimensions(p)) + " Time Shards per " + (tmp.PDunl ? "real-life " : "") + "second."
 }
 
 // 0:Original 1:NG-4 2:NG-4R
@@ -166,7 +189,7 @@ function getTimeDimCostMult(tier, ngm4) {
 }
 
 function getTimeDimStartCost(tier, ngm4) {
-	if(ngm4)return timeDimCostMults[aarMod.newGame4MinusRespeccedVersion ? 2 : 1][tier]
+	if (ngm4) return timeDimStartCosts[aarMod.newGame4MinusRespeccedVersion ? 2 : 1][tier]
 	return timeDimStartCosts[0][tier]
 }
 
@@ -199,13 +222,15 @@ function timeDimCost(tier, bought, ngm4) {
 function buyTimeDimension(tier, ngm4) {
 	var dim = player["timeDimension"+tier]
 	if (getAmount(1) < 1) {
-		alert("You need to buy a first Antimatter Dimension to be able to buy Time Dimensions.")
+		// I should just make a message system just like the modal message system
+		el("welcome").style.display = "flex"
+		el("welcomeMessage").innerHTML = "You need to buy a first Antimatter Dimension to be able to buy Time Dimensions."
 		return
 	}
 	if (!isTDUnlocked(tier)) return false
 	if (getOrSubResourceTD(tier, ngm4).lt(dim.cost)) return false
 
-	getOrSubResourceTD(tier, ngm4, dim.cost)
+	getOrSubResourceTD(tier, dim.cost)
 	dim.amount = dim.amount.add(1);
 	dim.bought += 1
 	if (inNGM(4)) {
@@ -224,12 +249,27 @@ function resetTimeDimensions() {
 	}
 }
 
+function getMaxTDCost() {
+	if (aarMod.newGame4MinusRespeccedVersion && !(player.currentChallenge == "postcngm3_1")){
+		if (player.currentChallenge == "postcngm3_1") return E(1e60)
+		let y=50+player.tickspeedBoosts*10+player.challenges.length*5+(hasAch("r36")?200:0);
+		if(player.break)y=200+(hasAch("r36")?200:0)+player.tickspeedBoosts*10+(Math.max(player.challenges.length,16)-16)*100;
+		return Decimal.pow(10, y)
+	}
+	if (!hasAch("r36")) return Number.MAX_VALUE
+	let x = Decimal.pow(Number.MAX_VALUE, 10)
+
+	if (player.currentChallenge == "postcngm3_1") x = E(1e60)
+	else if (player.currentChallenge != "") x = Decimal.pow(10, 1000)
+
+	if (player.infinityUpgrades.includes("postinfi53")) x = x.pow(1 + tmp.cp / 3)
+
+	return x
+}
+
 function getOrSubResourceTD(tier, sub) {
 	if (sub == undefined) {
-		var currmax = player.currentChallenge == "" ? E(Number.MAX_VALUE).pow(10) : pow10(1000)
-		if (player.currentChallenge == "postcngm3_1") currmax = E(1e60)
-		var maxval = hasAch("r36") ? currmax : E(Number.MAX_VALUE)
-		if (inNGM(4)) return player.money.min(maxval)
+		if (inNGM(4)) return player.money.min(getMaxTDCost())
 		return player.eternityPoints
 	} else {
 		if (inNGM(4)) player.money = player.money.sub(player.money.min(sub))

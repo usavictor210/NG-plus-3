@@ -622,4 +622,5 @@ function onLoad() {
 	setupDisplays()
 	updateDisplays()
 	openPage(lastUnl)
+	
 }

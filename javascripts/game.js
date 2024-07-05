@@ -138,6 +138,7 @@ function setupHTMLAndData() {
 	}
 	setupResetData()
 
+	setupSimulateParts()
 	setupDimensionHTML()
 	setupAnimationBtns()
 	setupAutobuyerToggles()
@@ -199,17 +200,19 @@ function updateMoney() {
 	if (inNC(12) || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") element2.textContent = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter."; //TODO
 
 	var element3 = el("chall13Mult");
-	if (isADSCRunning()) {
+	if(aarMod.newGame4MinusRespeccedVersion && !inNC(13)){
+		element3.innerHTML = "Dilation Effect: exponent ^"+dilationPowerStrength().toFixed(4);
+	} else if (isADSCRunning()) {
 		var mult = getProductBoughtMult()
-		element3.innerHTML = formatValue(player.options.notation, productAllTotalBought(), 2, 1) + 'x multiplier on all dimensions (product of '+(inNGM(3)&&(inNC(13)||player.currentChallenge=="postc1")?"1+log10(amount)":"bought")+(mult==1?"":"*"+shorten(mult))+').'
+		element3.innerHTML = formatValue(player.options.notation, productAllTotalBought(), 2, 1) + 'x multiplier on all Dimensions (product of '+(inNGM(3)&&!aarMod.newGame4MinusRespeccedVersion&&(inNC(13)||player.currentChallenge=="postc1")?"1+log10(amount)":"bought")+(mult==1?"":"*"+shorten(mult))+').'
 	}
-	if (inNC(14) && inNGM(4)) el("c14Resets").textContent = "You have "+getFullExpansion(10-getTotalResets())+" resets left."
+	if (inNC(14) && inNGM(4)) el("c14Resets").textContent = "You have " + getFullExpansion(10 - getTotalResets()) + " resets of any tier left."
 }
 
 function updateCoinPerSec() {
 	var element = el("coinsPerSec");
 	var ret = getDimensionProductionPerSecond(1)
-	element.textContent = 'You are getting ' + shortenND(ret) + ' antimatter per second.'
+	element.textContent = 'You are getting ' + formatQuick(ret, 2, inNGM(3) ? Math.min(Math.max(3 - ret.e, 0), 3) : 2) + ' antimatter per second.'
 }
 
 var clickedAntimatter
@@ -2286,7 +2289,65 @@ function simulateTime(seconds, amt, id) {
 	el("offlinetext").innerHTML = popupString
 }
 
-let simulateParts = {
+let nonNGP3_simulateParts = {
+	am: {
+		amt: _ => player.money,
+		name: "Antimatter",
+		color: "red"
+	},
+	inf: {
+		amt: _ => player.infinities,
+		name: "Infinities",
+		color: "#d90"
+	},
+	ip: {
+		amt: _ => player.infinityPower,
+		name: "Infinity Power",
+		color: "#d90"
+	},
+	rep: {
+		amt: _ => player.replicanti.amount,
+		name: "Replicantis",
+		color: "#d90"
+	},
+	eter: {
+		amt: _ => player.eternities,
+		name: "Eternities",
+		color: "#b7f"
+	},
+	ts: {
+		amt: _ => player.timeShards,
+		name: "Time Shards",
+		color: "#b7f"
+	},
+	tt: {
+		amt: _ => player.timestudy.theorem,
+		name: "Time Theorems",
+		color: "#b7f"
+	},
+	dt: {
+		amt: _ => player.dilation.dilatedTime,
+		name: "Dilated Time",
+		color: "#7b7"
+	},
+	bh: {
+		amt: _ => player.blackhole?.power,
+		name: "Black Hole Power",
+		color: "black"
+	},
+	bhh: {
+		amt: _ => player.blackhole?.hunger,
+		name: "Black Hole Hunger",
+		color: "black"
+	},
+	ma: {
+		amt: _ => player.meta?.antimatter,
+		name: "Meta-Antimatter",
+		color: "#0bf"
+	}
+}
+
+let NGP3_simulateParts = {
 	am: {
 		amt: _ => player.money,
 		name: "Antimatter",
@@ -2373,6 +2434,17 @@ let simulateParts = {
 		color: "#f70"
 	}
 }
+
+function setupSimulateParts() {
+	simulateParts = getSimulateParts()
+}
+
+function getSimulateParts() {
+	if (mod.ngp3) return NGP3_simulateParts
+	else return nonNGP3_simulateParts
+}
+
+var simulateParts = getSimulateParts();
 
 function recordSimulationAmount() {
 	let ret = {}

@@ -47,8 +47,7 @@ function setInitialMoney() {
 
 function setInitialDimensionPower() {
 	var tickspeedPower = player.totalTickGained
-	player.tickspeed = E_pow(tmp.gal.ts, tickspeedPower).mul(mod.ngep ? 500 : 1e3)
-
+	player.tickspeed = E_pow(tmp.gal.ts, tickspeedPower).mul(mod.ngep ? 500 : aarMod.newGame4MinusRespeccedVersion ? 1e4 : 1e3)
 	var ic3Power = tickspeedPower * getIC3EffFromFreeUpgs()
 	if (inNGM(3) && player.currentChallenge != "postc5") ic3Power += getTickspeedBoostPower()
 	if ((inNC(15) || player.currentChallenge == "postc1" || player.currentChallenge == "postcngm3_3") && inNGM(4)) ic3Power -= (player.resets + player.tdBoosts) * 10
@@ -93,7 +92,7 @@ function getShiftRequirement(bulk) {
 	var resetNum = player.resets + bulk
 	var maxTier = inNC(4) ? 6 : 8
 	tier = Math.min(resetNum + 4, maxTier)
-	if (inNGM(4)) amount = 10
+	if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) amount = 10
 	if (tier == maxTier) amount += Math.max(resetNum + (inOnlyNGM(2) && hasGSacUpg(21) ? 2 : 4) - maxTier, 0) * mult
 	var costStart = getSupersonicStart()
 	if (player.currentEternityChall == "eterc5") {
@@ -114,7 +113,7 @@ function getShiftRequirement(bulk) {
 
 function getDimboostCostIncrease () {
 	let ret = 15
-	if (inNGM(4)) ret += 5
+	if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) ret += 5
 	if (player.currentChallenge=="postcngmm_1") return ret
 	if (inNGM(2)) {
 		if (hasGSacUpg(21)) ret -= 10

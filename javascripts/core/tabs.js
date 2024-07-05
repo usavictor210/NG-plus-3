@@ -49,7 +49,7 @@ let TABS = {
 	} },
 	rep: { name: "Replicanti", update: _ => replicantiDisplay() },
 
-	eter: { name: "Eternity", class: "eternitybtn", stab: [ "ts", "ts_respec", "ts_master", "upg_eter", "dil", "bh", "mil_eter" ], unl: _ => eternitied(), update() {
+	eter: { name: "Eternity", class: "eternitybtn", stab: [ "ts", "ts_respec", "ts_master", "upg_eter", "dil", "bh", "mil_eter" ], unl: _ => meetEternityTabRequirement(), update() {
 		if (el("TTbuttons").style.display !== "none") updateTheoremButtons()
 	} },
 	ts: { name: "Time Studies", unl: _ => !mod.rs, update: _ => mainTimeStudyDisplay() },

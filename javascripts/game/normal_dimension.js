@@ -27,8 +27,11 @@ function getDimensionProductionPerSecond(tier) {
 
 	if (inNC(2) || player.currentChallenge == "postc1") ret = ret.mul(player.chall2Pow)
 	if (tier == 1 && (inNC(3) || player.currentChallenge == "postc1")) ret = ret.mul(player.chall3Pow)
-	if (inNGM(3)) ret = ret.div(10)
+
+	// this should be the equivalent of multiplying by 100 in NG-4R code
+	if (inNGM(3) && !aarMod.newGame4MinusRespeccedVersion) ret = ret.div(10)
 	if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) ret = ret.div(100)
+
 	if (tier == 1 && (inNC(7) || player.currentChallenge == "postcngm3_3" || inQC(4))) ret = ret.add(getDimensionProductionPerSecond(2))
 	let tick = dilates(Decimal.div(1e3,getTickspeed()),"tick")
 	if (player.dilation.active && hasNanoReward("dil_exp")) tick = tick.pow(getNanorewardEff("dil_exp"))
@@ -248,7 +251,7 @@ function getDimensionCostMultiplier(tier) {
 function getDimensionCostMultiplierIncrease() {
 	if (inQC(7)) return Number.MAX_VALUE
 	let ret = player.dimensionMultDecrease;
-	if (inNGM(4)) ret = Math.pow(ret, 1.25)
+	if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) ret = Math.pow(ret, 1.25)
 	if (player.currentChallenge === 'postcngmm_2') {
 		exp = inNGM(4) ? .9 : .5
 		ret = Math.pow(ret, exp)

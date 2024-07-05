@@ -210,7 +210,7 @@ function welcomeMods(mods) {
 	let frag = modFragments(mods)
 	let type = []
 
-	if (frag.includes("-4R")) type.push("-4R")
+	if (frag.includes("-5")) type.push("-4R")
 	else for (var i = 1; i <= 4; i++) if (frag.includes("-"+i)) type.push("-"+i)
 	if (frag.includes("ER")) type.push("ER")
 
@@ -267,11 +267,11 @@ function modAbbs(mods = mod, short) {
 	if (plus) r += "+" + (plus > 1 ? plus : "")
 
 	if (mods.ngmm) {
-		// if we're going to re-add support for ng-5 we need to change this up
+		// NG-x levels will be internally corrected later
 		if (mod.ngmm == 4 && mods.ngmX == 5) {
-			r += "-4R"
+			r += short ? "-4R" : "-4 Respecced"
 		} else if (mod.ngmm == 3 && mods.ngmX == 4) {
-			r += "-4C"
+			r += short ? "-4C" : "-4 Classic"
 		} else {
 			r += "-"+(mods.ngmm+1)
 		}

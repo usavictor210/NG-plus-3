@@ -3,8 +3,10 @@ let RESETS = {
 		//lowest: Dimension Boosts
 		startingAM() {
 			let x = 10
-			if (player.challenges.includes("challenge1")) x = 100
+			if (player.challenges.includes("challenge1")) x = 100 // To infinity; after first crunch
 			if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) x = 200 // this will be obsoleted following new versions of NG-4R
+
+			// The rest are from succeeding speedrun achievements
 			if (hasAch("r37")) x = 1000
 			if (hasAch("r54")) x = 2e5
 			if (hasAch("r55")) x = 1e10
@@ -39,6 +41,7 @@ let RESETS = {
 		doReset(order) {
 			let resetDims = order != "db" && order != "gal" || !postBoostMilestone()
 			if (resetDims) {
+				// reset a bunch of resources
 				this.startingAM()
 				this.startingDims()
 				player.sacrificed = E(0)
@@ -46,6 +49,9 @@ let RESETS = {
 				if (inNGM(2)) reduceDimCosts()
 			}
 			this.startingTickspeed()
+
+			// this function ends up setting tickspeed right after it is set
+			// ...it is a little odd but applies more appropriate calculations
 			setInitialDimensionPower()
 			player.chall3Pow = E(0.01)
 			player.matter = E(0)
@@ -508,7 +514,9 @@ function setupResetData() {
 
 function doReset(order, auto) {
 	let start = RESET_INDEX[order]
-	for (var layer = start; layer >= 0; layer--) RESETS[RESET_ORDER[layer]].doReset(order, auto)
+	for (var layer = start; layer >= 0; layer--) {
+		RESETS[RESET_ORDER[layer]].doReset(order, auto)
+	}
 }
 
 //OLD CODE
@@ -628,3 +636,10 @@ function updateResetTierButtons() {
 
 const infinitied = x => player.infinitied > 0 || eternitied()
 const eternitied = x => getEternitied() > 0 || quantumed
+
+// NG-4R has a special case for unlocking Eternity, which is much earlier in the mod
+function meetEternityTabRequirement() {
+	if (inNGM(4) && aarMod.newGame4MinusRespeccedVersion) {
+		return hasAch("r51")
+	} else return eternitied()
+}

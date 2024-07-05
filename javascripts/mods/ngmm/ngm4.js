@@ -23,12 +23,14 @@ function resetNGM4TDs() {
 	completelyResetTimeDimensions()
 	for (var d = 1; d <= 8; d++) {
 		var dim = player["timeDimension" + d]
-		dim.cost = E(getTimeDimStartCost(d))
+		dim.cost = E(getTimeDimStartCost(d, true))
 		dim.power = E(power).pow((player.tdBoosts - d + 1) / 2).max(1)
 	}
+
 	player.timeShards = E(0)
 	player.totalTickGained = 0
 	player.tickThreshold = E(0.01)
+	el("totaltickgained").textContent = "You've gained " + getFullExpansion(player.totalTickGained) + " tickspeed upgrades."
 }
 
 function doNGM4TDMultiplier(tier, ret){
@@ -77,4 +79,32 @@ function cantReset() {
 function maxHighestTD() {
 	aarMod.maxHighestTD=!aarMod.maxHighestTD
 	el("maxHighestTD").textContent = "Buy Max the highest tier of Time Dimensions: O"+(aarMod.maxHighestTD?"N":"FF")
+}
+
+// Respec
+function inNGM4Respec() {
+	return aarMod.newGame4MinusRespeccedVersion != undefined
+}
+
+function getNGM4RTBPower(){
+	if (inNC(16) && aarMod.newGame4MinusRespeccedVersion)return 0;
+	return Math.pow(player.tickspeedBoosts,0.9)*100;
+}
+
+function getNGM4RTBScaling1(){
+	if(player.currentChallenge === "postcngm3_1")return 0;
+	let ret=20;
+	if(player.challenges.includes("postcngm3_1"))ret = ret + 10;
+	return ret;
+}
+
+function getNGM4RTBScaling2(){
+	let ret=50;
+	if(player.challenges.includes("postc7"))ret = ret + 10;
+	return ret;
+}
+
+function getNGM4RTBScaling3(){
+	let ret=100;
+	return ret;
 }
