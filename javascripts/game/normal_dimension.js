@@ -511,7 +511,7 @@ function getDimensionFinalMultiplier(tier) {
 	if (tier == 8 && hasAch("ng3p27")) mult = mult.mul(tmp.qu.intergal.eff)
 
 	if (mult.gt(10)) mult = dilates(mult.max(1), 2)
-	if (aarMod.newGame4MinusRespeccedVersion) mult = softcap(mult, "nd_ngm4r")
+	//if (aarMod.newGame4MinusRespeccedVersion) mult = softcap(mult, "nd_ngm4r") // NOT YET IMPLEMENTED
 	mult = mult.mul(getAfterDefaultDilationLayerAchBonus(tier))
 	if (player.currentChallenge == "postc4" && inNGM(3)) mult = mult.sqrt()
 
