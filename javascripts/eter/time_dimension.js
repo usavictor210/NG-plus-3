@@ -83,7 +83,7 @@ function getTimeDimensionProduction(tier) {
 	if (player.currentEternityChall == "eterc7") ret = dilates(ret.dividedBy(player.tickspeed.dividedBy(1000)))
 
 	// 2nd dimension achievement does not have an effect in NG-4R
-	if (!aarMod.newGame4MinusRespeccedVersion || inNGM(4)&&(tier>1||!hasAch("r12"))) ret = ret.div(100)
+	if (!inNGM4Respec() || inNGM(4)&&(tier>1||!hasAch("r12"))) ret = ret.div(100)
 	if (player.currentEternityChall == "eterc1") return E(0)
 	return ret
 }
@@ -196,7 +196,7 @@ function getTimeDimStartCost(tier, ngm4) {
 function timeDimCost(tier, bought, ngm4) {
 	if(ngm4){
 		var cost = E_pow(getTimeDimCostMult(tier, ngm4), bought).mul(getTimeDimStartCost(tier, ngm4))
-		if(!aarMod.newGame4MinusRespeccedVersion){
+		if(!inNGM4Respec()){
 			return cost;
 		}
 		if (cost.gte(Number.MAX_VALUE)) cost = E_pow(getTimeDimCostMult(tier, ngm4)*1.5, bought).mul(getTimeDimStartCost(tier, ngm4))
@@ -346,7 +346,7 @@ function nonERFreeTickUpdating(){
 	let easier = inOnlyNGM(2)
 	if (easier) {
 		threshold = hasTimeStudy(171) ? 1.1 : 1.15
-		if (inNGM(3) && !aarMod.newGame4MinusRespeccedVersion) threshold = hasTimeStudy(171) ? 1.03 : 1.05
+		if (inNGM(3) && !inNGM4Respec()) threshold = hasTimeStudy(171) ? 1.03 : 1.05
 	} else if (hasTimeStudy(171)) {
 		threshold = 1.25
 		if (mod.ngmu) threshold -= 0.08

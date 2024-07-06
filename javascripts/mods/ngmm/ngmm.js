@@ -207,7 +207,7 @@ let galCosts = {
 	"43ngm4": 1e28,
 	"44ngm4": 1e31,
 	"45ngm4": 1e34,
-	"46ngm4": 1e40 
+	"46ngm4": 1e40
 }
 
 function getGalaxyUpgradeCost(i){
@@ -252,7 +252,7 @@ function reduceDimCosts(upg) {
 	for (var d = 1; d < 9; d++) {
 		var name = dimTiers[d]
 		// If you're in NG-4R do not increase the costs
-		if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion && !upg) {
+		if (inNGM(4) && !inNGM4Respec() && !upg) {
 			player[name + "Cost"] = player[name + "Cost"].pow(1.25).mul(10)
 			player.costMultipliers[d - 1] = player.costMultipliers[d - 1].pow(1.25)
 		}
@@ -263,7 +263,7 @@ function reduceDimCosts(upg) {
 }
 
 function galacticUpgradeSpanDisplay () {
-	el("galaxyPoints").innerHTML = "You have <span class='GPAmount'>"+shortenDimensions(player.galacticSacrifice.galaxyPoints)+"</span> Galaxy point"+(player.galacticSacrifice.galaxyPoints.eq(1)?".":"s.")
+	el("galaxyPoints").innerHTML = "You have <span class='GPAmount'>"+shortenDimensions(player.galacticSacrifice.galaxyPoints)+"</span> Galaxy Point"+(player.galacticSacrifice.galaxyPoints.eq(1)?".":"s.")
 	el('galcost33').innerHTML = shortenCosts(getGalaxyUpgradeCost(33))
 	if (inNGM(3)) {
 		el('galcost24').textContent = shortenCosts(1e3)
@@ -294,11 +294,11 @@ function galacticUpgradeSpanDisplay () {
 }
 
 function updateGalaxyUpgradesDisplay(){
-	var text41 = inNGM(4) ? "Square g11, and tickspeed boosts multiply GP gain." : "Galaxy points boost per-10 bought Infinity Dimensions multiplier."
+	var text41 = inNGM(4) ? "Square g11, and tickspeed boosts multiply GP gain." : "Galaxy Points boost per-10 bought Infinity Dimensions multiplier."
 	el("galaxy41").innerHTML = text41 + "<br>Cost: <span id='galcost41'></span> GP"
 	var text42 = inNGM(4) ? "Buff g12 and make it post dilation." : "Eternity Points reduce Infinity Dimension cost multipliers."
 	el("galaxy42").innerHTML = text42 + "<br>Cost: <span id='galcost42'></span> GP"
-	var text43 = inNGM(4) ? "Reduce Dimension Boost cost multiplier by 1, and Dimension Boosts multiply GP gain." : "Galaxy points boost Time Dimensions."
+	var text43 = inNGM(4) ? "Reduce Dimension Boost cost multiplier by 1, and Dimension Boosts multiply GP gain." : "Galaxy Points boost Time Dimensions."
 	var curr43 = inNGM(4) ? "" : "<br>Currently: <span id='galspan43'>?</span>x"
 	el("galaxy43").innerHTML = text43 + curr43 + "<br>Cost: <span id='galcost43'></span> GP"
 }
@@ -442,7 +442,7 @@ function renameIC(id) {
 
 //v1.501
 function isADSCRunning() {
-	return inNC(13) || (player.currentChallenge === "postc1" && inNGM(2)) || inNGM(3) && !aarMod.newGame4MinusRespeccedVersion
+	return inNC(13) || (player.currentChallenge === "postc1" && inNGM(2)) || inNGM(3) && !inNGM4Respec()
 }
 
 //v1.6
@@ -625,6 +625,7 @@ let galMults = {
 	}
 }
 
+// Points where galaxy upgrades are unlocked
 let galConditions = {
 	r4: function() {
 		var unl = player.challenges.includes("postcngmm_1") || player.eternities > 0
@@ -640,7 +641,16 @@ let galConditions = {
 		return inNGM(4)
 	},
 	c6: function(){
-		return inNGM(4) && player.totalmoney.log10() >= 666
+		return inNGM(4) && player.totalmoney.log10() >= 666 // this is what was displayed in the super sanic achievement
+	},
+	r6: function() {
+		return aarMod.newGame4MinusRespeccedVersion != undefined
+	},
+	r7: function() {
+		return aarMod.newGame4MinusRespeccedVersion != undefined
+	},
+	r8: function() {
+		return aarMod.newGame4MinusRespeccedVersion != undefined;
 	}
 }
 
@@ -722,13 +732,13 @@ function displayGalSacStats(){
 	if (!gSacrificed()) el("gsStatistics").style.display = "none"
 	else {
 		el("gsStatistics").style.display = ""
-		el("sacrificed").textContent = "You have Galactic Sacrificed "+getFullExpansion(player.galacticSacrifice.times) + " times."
+		el("sacrificed").textContent = "You have Galactic Sacrificed "+getFullExpansion(player.galacticSacrifice.times) + " time" + (player.galacticSacrifice.times.eq(1)?".":"s.")
 		el("thisSacrifice").textContent = "You have spent " + timeDisplay(player.galacticSacrifice.time) + " in this Galactic Sacrifice."
 	}
 }
 
 function galSacDisplay(){
-	if (gSacrificed() && !isEmptiness) el("galaxyPoints2").innerHTML = "You have <span class='GPAmount'>"+shortenDimensions(player.galacticSacrifice.galaxyPoints)+"</span> Galaxy point"+(player.galacticSacrifice.galaxyPoints.eq(1)?".":"s.")
+	if (gSacrificed() && !isEmptiness) el("galaxyPoints2").innerHTML = "You have <span class='GPAmount'>"+shortenDimensions(player.galacticSacrifice.galaxyPoints)+"</span> Galaxy Point"+(player.galacticSacrifice.galaxyPoints.eq(1)?".":"s.")
 	galSacBtnUpdating()
 }
 
@@ -744,7 +754,7 @@ function galSacBtnUpdating(){
 			var currentGPmin = getGSAmount().dividedBy(player.galacticSacrifice.time / 600)
 			if (currentGPmin.gt(GPminpeak)) GPminpeak = currentGPmin
 
-			el("sacrificebtn").innerHTML = (GPminpeak.gt("1e3000") ? "Gain " : "Galactic Sacrifice for ") + shortenDimensions(getGSAmount()) + " Galaxy points." +
+			el("sacrificebtn").innerHTML = (GPminpeak.gt("1e3000") ? "Gain " : "Galactic Sacrifice for ") + shortenDimensions(getGSAmount()) + " Galaxy Points." +
 				(GPminpeak.gt("1e3000") ? "" : "<br>" + shortenMoney(currentGPmin) + " GP/min" + "<br>Peaked at " + shortenMoney(GPminpeak) + " GP/min")
 		} else el("gSacrifice").className = "unavailablebtn"
 	}

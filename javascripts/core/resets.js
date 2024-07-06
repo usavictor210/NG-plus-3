@@ -4,7 +4,7 @@ let RESETS = {
 		startingAM() {
 			let x = 10
 			if (player.challenges.includes("challenge1")) x = 100 // To infinity; after first crunch
-			if (inNGM(4) && !aarMod.newGame4MinusRespeccedVersion) x = 200 // this will be obsoleted following new versions of NG-4R
+			if (inNGM(4) && !inNGM4Respec()) x = 200 // this will be obsoleted following new versions of NG-4R
 
 			// The rest are from succeeding speedrun achievements
 			if (hasAch("r37")) x = 1000

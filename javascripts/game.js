@@ -204,7 +204,7 @@ function updateMoney() {
 		element3.innerHTML = "Dilation Effect: exponent ^"+dilationPowerStrength().toFixed(4);
 	} else if (isADSCRunning()) {
 		var mult = getProductBoughtMult()
-		element3.innerHTML = formatValue(player.options.notation, productAllTotalBought(), 2, 1) + 'x multiplier on all Dimensions (product of '+(inNGM(3)&&!aarMod.newGame4MinusRespeccedVersion&&(inNC(13)||player.currentChallenge=="postc1")?"1+log10(amount)":"bought")+(mult==1?"":"*"+shorten(mult))+').'
+		element3.innerHTML = formatValue(player.options.notation, productAllTotalBought(), 2, 1) + 'x multiplier on all Dimensions (product of '+(inNGM(3)&&!inNGM4Respec()&&(inNC(13)||player.currentChallenge=="postc1")?"1+log10(amount)":"bought")+(mult==1?"":"*"+shorten(mult))+').'
 	}
 	if (inNC(14) && inNGM(4)) el("c14Resets").textContent = "You have " + getFullExpansion(10 - getTotalResets()) + " resets of any tier left."
 }

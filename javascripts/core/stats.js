@@ -35,8 +35,8 @@ function displayEternityStats() {
 	el("stats_dil").style.display = dil ? "" : "none"
 	if (dil) {
 		el("bestmoneydilation").textContent = player.dilation.best ? "Your best antimatter in Dilation is " + shortenMoney(player.dilation.best) + "." : ""
-		el("dilated").textContent = "You have succesfully Dilated "+getFullExpansion(player.dilation.times)+" times."
-		el("exdilated").textContent = exdilated() ? "You have reversed Dilation " + getFullExpansion(player.exdilation.times) + " times." : ""
+		el("dilated").textContent = "You have succesfully Dilated "+getFullExpansion(player.dilation.times) + " time" + (player.dilation.times == 1 ? "." : "s.")
+		el("exdilated").textContent = exdilated() ? "You have reversed Dilation " + getFullExpansion(player.exdilation.times) + " time" + (player.exdilation.times == 1 ? "." : "s.") : ""
 	}
 }
 
@@ -140,7 +140,7 @@ function lifetimeTimeDisplay(years){
 	var age = 77.5 //as of 2022
 	var message = "<br>If you wrote 3 digits of your full antimatter amount every second since you were born as an American,<br> you would "
 	if (years > age) message += "be a ghost on " + ((years - age) / years * 100).toFixed(3) + "% of the session."
-	else message += "waste " + (years / age * 100).toFixed(3) + "% of American's average lifespan. (2022)"
+	else message += "waste " + (years / age * 100).toFixed(3) + "% of an American's average lifespan in 2022."
 	el("infoScale").innerHTML = message
 }
 

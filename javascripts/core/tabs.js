@@ -17,7 +17,7 @@ let TABS = {
 
 	opt: { name: "Options", stab: [ "opt_save", "opt_disp", "opt_key", "opt_other", "opt_sec" ] },
 	opt_save: { name: "Saving", update() {
-		el("save").innerHTML = noSave ? `(save disabled)` : `<b style='font-size: 20px'>Save</b><br>(Last saved: ${timeDisplayShort(autoSaveSeconds * 10)})`
+		el("save").innerHTML = noSave ? `(autosave disabled)` : `<b style='font-size: 20px'>Save</b><br><p style="font-size: 12px;">(Last saved: ${timeDisplayShort(autoSaveSeconds * 10)})</p>`
 	} },
 	opt_disp: { name: "Display" },
 	opt_key: { name: "Hotkeys" },

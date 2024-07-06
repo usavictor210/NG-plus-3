@@ -57,7 +57,7 @@ function getIC3Base() {
 
 	let add = 1.05
 	let mult = 0.005
-	if (inNGM(3) && !aarMod.newGame4MinusRespeccedVersion) mult = 0.002
+	if (inNGM(3) && !inNGM4Respec()) mult = 0.002
 	if (inQC(2)) mult = 0
 
 	let gal = player.galaxies
