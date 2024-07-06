@@ -499,7 +499,7 @@ function getDimensionFinalMultiplier(tier) {
 	if (player.challenges.includes("postc4")) mult = mult.pow(1.05);
 	if (player.challenges.includes("postc8") && tier < 8 && tier > 1) mult = mult.mul(mult18);
 
-	if ((!inNGM4Respec() || inNC(13)) || (inNGM(2) && player.currentChallenge === "postc1")) mult = mult.mul(productAllTotalBought());
+	if (isADSCRunning() || (inNGM(2) && player.currentChallenge === "postc1")) mult = mult.mul(productAllTotalBought());
 	else {
 		if (player.currentChallenge == "postc6") mult = mult.dividedBy(player.matter.max(1))
 		if (player.currentChallenge == "postc8") mult = mult.mul(player.postC8Mult)
