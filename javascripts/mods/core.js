@@ -282,7 +282,9 @@ function ngm4retiremsg() {
 	el("welcome").style.display = "flex"
 	el("welcomeMessage").innerHTML = `New Game Minus 4 is now retiring. Due to inactivity present on the original mod, we are now porting NG-4R into Aarex's Modifications. Don't worry, New Game Minus 4 will be moved into loader's NG-4R server. Thanks for playing!
 	<br><br>
-	Play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a>`
+	Play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a>
+	<br><br>
+	<a href="https://raw.githack.com/loader3229/NG-plus-3/NG-4R-porting/">Check out the current progress of this port here.</a>`
 }
 
 function clickInfo() {
