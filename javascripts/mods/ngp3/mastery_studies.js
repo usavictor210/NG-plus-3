@@ -152,7 +152,7 @@ const MTS = MASTERY_STUDIES = {
 		251: "Dimension Boosts scale Remote Galaxies later.",
 		252: "Tachyonic Galaxies scale Remote Galaxies later.",
 		253: "Replicated Galaxies scale Remote Galaxies later.",
-		261: "Dimension Boosts scale by 1 less.",
+		261: "Dimension Boosts scale 1 Eighth Dimension slower.",
 		262: "Dimension Boosts boost Meta Dimensions.",
 		263: "Meta-Dimension Boosts boost Dilated Time.",
 		264: "Antimatter Galaxies boost Tachyon Particles.",
