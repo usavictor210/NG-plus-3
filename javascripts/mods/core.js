@@ -265,7 +265,8 @@ function modAbbs(mods = mod, short) {
 	if (plus) r += "+" + (plus > 1 ? plus : "")
 
 	if (mods.ngmm) {
-		r += "-"+(mods.ngmm+1)
+		if (mods.ngmm == 3) r += "-4C"
+		else r += "-"+(mods.ngmm+1)
 		if (mods.ngm) end += ", NG-"
 	} else if (mods.ngm) r += "-"
 
