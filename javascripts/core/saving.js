@@ -994,9 +994,13 @@ function doNGUDSemiprimePlayer() {
 }
 
 function doNGMinusFourPlayer(){
-	aarMod.newGame4MinusVersion = 2.111
+	aarMod.newGame4MinusVersion = 2.2
 	if (mod.ngmm == 4) {
 		aarMod.newGame4MinusRespeccedVersion = 3
+	}
+	for (let dim = 1; dim <= 8; dim++) {
+		player["timeDimension"+dim].costAntimatter=timeDimCost(dim, 0, 1);
+		player["timeDimension"+dim].boughtAntimatter=0;
 	}
 	player.tdBoosts = 0
 	player.challengeTimes.push(600 * 60 * 24 * 31)

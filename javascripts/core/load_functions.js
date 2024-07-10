@@ -1171,6 +1171,18 @@ function doNGM4v0tov2111(){
 	if (aarMod.newGame4MinusVersion<2.111) aarMod.newGame4MinusVersion=2.111
 }
 
+function doNGM4v2111tov22(){
+	if (aarMod.newGame4MinusVersion<2.2) {
+		for(let i=1;i<=8;i++){
+			player['timeDimension'+i].costAntimatter=player['timeDimension'+i].cost;
+			player['timeDimension'+i].boughtAntimatter=player['timeDimension'+i].bought;
+			player['timeDimension'+i].cost=timeDimStartCosts[0][i];
+			player['timeDimension'+i].bought=0;
+		}
+	}
+	aarMod.newGame4MinusVersion=2.2
+}
+
 // currently unused and will use later
 function doNGM4RespecCheck() {
 	if (aarMod.newGame4MinusRespeccedVersion != undefined) {
@@ -1251,6 +1263,7 @@ function updateVersionsONLOAD(){
 	doNGSPUpdatingVersion()
 	doInitInfMultStuff()
 	dov12tov122()
+	doNGM4v2111tov22()
 }
 
 function doNGp3Init() {
@@ -1336,8 +1349,8 @@ function setDisplaysStuff1(){
 		el("galaxy11").innerHTML = "Antimatter"+(inNGM(4)?" and Time D":" D")+"imensions are "+(player.infinitied>0||getEternitied()!==0||quantumed?"cheaper based on your Infinities.<br>Currently: <span id='galspan11'></span>x":"99% cheaper.")+"<br>Cost: 1 GP"
 		el("galaxy15").innerHTML = "Antimatter and Time Dimensions produce "+(player.infinitied>0||getEternitied()!==0||quantumed?"faster based on your Infinities.<br>Currently: <span id='galspan15'></span>x":"100x faster")+".<br>Cost: 1 GP"
 	} else {
-		el("infi21").innerHTML = "Increase the multiplier for buying 10 Dimensions<br>"+(mod.ngep?"20x â†’ 24x":"2x â†’ 2.2x")+"<br>Cost: 1 IP"
-		el("infi33").innerHTML = "Increase Dimension Boost multiplier<br>2x â†’ 2.5x<br>Cost: 7 IP"
+		el("infi21").innerHTML = "Increase the multiplier for buying 10 Dimensions<br>"+(mod.ngep?"20x â†24x":"2x â†2.2x")+"<br>Cost: 1 IP"
+		el("infi33").innerHTML = "Increase Dimension Boost multiplier<br>2x â†2.5x<br>Cost: 7 IP"
 	}
 	var resetSkipCosts=[20,40,80]
 	for (u=1;u<4;u++) el("infi4"+u).innerHTML="You start with the "+(u+4)+"th dimension unlocked"+(!inNGM(3)?"":" and "+(u*4)+" Tickspeed Boosts")+"<br>Cost: "+resetSkipCosts[u-1]+" IP"

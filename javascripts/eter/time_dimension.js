@@ -134,7 +134,13 @@ function updateTimeDimensions() {
 			el("timeRow" + tier).style.display = "table-row"
 			el("timeD" + tier).textContent = dimNames[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
 			el("timeAmount" + tier).textContent = getTimeDimensionDescription(tier);
-			el("timeMax" + tier).textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].cost, 2, inNGM(4) ? Math.min(Math.max(3 - player.money.e, 1), 3) : 0) + (inNGM(4) ? "" : " EP")
+			if (inNGM(4)) {
+				el("timeMax" + tier + "Antimatter").style.display = "";
+				el("timeMax" + tier + "Antimatter").textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].costAntimatter, 2, Math.min(Math.max(3 - player.money.e, 1), 3))
+				if (getOrSubResourceTD(tier,1).gte(player["timeDimension" + tier].costAntimatter)) el("timeMax"+tier + "Antimatter").className = "storebtn"
+			else el("timeMax" + tier + "Antimatter").className = "unavailablebtn"
+			}else el("timeMax" + tier + "Antimatter").style.display = "none"
+			el("timeMax" + tier).textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].cost, 2, 0) + (" EP")
 			if (getOrSubResourceTD(tier).gte(player["timeDimension" + tier].cost)) el("timeMax"+tier).className = "storebtn"
 		else el("timeMax" + tier).className = "unavailablebtn"
 		} else el("timeRow" + tier).style.display = "none"
@@ -228,17 +234,18 @@ function buyTimeDimension(tier, ngm4) {
 		return
 	}
 	if (!isTDUnlocked(tier)) return false
-	if (getOrSubResourceTD(tier, ngm4).lt(dim.cost)) return false
+	if (getOrSubResourceTD(tier, ngm4).lt(ngm4 ? dim.costAntimatter : dim.cost)) return false
 
-	getOrSubResourceTD(tier, dim.cost)
+	getOrSubResourceTD(tier, ngm4, ngm4 ? dim.costAntimatter : dim.cost)
 	dim.amount = dim.amount.add(1);
-	dim.bought += 1
+	if(ngm4)dim.boughtAntimatter += 1;else dim.bought += 1;
 	if (inNGM(4)) {
 		if (inNC(2) || player.currentChallenge == "postc1") player.chall2Pow = 0
 	} else {
 		dim.power = dim.power.mul(mod.rs ? 3 : 2)
 	}
 	dim.cost = timeDimCost(tier, dim.bought)
+	if (inNGM(4)) dim.costAntimatter = timeDimCost(tier, dim.boughtAntimatter, 1)
 	return true
 }
 
@@ -267,12 +274,12 @@ function getMaxTDCost() {
 	return x
 }
 
-function getOrSubResourceTD(tier, sub) {
+function getOrSubResourceTD(tier, ngm4, sub) {
 	if (sub == undefined) {
-		if (inNGM(4)) return player.money.min(getMaxTDCost())
+		if (ngm4) return player.money.min(getMaxTDCost())
 		return player.eternityPoints
 	} else {
-		if (inNGM(4)) player.money = player.money.sub(player.money.min(sub))
+		if (ngm4) player.money = player.money.sub(player.money.min(sub))
 		else player.eternityPoints = player.eternityPoints.sub(player.eternityPoints.min(sub))
 	}
 }

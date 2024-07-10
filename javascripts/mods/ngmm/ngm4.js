@@ -23,7 +23,7 @@ function resetNGM4TDs() {
 	completelyResetTimeDimensions()
 	for (var d = 1; d <= 8; d++) {
 		var dim = player["timeDimension" + d]
-		dim.cost = E(getTimeDimStartCost(d, true))
+		dim.costAntimatter = E(getTimeDimStartCost(d, true))
 		dim.power = E(power).pow((player.tdBoosts - d + 1) / 2).max(1)
 	}
 
@@ -34,6 +34,7 @@ function resetNGM4TDs() {
 }
 
 function doNGM4TDMultiplier(tier, ret){
+	if(!aarMod.newGame4MinusRespeccedVersion){
 	//Tickspeed multiplier boost
 	var ic3 = player.postC3Reward
 	if (ic3.gt(1e10)) ic3 = Decimal.pow(10, Math.sqrt(ic3.log10() * 5 + 50))
@@ -41,7 +42,8 @@ function doNGM4TDMultiplier(tier, ret){
 	var ic3_exp = ([5, 3, 2, 1.5, 1, .5, 1/3, 0])[tier - 1]
 	if (hasGSacUpg(25)) ic3_exp *= galMults.u25()
 	ret = ret.times(ic3.pow(ic3_exp))
-
+	}
+	
 	//NG-4 upgrades
 	if (hasGSacUpg(12)) ret = ret.mul(galMults.u12())
 	if (hasGSacUpg(13) && player.currentChallenge!="postngm3_4") ret = ret.mul(galMults.u13())

@@ -115,11 +115,12 @@ function setupDimensionHTML() {
 			<td id="timeD${d}" width="41%"></td>
 			<td id="timeAmount${d}"></td>
 			<td><button id="td${d}Auto" style="width:70px; font-size: 10px; float: right; visibility: hidden" onclick="toggleAutoEter('td${d}')" class="storebtn"></button></td>
+			<td width="10%"><button id="timeMax${d}Antimatter" style="color:black; width:195px; height:30px" class="storebtn" align="right" onclick="buyTimeDimension(${d},1)">Cost: 10</button></td>
 			<td width="10%"><button id="timeMax${d}" style="color:black; width:195px; height:30px" class="storebtn" align="right" onclick="buyTimeDimension(${d})">Cost: 10</button></td>
 		</tr>`
 	}
 	html += `<tr id="tdReset" style="font-size: 17px">
-		<td id="tdResetLabel" colspan=3></td>
+		<td id="tdResetLabel" colspan=4></td>
 		<td><button id="tdResetBtn" style="color:black; width: 195px; height: 25px; font-size: 9px" class="storebtn" onclick="tdBoost(1)"></button></td>
 	</tr>`
 	el("timeDimTable").innerHTML = html
