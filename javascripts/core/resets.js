@@ -145,6 +145,7 @@ let RESETS = {
 			playerInfinityUpgradesOnEternity()
 			player.infMult = E(1)
 			player.infMultCost = E(100)
+			if (hasAch("r41")) player.infMult = player.infMult.mul(2)
 			if (hasAch("r85")) player.infMult = player.infMult.mul(4)
 			if (hasAch("r93")) player.infMult = player.infMult.mul(4)
 			el("infmultbuyer").style.display = mod.ngp3 || getEternitied() >= 1 ? "" : "none"

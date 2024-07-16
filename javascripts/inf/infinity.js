@@ -135,6 +135,7 @@ function getIPGain(next) {
 function getIPMult() {
 	let mult = player.infMult
 	if (inOnlyNGM(2)) {
+		if (hasAch("r41")) mult = mult.mul(2)
 		if (hasAch("r85")) mult = mult.mul(4)
 		if (hasAch("r93")) mult = mult.mul(4)
 		if (hasAch("r43")) mult = mult.mul(1.25)

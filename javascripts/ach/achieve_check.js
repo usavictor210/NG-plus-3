@@ -183,9 +183,9 @@ function checkOtherPreNGp3Achieve(){
 	if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
 	if (player.dilation.active) giveAchievement("I told you already, time is relative")
 	if (player.resets >= 10) giveAchievement("Boosting to the max")
-	if (player.spreadingCancer >= 10) giveAchievement("Spreading Nerd")
 	if (player.spreadingCancer >= 1000000) giveAchievement("Cancer = Spread")
 	if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+	if (player.infinityUpgrades.length == 16) giveAchievement("No DLC Required")
 	if (player.break) giveAchievement("Limit Break")
 	if (mod.ngpp) if (player.meta.resets >= 10) giveAchievement("Meta-boosting to the max")
 	if (tmp.sacPow >= 600) giveAchievement("The Gods are pleased");

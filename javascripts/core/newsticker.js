@@ -563,7 +563,7 @@ function scrollNextMessage() {
 		let transformDuration = dist / rate;
 		if (!player.options.newsHidden && !player.newsArray.includes(newsArray[nextMsgIndex][2])) {
 			player.newsArray.push(newsArray[nextMsgIndex][2]);
-			if (player.newsArray.length>=50) giveAchievement("Fake News")
+			if (!tmp.ngp3_boost && !inNGM4Respec() && player.newsArray.length>=50) giveAchievement("Fake News")
 			if (player.newsArray.length>=400) giveAchievement("400% Breaking News")
 		}
 

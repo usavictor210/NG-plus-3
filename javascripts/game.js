@@ -371,6 +371,7 @@ function buyInfinityUpgrade(name, cost) {
 			let dim = player["infinityDimension" + tier]
 			dim.cost = E_pow(getIDCostMult(tier),dim.baseAmount / 10).mul(infBaseCost[tier])
 		}
+		if (player.infinityUpgrades.length == 16) giveAchievement("No DLC Required")
 	}
 }
 
@@ -397,7 +398,7 @@ el("infiMult").onclick = function() {
 }
 
 function updateEternityUpgrades() {
-	el("epmult").innerHTML = "Gain 5x more EP<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
+	el("epmult").innerHTML = "Gain 5x more EP.<p>Currently: "+shortenDimensions(player.epmult)+"x<p>Cost: "+shortenDimensions(player.epmultCost)+" EP"
 
 	el("eter1").className = (player.eternityUpgrades.includes(1)) ? "eternityupbtnbought" : (player.eternityPoints.gte(5)) ? "eternityupbtn" : "eternityupbtnlocked"
 	el("eter2").className = (player.eternityUpgrades.includes(2)) ? "eternityupbtnbought" : (player.eternityPoints.gte(10)) ? "eternityupbtn" : "eternityupbtnlocked"

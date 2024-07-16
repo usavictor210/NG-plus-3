@@ -23,7 +23,7 @@ const allAchievements = {
 	r36 : "Claustrophobic",
 	r37 : "That's fast!",
 	r38 : "I don't believe in Gods",
-	r41 : "Spreading Nerd",
+	r41 : "No DLC Required",
 	r42 : "Supersanic",
 	r43 : "Zero Deaths",
 	r44 : "Over in 30 seconds",

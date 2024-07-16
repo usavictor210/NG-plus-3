@@ -167,7 +167,7 @@ function changeSaveDesc(i, exit) {
 }
 
 function reload(btn) {
-	if (btn && (aarMod.autoSaveInterval < 15 || autoSaveSeconds >= 60) && !confirm("You didn't turn on autosaving or forget to save. Be warned, you might lose progress. Are you sure?")) return
+	if (btn && (aarMod.autoSaveInterval < 15 || autoSaveSeconds >= 60) && !confirm("Are you sure you want to reload? You have either not saved recently or autosave has been turned off, which may lead to a loss of progress.")) return
 	load_game(true)
 }
 
@@ -667,7 +667,7 @@ function doNGPlusOneNewPlayer(){ // eventually change to have multiple versions/
 	player.galaxies = 1
 	player.infinitiedBank = 5e9
 	player.infinityUpgrades = ["timeMult", "dimMult", "timeMult2", "unspentBonus", "27Mult", "18Mult", "36Mult", "resetMult", "passiveGen", "45Mult", "resetBoost", "galaxyBoost", "skipReset1", "skipReset2", "skipReset3", "skipResetGalaxy"]
-	player.infMult = 2048
+	player.infMult = 4096 // no dlc required is an excuse to buff this
 	player.dimensionMultDecrease = 2
 	player.tickSpeedMultDecrease = 1.65
 	player.eternities = 1012680
