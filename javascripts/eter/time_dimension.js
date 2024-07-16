@@ -122,9 +122,9 @@ function getTimeDimensionRateOfChange(tier) {
 
 function getTimeDimensionDescription(tier) {
 	if(aarMod.newGame4MinusRespeccedVersion){
-		let desc=formatQuick(player['timeDimension' + tier].amount, 2, 1) + ' (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + dimDescEnd + " ("+getFullExpansion(player['timeDimension' + tier].boughtAntimatter);
-		if(player['timeDimension' + tier].bought>0)return desc+" + "+getFullExpansion(player['timeDimension' + tier].bought)+")";
-		return desc+")";
+		let desc=formatQuick(player['timeDimension' + tier].amount, 2, 2) + " ("+getFullExpansion(player['timeDimension' + tier].boughtAntimatter);
+		if(player['timeDimension' + tier].bought>0)desc+=" + "+getFullExpansion(player['timeDimension' + tier].bought);
+		return desc+")" + ' (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
 	}
 	if (!isTDUnlocked(((inNC(7) && inNGM(4)) || inQC(4) ? 2 : 1) + tier)){
 		if(inNGM(4))return getFullExpansion(player['timeDimension' + tier].boughtAntimatter)
@@ -146,7 +146,7 @@ function updateTimeDimensions() {
 				if(!aarMod.newGame4MinusRespeccedVersion)el("timeMax" + tier).style.display = "none";
 				else el("timeMax" + tier).style.display = "";
 				el("timeMax" + tier + "Antimatter").style.display = "";
-				el("timeMax" + tier + "Antimatter").textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].costAntimatter, 2, Math.min(Math.max(3 - player.money.e, 1), 3))
+				el("timeMax" + tier + "Antimatter").textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].costAntimatter, 2, aarMod.newGame4MinusRespeccedVersion?0:(Math.min(Math.max(3 - player.money.e, 1), 3)))
 				if (getOrSubResourceTD(tier,1).gte(player["timeDimension" + tier].costAntimatter)) el("timeMax"+tier + "Antimatter").className = "storebtn"
 			else el("timeMax" + tier + "Antimatter").className = "unavailablebtn"
 			}else el("timeMax" + tier + "Antimatter").style.display = "none",el("timeMax" + tier).style.display = "";
@@ -183,7 +183,8 @@ function updateTimeShards() {
 	let p = getTimeDimensionProduction(1)
 
 	// For NG-x mods, displaying decimals is especially important to show how precise the numbers are
-	el("timeShardAmount").textContent = formatQuick(player.timeShards, 2, inNGM(3) ? Math.min(Math.max(3 - player.timeShards.e, 0), 3) : 2)
+	if (aarMod.newGame4MinusRespeccedVersion)el("timeShardAmount").textContent = formatQuick(softcap(player.timeShards,"ts_ngm4r"), 2, 1);
+	else el("timeShardAmount").textContent = formatQuick(player.timeShards, 2, inNGM(3) ? Math.min(Math.max(3 - player.timeShards.e, 0), 3) : 2)
 	el("tickThreshold").textContent = formatQuick(player.tickThreshold, 2, inNGM(3) ? Math.min(Math.max(3 - player.tickThreshold.e, 0), 3) : 2)
 	
 	//if (player.currentEternityChall == "eterc7") el("timeShardsPerSec").textContent = "You are getting " + shortenDimensions(p) + " Eighth Infinity Dimensions per second."
@@ -372,10 +373,21 @@ function nonERFreeTickUpdating(){
 	if (threshold < 1.1 && inNGM(2)) threshold = 1 + 0.1 / (2.1 - threshold)
 	if (threshold < 1.01 && inNGM(2)) threshold = 1.005 + 0.005 / (2.01 - threshold)
 
-	const gain = Math.ceil(E(player.timeShards).dividedBy(player.tickThreshold).log10()/Math.log10(threshold))
-	player.totalTickGained += gain
-	player.tickspeed = player.tickspeed.mul(E_pow(tmp.gal.ts, gain))
-	player.postC3Reward = E_pow(getIC3Mult(), gain * getIC3EffFromFreeUpgs()).mul(player.postC3Reward)
+	if(aarMod.newGame4MinusRespeccedVersion){
+		threshold = 1.15;
+		if(hasTimeStudy(171))threshold = 1.13;
+		player.tickThreshold = E_pow(threshold, player.totalTickGained);
+		let gain = Math.ceil(softcap(E(player.timeShards),"ts_ngm4r").dividedBy(player.tickThreshold).log10()/Math.log10(threshold))
+		if(gain<0)gain=0;
+		player.totalTickGained += gain
+		player.tickspeed = player.tickspeed.mul(E_pow(tmp.gal.ts, gain))
+		player.postC3Reward = E_pow(getIC3Mult(), gain * getIC3EffFromFreeUpgs()).mul(player.postC3Reward)
+	}else{
+		const gain = Math.ceil(E(player.timeShards).dividedBy(player.tickThreshold).log10()/Math.log10(threshold))
+		player.totalTickGained += gain
+		player.tickspeed = player.tickspeed.mul(E_pow(tmp.gal.ts, gain))
+		player.postC3Reward = E_pow(getIC3Mult(), gain * getIC3EffFromFreeUpgs()).mul(player.postC3Reward)
+	}
 
 	const base = aarMod.newGame4MinusRespeccedVersion ? 1 : inNGM(4) ? 0.01 : inNGM(3) ? .1 : 1
 	player.tickThreshold = E_pow(threshold, player.totalTickGained).mul(base)

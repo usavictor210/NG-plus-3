@@ -34,14 +34,17 @@ function resetNGM4TDs() {
 }
 
 function doNGM4TDMultiplier(tier, ret){
-	if(!aarMod.newGame4MinusRespeccedVersion){
-	//Tickspeed multiplier boost
-	var ic3 = player.postC3Reward
-	if (ic3.gt(1e10)) ic3 = Decimal.pow(10, Math.sqrt(ic3.log10() * 5 + 50))
+	if(aarMod.newGame4MinusRespeccedVersion){
+		//Bought TD boost (NG-4R)
+		ret = ret.times(Decimal.pow(1.5,player["timeDimension"+tier].boughtAntimatter)).div(2);
+	}else{
+		//Tickspeed multiplier boost (NG-4C)
+		var ic3 = player.postC3Reward
+		if (ic3.gt(1e10)) ic3 = Decimal.pow(10, Math.sqrt(ic3.log10() * 5 + 50))
 
-	var ic3_exp = ([5, 3, 2, 1.5, 1, .5, 1/3, 0])[tier - 1]
-	if (hasGSacUpg(25)) ic3_exp *= galMults.u25()
-	ret = ret.times(ic3.pow(ic3_exp))
+		var ic3_exp = ([5, 3, 2, 1.5, 1, .5, 1/3, 0])[tier - 1]
+		if (hasGSacUpg(25)) ic3_exp *= galMults.u25()
+		ret = ret.times(ic3.pow(ic3_exp))
 	}
 	
 	//NG-4 upgrades
