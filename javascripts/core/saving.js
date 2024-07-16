@@ -469,9 +469,9 @@ function updateNewPlayer(mode, preset) {
 	else if (mode != "reset") mod = {}
 
 	player = {
-		money: E(mod.ngmm > 2 && mod.ngmm != 3.5 ? 200 : mod.ngp>1 ? 20 : 10),
+		money: E(mod.ngmm > 2 && mod.ngmm != 4 ? 200 : mod.ngp>1 ? 20 : 10),
 		tickSpeedCost: E(1000),
-		tickspeed: E(mod.ngp > 1 ? 500 : mod.ngmm == 3.5 ? 1e4 : 1000),
+		tickspeed: E(mod.ngp > 1 ? 500 : mod.ngmm == 4 ? 1e4 : 1000),
 		sacrificed: E(0),
 		achievements: [],
 		infinityUpgrades: [],

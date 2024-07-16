@@ -83,7 +83,7 @@ function getTimeDimensionProduction(tier) {
 	if (player.currentEternityChall == "eterc7") ret = dilates(ret.dividedBy(player.tickspeed.dividedBy(1000)))
 
 	// 2nd dimension achievement does not have an effect in NG-4R
-	if (!inNGM4Respec() || inNGM(4)&&(tier>1||!hasAch("r12"))) ret = ret.div(100)
+	if (!inNGM4Respec() && inNGM(4)&&(tier>1||!hasAch("r12"))) ret = ret.div(100)
 	if (player.currentEternityChall == "eterc1") return E(0)
 	return ret
 }
@@ -121,7 +121,15 @@ function getTimeDimensionRateOfChange(tier) {
 }
 
 function getTimeDimensionDescription(tier) {
-	if (!isTDUnlocked(((inNC(7) && inNGM(4)) || inQC(4) ? 2 : 1) + tier)) return getFullExpansion(player['timeDimension' + tier].bought)
+	if(aarMod.newGame4MinusRespeccedVersion){
+		let desc=formatQuick(player['timeDimension' + tier].amount, 2, 1) + ' (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + dimDescEnd + " ("+getFullExpansion(player['timeDimension' + tier].boughtAntimatter);
+		if(player['timeDimension' + tier].bought>0)return desc+" + "+getFullExpansion(player['timeDimension' + tier].bought)+")";
+		return desc+")";
+	}
+	if (!isTDUnlocked(((inNC(7) && inNGM(4)) || inQC(4) ? 2 : 1) + tier)){
+		if(inNGM(4))return getFullExpansion(player['timeDimension' + tier].boughtAntimatter)
+		return getFullExpansion(player['timeDimension' + tier].bought)
+	}
 	else if (player.timeShards.l > 1e7) return shortenDimensions(player['timeDimension' + tier].amount)
 	else return formatQuick(player['timeDimension' + tier].amount, 2, inNGM(4) ? Math.min(Math.max(3 - player.money.e, 1), 3) : 0) + ' (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
 }
@@ -135,11 +143,13 @@ function updateTimeDimensions() {
 			el("timeD" + tier).textContent = dimNames[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
 			el("timeAmount" + tier).textContent = getTimeDimensionDescription(tier);
 			if (inNGM(4)) {
+				if(!aarMod.newGame4MinusRespeccedVersion)el("timeMax" + tier).style.display = "none";
+				else el("timeMax" + tier).style.display = "";
 				el("timeMax" + tier + "Antimatter").style.display = "";
 				el("timeMax" + tier + "Antimatter").textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].costAntimatter, 2, Math.min(Math.max(3 - player.money.e, 1), 3))
 				if (getOrSubResourceTD(tier,1).gte(player["timeDimension" + tier].costAntimatter)) el("timeMax"+tier + "Antimatter").className = "storebtn"
 			else el("timeMax" + tier + "Antimatter").className = "unavailablebtn"
-			}else el("timeMax" + tier + "Antimatter").style.display = "none"
+			}else el("timeMax" + tier + "Antimatter").style.display = "none",el("timeMax" + tier).style.display = "";
 			el("timeMax" + tier).textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].cost, 2, 0) + (" EP")
 			if (getOrSubResourceTD(tier).gte(player["timeDimension" + tier].cost)) el("timeMax"+tier).className = "storebtn"
 		else el("timeMax" + tier).className = "unavailablebtn"
@@ -154,14 +164,14 @@ function updateTimeDimensions() {
 		el("tdReset").style.display = ""
 		el("tdResetLabel").textContent = "Time Dimension "+(isShift ? "Shift" : "Boost") + " (" + getFullExpansion(player.tdBoosts) + "): requires " + getFullExpansion(req.amount) + " " + dimNames[req.tier] + " Time Dimensions"
 		el("tdResetBtn").textContent = "Reset prior features for a " + (isShift ? "new Dimension" : "Boost")
-		el("tdResetBtn").className = (player["timeDimension" + req.tier].bought < req.amount) ? "unavailablebtn" : "storebtn"
+		el("tdResetBtn").className = (player["timeDimension" + req.tier].bought + player["timeDimension" + req.tier].boughtAntimatter < req.amount) ? "unavailablebtn" : "storebtn"
 
 		// Whether this should be important to show in regular NG-4 might not matter compared to NG-4R
 		// as the purchase limit is pushed much earlier in NG-4R
-		if (aarMod.newGame4MinusRespeccedVersion) {
+		//if (aarMod.newGame4MinusRespeccedVersion) {
 			el("tdCostLimit").style.display = "inline-block"
 			el("tdCostLimit").textContent = "You can spend up to " + shortenDimensions(maxCost) + " antimatter on Time Dimensions (for each tier)."
-		}
+		//}
 
 	} else {
 		el("tdReset").style.display = "none"

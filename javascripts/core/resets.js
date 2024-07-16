@@ -589,6 +589,9 @@ function completelyResetTimeDimensions() {
 			power: E(1),
 			bought: 0
 		}
+		if(aarMod.newGame4MinusVersion)player["timeDimension"+dim].boughtAntimatter=0;
+		if(aarMod.newGame4MinusVersion)player["timeDimension"+dim].costAntimatter=timeDimCost(dim, 0, 1);
+		
 	}
 }
 

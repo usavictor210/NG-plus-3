@@ -1174,13 +1174,14 @@ function doNGM4v0tov2111(){
 function doNGM4v2111tov22(){
 	if (aarMod.newGame4MinusVersion<2.2) {
 		for(let i=1;i<=8;i++){
+			console.log(1);
 			player['timeDimension'+i].costAntimatter=player['timeDimension'+i].cost;
 			player['timeDimension'+i].boughtAntimatter=player['timeDimension'+i].bought;
 			player['timeDimension'+i].cost=timeDimStartCosts[0][i];
 			player['timeDimension'+i].bought=0;
 		}
 	}
-	aarMod.newGame4MinusVersion=2.2
+	aarMod.newGame4MinusVersion=2.2;
 }
 
 // currently unused and will use later
@@ -1710,6 +1711,7 @@ function conToDeciTD(){
 		const data = player["timeDimension"+dim]
 		data.amount = E(data.amount)
 		data.cost = isNaN(E(data.cost).e) ? timeDimCost(dim, data.bought) : E(data.cost)
+		if(player.aarexModifications.newGame4MinusVersion)data.costAntimatter = isNaN(E(data.costAntimatter).e) ? timeDimCost(dim, data.boughtAntimatter, 1) : E(data.costAntimatter)
 		data.power = E(data.power)
 	}
 }

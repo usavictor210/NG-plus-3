@@ -1,5 +1,5 @@
 function getTDBoostReq() {
-	let amount = player.tdBoosts > 2 ? 10 : 2
+	let amount = aarMod.newGame4MinusRespeccedVersion ? 12 : player.tdBoosts > 2 ? 10 : 2
 	let maxTier = inNC(4) ? 6 : 8
 	let mult = inNC(4) ? 3 : 2
 	return {amount: Math.ceil(amount + Math.max(player.tdBoosts + 1 - maxTier, 0) * mult), mult: mult, tier: Math.min(player.tdBoosts + 1, maxTier)}
@@ -7,7 +7,7 @@ function getTDBoostReq() {
 
 function tdBoost(bulk) {
 	let req = getTDBoostReq()
-	if (player["timeDimension" + req.tier].bought < req.amount) return
+	if (player["timeDimension" + req.tier].bought + player["timeDimension" + req.tier].boughtAntimatter < req.amount) return
 	if (cantReset()) return
 	player.tdBoosts += bulk
 	if (!hasAch("r36")) doReset("tdb")
@@ -63,7 +63,7 @@ el("challenge16").onclick = function () {
 
 function autoTDBoostBoolean() {
 	var req = getTDBoostReq()
-	var amount = player["timeDimension" + req.tier].bought
+	var amount = player["timeDimension" + req.tier].bought + player["timeDimension" + req.tier].boughtAntimatter
 	if (!player.autobuyers[14].isOn) return false
 	if (player.autobuyers[14].ticks * 100 < player.autobuyers[14].interval) return false
 	if (amount < req.amount) return false

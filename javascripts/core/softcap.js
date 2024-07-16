@@ -64,7 +64,8 @@ var softcap_data = {
 			pow: 0.8,
 			derv: true
 		}
-	}
+	},
+	
 }
 
 var softcap_vars = {
