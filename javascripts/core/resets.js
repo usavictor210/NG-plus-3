@@ -72,6 +72,7 @@ let RESETS = {
 		doReset(order) {
 			player.tickBoughtThisInf = updateTBTIonGalaxy()
 
+			if (order == "tdb" && player.aarexModifications.newGame4MinusRespeccedVersion)return;
 			if (order == "tdb" && (hasAch("r26") && player.resets >= player.tdBoosts)) return
 			if (order == "tsb" && (hasAch("r27") && player.tickspeedBoosts < 5 * player.galaxies - 8)) return
 			if (order == "gal" && hasAch("ng3p55")) return

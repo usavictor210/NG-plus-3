@@ -64,6 +64,10 @@ function getDimensionRateOfChange(tier) {
 
 function getDimensionDescription(tier) {
 	var name = dimTiers[tier];
+	if(aarMod.newGame4MinusRespeccedVersion){
+		if (tier == getNormalDimensions()) return getFullExpansion(player[name + 'Bought']);
+		return shortenND(player[name + 'Amount']) + ' (' + getFullExpansion(player[name + 'Bought']) + ') (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
+	}
 	if (tier == getNormalDimensions()) return getFullExpansion(inNC(11) ? getAmount(tier) : player[name + 'Bought']) + ' (' + dimBought(tier) + ')';
 	else if (player.money.l > 1e9) return shortenND(player[name + 'Amount'])
 	else if (player.money.l > 1e6) return shortenND(player[name + 'Amount']) + ' (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
