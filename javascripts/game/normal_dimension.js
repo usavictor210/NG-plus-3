@@ -19,7 +19,7 @@ function getDimensionProductionPerSecond(tier) {
 	if (inQC(1) && tier > 2) return E(0)
 
 	let ret = player[dimTiers[tier] + 'Amount'].floor()
-	//if (aarMod.newGame4MinusRespeccedVersion) ret = player[TIER_NAMES[tier] + 'Amount']
+	if (aarMod.newGame4MinusRespeccedVersion) ret = player[dimTiers[tier] + 'Amount']
 
 	if ((inNC(7) || player.currentChallenge == "postcngm3_3" || inQC(4)) && !inNGM(2)) {
 		if (tier == 4) ret = ret.pow(1.3)
@@ -511,7 +511,7 @@ function getDimensionFinalMultiplier(tier) {
 	if (tier == 8 && hasAch("ng3p27")) mult = mult.mul(tmp.qu.intergal.eff)
 
 	if (mult.gt(10)) mult = dilates(mult.max(1), 2)
-	//if (aarMod.newGame4MinusRespeccedVersion) mult = softcap(mult, "nd_ngm4r") // NOT YET IMPLEMENTED
+	if (aarMod.newGame4MinusRespeccedVersion) mult = softcap(mult, "nd_ngm4r")
 	mult = mult.mul(getAfterDefaultDilationLayerAchBonus(tier))
 	if (player.currentChallenge == "postc4" && inNGM(3)) mult = mult.sqrt()
 
