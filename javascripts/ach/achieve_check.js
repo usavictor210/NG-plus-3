@@ -52,7 +52,7 @@ function checkForEndMe() {
 	var temp = 0
 	for (var i=0; i<getTotalNormalChallenges(); i++) temp += player.challengeTimes[i]
 	if (temp <= 1800) giveAchievement("Not-so-challenging")
-	if (temp <= 50) giveAchievement("End me")
+	if (temp <= 50) giveAchievement("Not a second lost")
 
 	var temp2 = 0
 	for (var i = 0; i < order.length; i++) temp2 += player.infchallengeTimes[i]

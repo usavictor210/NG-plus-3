@@ -260,8 +260,8 @@ function checkOnCrunchAchievements() {
 	if (getIPGain().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("Ludicrous Speed")
 	if (getIPGain().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("I brake for nobody")
 	if (player.currentChallenge.includes("post")) giveAchievement("Infinitely Challenging")
-	if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
-	if (inNGM(3) && player.thisInfinityTime <= 100 && player.currentChallenge == "postc7") giveAchievement("Hevipelle did nothing wrong")
+	if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Game Design Is My Passion")
+	if (inNGM(3) && player.thisInfinityTime <= 100 && player.currentChallenge == "postc7") giveAchievement("Game Design Is My Passion")
 	if (player.currentChallenge == "postc8") giveAchievement("Anti-antichallenged");
 }
 
