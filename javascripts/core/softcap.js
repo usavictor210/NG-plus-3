@@ -247,8 +247,16 @@ function do_softcap(x, data, num) {
 	if(typeof y === "function"){
 		y = y();
 	}
+	var z = data[vars[1]]
+	if(typeof z === "function"){
+		z = z();
+	}
+	var t = data[vars[2]]
+	if(typeof t === "function"){
+		t = t();
+	}
 	if (x + 0 != x) func += "_decimal"
-	return softcap_funcs[func](x, y, data[vars[1]], data[vars[2]])
+	return softcap_funcs[func](x, y, z, t)
 }
 
 function softcap(x, id, max = 1/0) {
