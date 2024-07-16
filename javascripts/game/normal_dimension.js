@@ -295,7 +295,7 @@ function getMPTBase(focusOn) {
 	if ((((inNC(13) && !inNGM(3)) || player.currentChallenge == "postc1" || player.currentChallenge == "postcngm3_1") && inNGM(2))) return E(1)
 
 	let ret = 2
-	if (inNGM(3)) ret = 1
+	if (inNGM(3) && !aarMod.newGame4MinusRespeccedVersion) ret = 1
 	if (mod.ngep) ret *= 10
 	if (mod.ngmu) ret *= 2.1
 	if (player.infinityUpgrades.includes("dimMult")) ret *= infUpg12Pow()
