@@ -122,6 +122,11 @@ function getTimeDimensionRateOfChange(tier) {
 
 function getTimeDimensionDescription(tier) {
 	if(aarMod.newGame4MinusRespeccedVersion){
+		if (!isTDUnlocked(((inNC(7) && inNGM(4)) || inQC(4) ? 2 : 1) + tier)){
+			let desc=getFullExpansion(player['timeDimension' + tier].bought+player['timeDimension' + tier].boughtAntimatter) + " ("+getFullExpansion(player['timeDimension' + tier].boughtAntimatter);
+			if(player['timeDimension' + tier].bought>0)desc+=" + "+getFullExpansion(player['timeDimension' + tier].bought);
+			return desc+")";
+		}
 		let desc=formatQuick(player['timeDimension' + tier].amount, 2, 2) + " ("+getFullExpansion(player['timeDimension' + tier].boughtAntimatter);
 		if(player['timeDimension' + tier].bought>0)desc+=" + "+getFullExpansion(player['timeDimension' + tier].bought);
 		return desc+")" + ' (+' + formatValue(player.options.notation, getTimeDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
