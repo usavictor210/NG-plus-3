@@ -82,7 +82,7 @@ function setR5Tooltip(){
 	let forever = el("Forever isn't that long")
 	let many = el("Many Deaths")
 	//r57/////
-	let is = el("Is this hell?")
+	let is = el("This is fine.")
 
 	//ACHIEVEMENT ROW 5
 	forever.setAttribute('ach-tooltip', "Big Crunch in 1 minute or less. Reward: Start with "+shortenCosts(1e10)+" antimatter" + (inOnlyNGM(2) ? ", and gain a multiplier to IP based on your best Infinity time." : "."))

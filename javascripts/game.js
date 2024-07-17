@@ -2663,7 +2663,7 @@ function autoBuyerTick() {
 					} else {
 						buyOneDimension(priority[i].target)
 					}
-					if (inNGM(4)) buyMaxTimeDimension(priority[i].target % 10, priority[i].bulk)
+					if (inNGM(4)) buyMaxTimeDimension(priority[i].target % 10, true, priority[i].bulk)
 				}
 				priority[i].ticks = 0;
 			}

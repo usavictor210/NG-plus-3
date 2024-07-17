@@ -143,7 +143,9 @@ function updateTimeDimensions() {
 			el("timeD" + tier).textContent = dimNames[tier] + " Time Dimension x" + shortenMoney(getTimeDimensionPower(tier));
 			el("timeAmount" + tier).textContent = getTimeDimensionDescription(tier);
 			if (inNGM(4)) {
-				if(!aarMod.newGame4MinusRespeccedVersion)el("timeMax" + tier).style.display = "none";
+				if(inNGM4Respec() && !(hasAch("r63") || hasAch("r91") || hasAch("r92"))) {
+					el("timeMax" + tier).style.display = "none";
+				}
 				else el("timeMax" + tier).style.display = "";
 				el("timeMax" + tier + "Antimatter").style.display = "";
 				el("timeMax" + tier + "Antimatter").textContent = (quantumed ? '':"Cost: ") + formatQuick(player["timeDimension" + tier].costAntimatter, 2, aarMod.newGame4MinusRespeccedVersion?0:(Math.min(Math.max(3 - player.money.e, 1), 3)))
@@ -295,21 +297,32 @@ function getOrSubResourceTD(tier, ngm4, sub) {
 	}
 }
 
-function buyMaxTimeDimension(tier, bulk) {
+function buyMaxTimeDimension(tier, ngm4 = false, bulk) {
 	var dim = player['timeDimension' + tier]
-	var res = getOrSubResourceTD(tier)
+	var res = getOrSubResourceTD(tier, inNGM(4))
+	console.log("1")
 	if (inNGM(4) && getAmount(1) < 1) return
+	console.log("2")
 	if (aarMod.maxHighestTD && tier < 8 && player["timeDimension" + (tier + 1)].bought > 0) return
+	console.log("3")
 	if (!isTDUnlocked(tier)) return
+	console.log("4")
+	console.log("What is res: " + res)
 	if (res.lt(dim.cost)) return
 	if (inNGM(4)) {
-		var toBuy = Math.floor(res.div(dim.cost).mul(timeDimCostMults[1][tier] - 1).add(1).log(timeDimCostMults[1][tier]))
+		var costMultSelect = inNGM4Respec ? 2 : 1
+		var toBuy = Math.max(Math.floor(res.div(dim.cost).mul(timeDimCostMults[costMultSelect][tier] - 1).add(1).log(timeDimCostMults[costMultSelect][tier])) - player["timeDimension" + (tier)].boughtAntimatter, 0)
+		console.log("buying " + toBuy + " with AM")
+		console.log("bulk: " + bulk)
 		if (bulk) toBuy = Math.min(toBuy,bulk)
-		getOrSubResourceTD(tier, E_pow(timeDimCostMults[1][tier], toBuy).sub(1).div(timeDimCostMults[1][tier] - 1).mul(dim.cost))
+		console.log("cost is " + E_pow(timeDimCostMults[costMultSelect][tier], toBuy).sub(1).div(timeDimCostMults[costMultSelect][tier] - 1).mul(dim.costAntimatter))
+		getOrSubResourceTD(tier, true, E_pow(timeDimCostMults[costMultSelect][tier], toBuy).sub(1).div(timeDimCostMults[costMultSelect][tier] - 1).mul(dim.costAntimatter))
 		if (inNC(2) || player.currentChallenge == "postc1") player.chall2Pow = 0
 	} else {
 		var toBuy = 0
 		var increment = 1
+		console.log("buying " + toBuy)
+
 		while (player.eternityPoints.gte(timeDimCost(tier, dim.bought + increment - 1))) increment *= 2
 		while (increment>=1) {
 			if (player.eternityPoints.gte(timeDimCost(tier, dim.bought + toBuy + increment - 1))) toBuy += increment
@@ -330,18 +343,30 @@ function buyMaxTimeDimension(tier, bulk) {
 		player.eternityPoints = newEP
 		if (isNaN(newEP.e)) player.eternityPoints = E(0)
 	}
-	dim.amount = dim.amount.add(toBuy);
-	dim.bought += toBuy
+
+	if (ngm4) {
+		dim.amount = dim.amount.add(toBuy);
+		dim.boughtAntimatter += toBuy
+	} else {
+		dim.amount = dim.amount.add(toBuy);
+		dim.bought += toBuy
+	}
+
 	if (inNGM(4)) {
-		dim.power = E(getDimensionPowerMultiplier()).sqrt().mul(dim.power)
+		//dim.power = E(getDimensionPowerMultiplier()).sqrt().mul(dim.power)
 	} else {
 		dim.power = dim.power.mul(E_pow(mod.rs ? 3 : 2, toBuy))
 	}
+
 	dim.cost = timeDimCost(tier, dim.bought)
+	if (inNGM(4)) dim.costAntimatter = timeDimCost(tier, dim.boughtAntimatter, 1)
 }
 
-function buyMaxTimeDimensions() {
-	for (var i = 1; i <= 8; i++) buyMaxTimeDimension(i)
+function buyMaxTimeDimensions(purchaseWithAM) {
+	// if you're in NG-4... naturally you will want to buy with antimatter initially
+	// otherwise, or if you will eventually purchase with EP, you don't necessarily want to buy with antimatter
+	purchaseWithAM = player.eternities < 1 && inNGM(4)
+	for (var i = 1; i <= 8; i++) buyMaxTimeDimension(i, purchaseWithAM)
 }
 
 function toggleAllTimeDims() {

@@ -253,7 +253,7 @@ function checkOnCrunchAchievements() {
 	if (player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
 	if (inNC(2) && player.thisInfinityTime <= 1800) giveAchievement("Many Deaths")
 	if (inNC(11) && player.thisInfinityTime <= 1800) giveAchievement("Gift from the Gods")
-	if (inNC(5) && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
+	if (inNC(5) && player.thisInfinityTime <= 1800) giveAchievement("This is fine.")
 	if (inNC(3) && player.thisInfinityTime <= 100) giveAchievement("You did this again just for the achievement right?");
 	if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && inNC(12)) giveAchievement("ERROR 909: Dimension not found")
 	if (getIPGain().gte(1e150)) giveAchievement("All your IP are belong to us")

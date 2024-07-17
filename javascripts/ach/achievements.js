@@ -38,7 +38,7 @@ const allAchievements = {
 	r55 : "Forever isn't that long",
 	r56 : "Many Deaths",
 	r57 : "Gift from the Gods",
-	r58 : "Is this hell?",
+	r58 : "This is fine.",
 	r61 : "Bulked up",
 	r62 : "Oh hey, you're still here",
 	r63 : "A new beginning.",

@@ -1186,6 +1186,8 @@ function doNGM4v2111tov22(){
 			player['timeDimension'+i].bought=0;
 		}
 	}
+
+	aarMod.maxHighestTD = false
 	aarMod.newGame4MinusVersion=2.2;
 }
 
