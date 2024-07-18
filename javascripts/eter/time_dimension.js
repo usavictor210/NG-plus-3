@@ -300,28 +300,19 @@ function getOrSubResourceTD(tier, ngm4, sub) {
 function buyMaxTimeDimension(tier, ngm4 = false, bulk) {
 	var dim = player['timeDimension' + tier]
 	var res = getOrSubResourceTD(tier, inNGM(4))
-	console.log("1")
 	if (inNGM(4) && getAmount(1) < 1) return
-	console.log("2")
 	if (aarMod.maxHighestTD && tier < 8 && player["timeDimension" + (tier + 1)].bought > 0) return
-	console.log("3")
 	if (!isTDUnlocked(tier)) return
-	console.log("4")
-	console.log("What is res: " + res)
 	if (res.lt(dim.cost)) return
 	if (inNGM(4)) {
 		var costMultSelect = inNGM4Respec ? 2 : 1
 		var toBuy = Math.max(Math.floor(res.div(dim.costAntimatter).mul(timeDimCostMults[costMultSelect][tier] - 1).add(1).log(timeDimCostMults[costMultSelect][tier])), 0)
-		console.log("buying " + toBuy + " with AM")
-		console.log("bulk: " + bulk)
 		if (bulk) toBuy = Math.min(toBuy,bulk)
-		console.log("cost is " + E_pow(timeDimCostMults[costMultSelect][tier], toBuy).sub(1).div(timeDimCostMults[costMultSelect][tier] - 1).mul(dim.costAntimatter))
 		getOrSubResourceTD(tier, true, E_pow(timeDimCostMults[costMultSelect][tier], toBuy).sub(1).div(timeDimCostMults[costMultSelect][tier] - 1).mul(dim.costAntimatter))
 		if (inNC(2) || player.currentChallenge == "postc1") player.chall2Pow = 0
 	} else {
 		var toBuy = 0
 		var increment = 1
-		console.log("buying " + toBuy)
 
 		while (player.eternityPoints.gte(timeDimCost(tier, dim.bought + increment - 1))) increment *= 2
 		while (increment>=1) {
