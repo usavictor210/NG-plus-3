@@ -202,7 +202,7 @@ function updateTimeShards() {
 	else el("timeShardsPerSec").textContent = "You are getting " + (inNGM(5) && p < 100 ? shortenND(p) : shortenDimensions(p)) + " Time Shards per " + (tmp.PDunl ? "real-life " : "") + "second."
 }
 
-// 0:Original 1:NG-4 2:NG-4R
+// 0:Original 1:NG-4C 2:NG-4R
 var timeDimCostMults = [[null, 3, 9, 27, 81, 243, 729, 2187, 6561], [null, 1.5, 2, 3, 20, 150, 1e5, 3e6, 1e8], [null, 2, 3, 4, 5, 10, 50, 1e3, 1e5]]
 var timeDimStartCosts = [[null, 1, 5, 100, 1000, "1e2350", "1e2650", "1e3000", "1e3350"], [null, 10, 20, 40, 80, 160, 1e8, 1e12, 1e18], [null, 1, 10, 100, 1e3, 1e4, 1e5, 1e6, 1e7]]
 
