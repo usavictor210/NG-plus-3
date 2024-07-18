@@ -176,6 +176,7 @@ function checkOtherPreNGp3Achieve(){
 	if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
 	if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
 	
+	if (inNGM4Respec() && player.tickspeedBoosts >= 1) giveAchievement("Fake News")
 	// need to know if we should really decide to move these into separate functions
 	if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
 	if (player.galaxies >= 2) giveAchievement("Double Galaxy");
