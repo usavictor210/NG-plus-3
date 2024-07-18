@@ -83,7 +83,7 @@ function cantReset() {
 
 function maxHighestTD() {
 	aarMod.maxHighestTD=!aarMod.maxHighestTD
-	el("maxHighestTD").textContent = "Buy Max the highest tier of Time Dimensions: O"+(aarMod.maxHighestTD?"N":"FF")
+	el("maxHighestTD").textContent = "Max only highest tier of Time Dimensions first: O"+(aarMod.maxHighestTD?"N":"FF")
 }
 
 // Respec

@@ -1185,10 +1185,9 @@ function doNGM4v2111tov22(){
 			player['timeDimension'+i].cost=timeDimStartCosts[0][i];
 			player['timeDimension'+i].bought=0;
 		}
+		
+		aarMod.newGame4MinusVersion=2.2;
 	}
-
-	aarMod.maxHighestTD = false
-	aarMod.newGame4MinusVersion=2.2;
 }
 
 // currently unused and will use later
@@ -1334,7 +1333,7 @@ function setOptionsDisplaysStuff1(){
 	dimDescEnd = (aarMod.logRateChange?" OoM":"%")+"/s)"
 
 	el("maxHighestTD").style.display = inNGM(4) ? "" : "none"
-	el("maxHighestTD").textContent = "Max only highest Time Dimensions: O"+(aarMod.maxHighestTD?"N":"FF")
+	el("maxHighestTD").textContent = "Max only highest tier of Time Dimensions first: O"+(aarMod.maxHighestTD?"N":"FF")
 
 	el("infmultbuyer").style.display = getEternitied()>0||mod.ngp3?"inline-block":"none"
 	if (!player.options.hotkeys) el("disablehotkeys").textContent = "Enable hotkeys"
