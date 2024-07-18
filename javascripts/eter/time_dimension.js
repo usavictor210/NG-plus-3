@@ -311,7 +311,7 @@ function buyMaxTimeDimension(tier, ngm4 = false, bulk) {
 	if (res.lt(dim.cost)) return
 	if (inNGM(4)) {
 		var costMultSelect = inNGM4Respec ? 2 : 1
-		var toBuy = Math.max(Math.floor(res.div(dim.cost).mul(timeDimCostMults[costMultSelect][tier] - 1).add(1).log(timeDimCostMults[costMultSelect][tier])) - player["timeDimension" + (tier)].boughtAntimatter, 0)
+		var toBuy = Math.max(Math.floor(res.div(dim.costAntimatter).mul(timeDimCostMults[costMultSelect][tier] - 1).add(1).log(timeDimCostMults[costMultSelect][tier])), 0)
 		console.log("buying " + toBuy + " with AM")
 		console.log("bulk: " + bulk)
 		if (bulk) toBuy = Math.min(toBuy,bulk)
