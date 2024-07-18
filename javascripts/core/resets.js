@@ -82,7 +82,6 @@ let RESETS = {
 	tsb: {
 		doReset(order) {
 			if (inNGM(4)) player.tdBoosts = hasAch("r27") && player.currentChallenge == "" ? 3 : 0
-			if (inNGM4Respec()) giveAchievement("Fake News")
 		}
 	},
 	gal: {

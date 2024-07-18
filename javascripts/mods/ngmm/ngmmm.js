@@ -34,6 +34,7 @@ function getTickspeedBoostRequirement(bulk = 1) {
 function tickspeedBoost(bulk) {
 	if (isNaN(bulk)) return
 	player.tickspeedBoosts += bulk
+	if (inNGM4Respec()) giveAchievement("Fake News")
 	doReset("tsb")
 }
 
