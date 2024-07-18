@@ -201,7 +201,7 @@ function updateMoney() {
 	if (inNC(12) || player.currentChallenge == "postc1" || player.currentChallenge == "postc6") element2.textContent = "There is " + formatValue(player.options.notation, player.matter, 2, 1) + " matter."; //TODO
 
 	var element3 = el("chall13Mult");
-	if(aarMod.newGame4MinusRespeccedVersion && !inNC(13)){
+	if(inNGM4Respec() && !inNC(13)){
 		element3.innerHTML = "Dilation Effect: exponent ^"+dilationPowerStrength().toFixed(4);
 	} else if (isADSCRunning()) {
 		var mult = getProductBoughtMult()

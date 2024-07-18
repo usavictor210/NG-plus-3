@@ -442,7 +442,7 @@ function renameIC(id) {
 
 //v1.501
 function isADSCRunning() {
-	return inNC(13) || (player.currentChallenge === "postc1" && inNGM(2)) || inNGM(3) && !inNGM4Respec()
+	return inNC(13) || (player.currentChallenge === "postc1" && inNGM(2)) || inNGM(3) && inNGM4Respec()
 }
 
 //v1.6
