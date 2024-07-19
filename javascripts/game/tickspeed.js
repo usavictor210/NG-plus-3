@@ -234,12 +234,13 @@ function updateTickspeed() {
 		label += "<br>You have "+(308-player.tickBoughtThisInf.current)+" tickspeed purchases left."
 		el("tickSpeedAmount").innerHTML = label
 	} else el("tickSpeedAmount").textContent = label
-	el("tickSpeed").textContent = "Cost: " + shortenPreInfCosts(player.tickSpeedCost);
+
+	el("tickSpeed").textContent = canBuyTickSpeed() ? "Cost: " + shortenPreInfCosts(player.tickSpeedCost) : "2nd Dimensions required"
 }
 
 
 function tickspeedButtonDisplay(){
-	if (player.tickSpeedCost.gt(player.money)) {
+	if (!canBuyTickSpeed() || player.tickSpeedCost.gt(player.money)) {
 		el("tickSpeed").className = 'unavailablebtn';
 		el("tickSpeedMax").className = 'unavailablebtn';
 	} else {

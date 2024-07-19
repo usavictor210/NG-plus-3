@@ -1873,7 +1873,7 @@ function doGhostifyButtonDisplayUpdating(diff){
 }
 
 function normalSacDisplay() {
-	let unl = (player.resets > 4 || player.infinitied > 0 || player.eternities !== 0 || quantumed) && PHANTOM.amt < 1 && !inQC(6)
+	let unl = ((player.resets > 4 || player.galaxies > 0) || gSacrificed() || player.infinitied > 0 || player.eternities !== 0 || quantumed) && PHANTOM.amt < 1 && !inQC(6)
 	el("confirmation").style.display = unl ? "inline-block" : "none"
 	el("sacrifice").style.display = unl ? "inline-block" : "none"
 	if (!unl) return
@@ -2064,12 +2064,15 @@ function newIDDisplayUpdating(){
 }
 
 function d8SacDisplay(){
-	if (calcTotalSacrificeBoost().lte(pow10(1e9))) {
+	if (calcTotalSacrificeBoost().lte(pow10(1e9)) && canBuyDimension(8)) {
 		el("sacrifice").setAttribute('ach-tooltip', "Boost the 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
 		el("sacrifice").textContent = "Dimensional Sacrifice (" + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x)"
-	} else {
+	} else if (canBuyDimension(8)) {
 		el("sacrifice").setAttribute('ach-tooltip', "Boost the 8th Dimension");
 		el("sacrifice").textContent = "Dimensional Sacrifice (Total: " + formatValue(player.options.notation, calcTotalSacrificeBoost(), 2, 2) + "x)"
+	} else {
+		el("sacrifice").setAttribute('ach-tooltip', "Boost the 8th Dimension by " + formatValue(player.options.notation, calcSacrificeBoost(), 2, 2) + "x");
+		el("sacrifice").textContent = "Dimensional Sacrifice (8th Dimensions required)"
 	}
 }
 

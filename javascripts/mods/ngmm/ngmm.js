@@ -744,10 +744,10 @@ function galSacDisplay(){
 
 function galSacBtnUpdating(){
 	el("sacrificebtn").style.display = "none"
-	el("gSacrifice").style.display = gSacrificeUnl()
+	el("gSacrifice").style.display = gSacrificeUnl() ? "inline-block" : "none"
 	if (gSacrificeUnl()) {
 		el("gSacrifice").innerHTML = "Galactic Sacrifice (" + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP)"
-		el("gSacrifice").setAttribute('ach-tooltip', "Gain " + formatValue(player.options.notation, getGSAmount(), 2, 0) + " GP")
+		el("gSacrifice").setAttribute('ach-tooltip', "Gain " + formatValue(player.options.notation, getGSAmount(), 2, 0) + " Galaxy Points")
 		if (getGSAmount().gt(0)) {
 			el("gSacrifice").className = "storebtn"
 			el("sacrificebtn").style.display = ""

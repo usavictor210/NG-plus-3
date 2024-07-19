@@ -101,7 +101,7 @@ function updateCosts() {
 }
 
 function tickspeedDisplay(){
-	let unl = canBuyDimension(3) || player.currentEternityChall == "eterc9"
+	let unl = canBuyDimension(3) || player.resets >= 1 || gSacrificed() || player.infinitied > 0 || player.eternities !== 0 || quantumed || player.currentEternityChall == "eterc9"
 	el("tickSpeedRow").style.visibility = unl ? "visible" : "hidden"
 	if (!unl) return
 
@@ -109,7 +109,7 @@ function tickspeedDisplay(){
 	var tickmultNum = tickmult.toNumber()
 	var ticklabel
 	var e = Math.floor(Math.log10(Math.round(1/tickmultNum)))
-	if (isNaN(tickmultNum)) ticklabel = 'Break the tick interval by Infinite';
+	if (isNaN(tickmultNum)) ticklabel = 'Break the tick interval by Infinite (something is horribly wrong)';
 	else if (e >= 9) ticklabel = "Divide the tick interval by " + shortenDimensions(Decimal.recip(tickmult))
 	else if (tickmultNum > .9) ticklabel = 'Reduce the tick interval by ' + shorten((1 - tickmultNum) * 100) + '%'
 	else ticklabel = 'Reduce the tick interval by ' + ((1 - tickmultNum) * 100).toFixed(e) + '%'
