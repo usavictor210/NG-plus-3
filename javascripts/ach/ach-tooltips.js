@@ -31,7 +31,7 @@ function setR2Tooltip(){
 	gal.setAttribute('ach-tooltip', 'Buy an Antimatter Galaxy. ' + (inNGM(4) && !inNGM4Respec() ? "Reward: Upon a Time Dimension Boost, your Dimension Boosts don’t reset unless you have more Time Dimension Boosts than your Dimension Boosts." : ''));
 	doubleGal.setAttribute('ach-tooltip', 'Buy 2 Antimatter Galaxies. ' + (inNGM(3) ? "Reward: Upon a Tickspeed Boost, your Dimension Boosts" + (inNGM(4) ? " and Time Dimension Boosts" : "") + " don’t reset unless you have more Tickspeed Boosts than five times your Antimatter Galaxies minus eight." : '') + (inNGM(4) ? " You start with 3 Time Dimension Boosts." : ""));
 	noPointAchieve.setAttribute('ach-tooltip', "Buy a single First Dimension when you have over " + formatValue(player.options.notation, 1e150, 0, 0) + " of them. Reward: First Dimensions are 10% stronger" + (!inNGM(3) ? "." : " and you can max buy Dimension and Tickspeed Boosts."));
-	infinity.setAttribute('ach-tooltip', "Big Crunch for the first time. Reward: Start with 100 antimatter" + (inNGM(2) ? " and always have at least 10x lower Dimension costs; Infinities now affect specific Galaxy Upgrades." : "."));
+	infinity.setAttribute('ach-tooltip', "Big Crunch for the first time. Reward: " + (inNGM(4) ? "" : "Start with 100 antimatter" ) + (inNGM(2) ? inNGM(4) ? "Always have at least 10x lower Dimension costs; Infinities now affect specific Galaxy Upgrades." : "and always have at least 10x lower Dimension costs; Infinities now affect specific Galaxy Upgrades." : "."));
 }
 
 function setR3Tooltip(){

@@ -102,6 +102,11 @@ let RESETS = {
 				player.galacticSacrifice.time = 0
 				GPminpeak = E(0)
 			}
+
+			if (inNGM(4) && player.galacticSacrifice.times == 1 && player.infinitied < 1 && player.eternities == 0 && !quantumed) {
+				el("welcomeMessage").innerHTML = "Sacrificing galaxies for the first time has unlocked most of the challenges formerly present in Infinity, alongside the Galaxy tab."
+				el("welcome").style.display = "flex"
+			}
 		}
 	},
 	inf: {
