@@ -732,7 +732,7 @@ function displayGalSacStats(){
 	if (!gSacrificed()) el("gsStatistics").style.display = "none"
 	else {
 		el("gsStatistics").style.display = ""
-		el("sacrificed").textContent = "You have Galactic Sacrificed "+getFullExpansion(player.galacticSacrifice.times) + " time" + (player.galacticSacrifice.times.eq(1)?".":"s.")
+		el("sacrificed").textContent = "You have Galactic Sacrificed "+getFullExpansion(player.galacticSacrifice.times) + " time" + (player.galacticSacrifice.times == 1 ?".":"s.")
 		el("thisSacrifice").textContent = "You have spent " + timeDisplay(player.galacticSacrifice.time) + " in this Galactic Sacrifice."
 	}
 }
