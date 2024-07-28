@@ -26,16 +26,17 @@ function bankedInfinityDisplay(){
 
 function displayEternityStats() {
 	/* ETERNITY */
+	let eternitiedEnd = (quantumed ? " this Quantum." : ".")
 	el("thisEternity").textContent = "You have spent " + timeDisplay(player.thisEternity) + " in this Eternity."
 	el("bestEternity").textContent = player.bestEternityTime < 9999999999 ? "Your fastest Eternity is " + timeDisplay(player.bestEternityTime) + "." : ""
-	el("eternitied").textContent = "You have Eternitied " + getFullExpansion(player.eternities) + " time" + (player.eternities == 1 ? "" : "s") + (quantumed ? " this Quantum." : ".")
+	el("eternitied").textContent = "You have Eternitied " + getFullExpansion(player.eternities) + " time" + (player.eternities == 1 ? "" : "s") + eternitiedEnd
 
 	/* DILATION */
 	let dil = hasAch("r136")
 	el("stats_dil").style.display = dil ? "" : "none"
 	if (dil) {
 		el("bestmoneydilation").textContent = player.dilation.best ? "Your best antimatter in Dilation is " + shortenMoney(player.dilation.best) + "." : ""
-		el("dilated").textContent = "You have succesfully Dilated "+getFullExpansion(player.dilation.times)+" times."
+		el("dilated").textContent = "You have succesfully Dilated "+getFullExpansion(player.dilation.times)+" times" + eternitiedEnd
 		el("exdilated").textContent = exdilated() ? "You have reversed Dilation " + getFullExpansion(player.exdilation.times) + " times." : ""
 	}
 }
