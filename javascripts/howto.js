@@ -418,7 +418,7 @@ let HOW_TO = [
 		desc: `Tachyonic Galaxies generate Photons, which strengthen Lights.<br>		
 		You can emit any Emissions to skip time on Photons, Replicantis, and Decay.<br><br>
 
-		However, before you could emit: You must slow down one of respective mechanics to generate time.<br>
+		However, before you could emit: You must choose a mechanic to slow down for generating time.<br>
 		On going Fundament, any emission with stored time will be ready to emit.`
 	}, {
 		mod: _ => ngp3,
