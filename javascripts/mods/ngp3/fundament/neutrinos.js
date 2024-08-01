@@ -333,7 +333,7 @@ const NEUTRINO = NT = {
 			if (upg.unl) el("nt_upg_"+i).style.display = upg.unl() ? "" : "none"
 		}
 		el("nt_upg_12").setAttribute('ach-tooltip',
-			`Normal galaxy effect: ${shorten(NT.eff('upg', 12).normal)}x to preonic spin production,
+			`Antimatter Galaxy effect: ${shorten(NT.eff('upg', 12).normal)}x to preonic spin production,
 			Replicated Galaxy effect: ${shorten(NT.eff('upg', 12).replicated)}x to EC14 reward,
 			Tachyonic galaxy effect: ${shorten(NT.eff('upg', 12).free)}x to IC3 base`
 		)
