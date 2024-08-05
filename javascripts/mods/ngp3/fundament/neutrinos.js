@@ -242,7 +242,7 @@ const NEUTRINO = NT = {
 			}, {
 				unl: _ => ghSave.times >= 7,
 				cost: E(1e10),
-				desc: `Eternities and Space Shards synergy each other.`
+				desc: `Eternities and Space Shards boost each other.`
 			}, {
 				unl: _ => ghSave.times >= 8,
 				cost: E(1e12),
