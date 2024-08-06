@@ -238,7 +238,7 @@ const NEUTRINO = NT = {
 			}, {
 				unl: _ => ghSave.times >= 6,
 				cost: E(7.5e9),
-				desc: `Disable the meta-antimatter boost nerf to quark gain.`
+				desc: `Unsoftcap the Anti-Quark gain.`
 			}, {
 				unl: _ => ghSave.times >= 7,
 				cost: E(1e10),
