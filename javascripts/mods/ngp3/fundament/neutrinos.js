@@ -206,7 +206,7 @@ const NEUTRINO = NT = {
 				desc: `Eggons hatch instantly.`
 			}, {
 				cost: E(1e8),
-				desc: `Blue power boosts nanocharge and preonic spin.`,
+				desc: `Blue power boosts Nanocharge and preonic spin.`,
 
 				eff() {
 					let bLog = quSave.colorPowers.b.max(1).log10()
@@ -231,7 +231,7 @@ const NEUTRINO = NT = {
 			}, {
 				unl: _ => ghSave.times >= 5,
 				cost: E(5e9),
-				desc: `Green power boosts odd Emperor Dimensions and nanocharge.`,
+				desc: `Green power boosts odd-tiered Emperor Dimensions and Nanocharge.`,
 
 				eff: _ => quSave.colorPowers.g.add(1).root(300),
 				effDesc: e => `${shorten(e)}x`
