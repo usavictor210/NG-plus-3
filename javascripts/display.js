@@ -340,9 +340,9 @@ function eternityUpgradesDisplay(){
 	el("eter5").innerHTML = "Time Theorems boost Time Dimensions"+"<br>Cost: "+shortenCosts(1e40)+" EP"
 	el("eter6").innerHTML = "Total time spent boosts Time Dimensions"+"<br>Cost: "+shortenCosts(1e50)+" EP"
 	if (mod.ngud && hasDilStudy(1)) {
-		el("eter7").innerHTML = "Dilated Time gain is boosted by antimatter<br>Currently: "+(1 + Math.log10(Math.max(1, player.money.log(10))) / 40).toFixed(3)+"x<br>Cost: "+shortenCosts(E("1e1500"))+" EP"
-		el("eter8").innerHTML = "Dilated Time gain is boosted by Infinity Points<br>Currently: "+(1 + Math.log10(Math.max(1, player.infinityPoints.log(10))) / 20).toFixed(3)+"x<br>Cost: "+shortenCosts(E("1e2000"))+" EP"
-		el("eter9").innerHTML = "Dilated Time gain is boosted by Eternity Points<br>Currently: "+(1 + Math.log10(Math.max(1, player.eternityPoints.log(10))) / 10).toFixed(3)+"x<br>Cost: "+shortenCosts(E("1e3000"))+" EP"
+		el("eter7").innerHTML = "Antimatter boosts Dilated Time<br>Currently: "+(1 + Math.log10(Math.max(1, player.money.log(10))) / 40).toFixed(3)+"x<br>Cost: "+shortenCosts(E("1e1500"))+" EP"
+		el("eter8").innerHTML = "Infinity Points boost Dilated Time<br>Currently: "+(1 + Math.log10(Math.max(1, player.infinityPoints.log(10))) / 20).toFixed(3)+"x<br>Cost: "+shortenCosts(E("1e2000"))+" EP"
+		el("eter9").innerHTML = "Eternity Points boost Dilated Time<br>Currently: "+(1 + Math.log10(Math.max(1, player.eternityPoints.log(10))) / 10).toFixed(3)+"x<br>Cost: "+shortenCosts(E("1e3000"))+" EP"
 	}
 	el("epmult").className = player.eternityPoints.gte(player.epmultCost) ? "eternityupbtn" : "eternityupbtnlocked"
 }
