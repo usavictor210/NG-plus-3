@@ -336,7 +336,7 @@ function eternityUpgradesDisplay(){
 	el("eter1").innerHTML = "Eternity Points boost Infinity Dimensions (x+1)<br>Currently: "+shortenMoney(player.eternityPoints.add(1))+"x<br>Cost: 5 EP"
 	el("eter2").innerHTML = "Eternities boost Infinity Dimensions (" + eu2formula + ")<br>Currently: "+shortenMoney(getEU2Mult())+"x<br>Cost: 10 EP"
 	el("eter3").innerHTML = "Infinity Dimension multiplier based on "+(mod.rs ? "Time Shards (x/"+shortenCosts(1e12)+"+1)":"sum of Infinity Challenge times")+"<br>Currently: "+shortenMoney(getEU3Mult())+"x<br>Cost: "+shortenCosts(50e3)+" EP"
-	el("eter4").innerHTML = "Achievement bonus boosts  Time Dimensions"+"<br>Cost: "+shortenCosts(1e16)+" EP"
+	el("eter4").innerHTML = "Achievement bonus boosts Time Dimensions"+"<br>Cost: "+shortenCosts(1e16)+" EP"
 	el("eter5").innerHTML = "Time Theorems boost Time Dimensions"+"<br>Cost: "+shortenCosts(1e40)+" EP"
 	el("eter6").innerHTML = "Total time spent boosts Time Dimensions"+"<br>Cost: "+shortenCosts(1e50)+" EP"
 	if (mod.ngud && hasDilStudy(1)) {
