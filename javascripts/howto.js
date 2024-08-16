@@ -571,7 +571,7 @@ function showPriorFeatures() {
 
 let SPOILERS = false
 function showSpoilers() {
-	if (!SPOILERS && !confirm("This will reveal the content you haven't got! Are you sure?")) return
+	if (!SPOILERS && !confirm("This will reveal features that you haven't unlocked! Are you sure?")) return
 	SPOILERS = !SPOILERS
 	el("showspoilers").innerHTML = (SPOILERS ? "Avoid" : "Show") + " spoilers"
 	updateDisplays()
@@ -622,4 +622,5 @@ function onLoad() {
 	setupDisplays()
 	updateDisplays()
 	openPage(lastUnl)
+	
 }

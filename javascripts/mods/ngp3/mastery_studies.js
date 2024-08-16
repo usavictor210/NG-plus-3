@@ -461,6 +461,7 @@ function buyMasteryStudy(type, id, quick=false) {
 		}
 		if (id == 241 && !hasGluonUpg("gb", 3)) {
 			var otherMults = 1
+			if (hasAch("r41")) otherMults *= 2
 			if (hasAch("r85")) otherMults *= 4
 			if (hasAch("r93")) otherMults *= 4
 			var old = getIPMultPower()

@@ -135,6 +135,7 @@ function getIPGain(next) {
 function getIPMult() {
 	let mult = player.infMult
 	if (inOnlyNGM(2)) {
+		if (hasAch("r41")) mult = mult.mul(2)
 		if (hasAch("r85")) mult = mult.mul(4)
 		if (hasAch("r93")) mult = mult.mul(4)
 		if (hasAch("r43")) mult = mult.mul(1.25)
@@ -252,15 +253,15 @@ function checkOnCrunchAchievements() {
 	if (player.galaxies == 0 && player.resets == 0) giveAchievement("Zero Deaths")
 	if (inNC(2) && player.thisInfinityTime <= 1800) giveAchievement("Many Deaths")
 	if (inNC(11) && player.thisInfinityTime <= 1800) giveAchievement("Gift from the Gods")
-	if (inNC(5) && player.thisInfinityTime <= 1800) giveAchievement("Is this hell?")
+	if (inNC(5) && player.thisInfinityTime <= 1800) giveAchievement("This is fine.")
 	if (inNC(3) && player.thisInfinityTime <= 100) giveAchievement("You did this again just for the achievement right?");
 	if (player.firstAmount == 1 && player.resets == 0 && player.galaxies == 0 && inNC(12)) giveAchievement("ERROR 909: Dimension not found")
 	if (getIPGain().gte(1e150)) giveAchievement("All your IP are belong to us")
 	if (getIPGain().gte(1e200) && player.thisInfinityTime <= 20) giveAchievement("Ludicrous Speed")
 	if (getIPGain().gte(1e250) && player.thisInfinityTime <= 200) giveAchievement("I brake for nobody")
 	if (player.currentChallenge.includes("post")) giveAchievement("Infinitely Challenging")
-	if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Hevipelle did nothing wrong")
-	if (inNGM(3) && player.thisInfinityTime <= 100 && player.currentChallenge == "postc7") giveAchievement("Hevipelle did nothing wrong")
+	if (player.currentChallenge == "postc5" && player.thisInfinityTime <= 100) giveAchievement("Game Design Is My Passion")
+	if (inNGM(3) && player.thisInfinityTime <= 100 && player.currentChallenge == "postc7") giveAchievement("Game Design Is My Passion")
 	if (player.currentChallenge == "postc8") giveAchievement("Anti-antichallenged");
 }
 
@@ -359,7 +360,7 @@ function startNormalChallenge(x) {
 }
 
 function inNC(x, n) {
-	if (inNGM(4)) return x==0 ? !player.galacticSacrifice.chall : player.galacticSacrifice.chall == x
+	if (inNGM(4)) return x == 0 ? !player.galacticSacrifice.chall : (player.galacticSacrifice != undefined ? player.galacticSacrifice.chall == x : false)
 	return player.currentChallenge == (x==0 ? "" : "challenge" + x)
 }
 

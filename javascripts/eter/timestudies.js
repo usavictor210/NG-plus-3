@@ -21,7 +21,8 @@ function buyWithIP() {
 
 function buyWithEP() {
 	if (!canBuyTTWithEP()) {
-		alert("You need to buy at least 1 Time Dimension before you can purchase Theorems with Eternity Points.")
+		el("welcome").style.display = "flex"
+		el("welcomeMessage").innerHTML = "You need to buy at least 1 Time Dimension before you can purchase Theorems with Eternity Points."
 		return false;
 	}
 	if (player.eternityPoints.gte(player.timestudy.epcost)) {

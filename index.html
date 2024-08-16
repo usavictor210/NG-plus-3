@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+	<meta charset=utf-8>
 	<title id="z">AD: NG Plus 3</title>
 	<link rel="icon" type="image/png" href="images/icon.png">
 	<meta name="AD: NG Plus 3" content="An extension to Antimatter Dimensions: Dilation Update." charset="utf-8"/>
@@ -146,13 +147,14 @@
 			</div>
 			<div id="tab_dim_time">
 				<div>
-					<p id="itmult"></p>
+					<p id="itmult">inf mult blah</p>
 					<p id="totaltickgained">You've gained 0 tickspeed upgrades.</p>
 					<p>You have <span id="timeShardAmount" style="font-size:35px; color: black">0</span> Time Shards. The next tickspeed upgrade is at <span id="tickThreshold" style="font-size:35px; color: black">0</span>.</p>
 				</div>
 
 				<div id="timeShardsPerSec">You are getting 0 Time Shards per second.</div>
-				<button id="maxTimeDimensions" class="storebtn" style="font-size: 12px" onclick="buyMaxTimeDimensions()">Max all</Button>
+				<button id="maxTimeDimensions" class="storebtn" style="font-size: 12px" onclick="buyMaxTimeDimensions()">Max all</button><br>
+				<p id="tdCostLimit" style="display: none;">You can spend up to 1e50 antimatter on Time Dimensions</p>
 				<table id="timeDimTable" class="table"></table>
 				<button id="togglealltimedims" style="width:140px; height: 30px; font-size: 12px; visibility: hidden" onclick="toggleAllTimeDims()" class="storebtn">Toggle all ON/OFF</button>
 			</div>
@@ -517,7 +519,7 @@
 							<div id="To infinity!" class="achievement achievementlocked" style="background-image: url(images/9.png)" ach-tooltip="Reach Infinite antimatter. Reward: Start with 100 antimatter."><br></div>
 						</td>
 						<td id="r22">
-							<div id="Fake News" class="achievement achievementlocked" style="background-image: url(images/25.png)" ach-tooltip="Encounter 50 different news messages."><br></div>
+							<div id="Fake News" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Encounter 50 different news messages."><br></div>
 						</td>
 						<td>
 							<div id="The 9th Dimension is a lie" class="achievement achievementlocked" style="background-image: url(images/11.png)" ach-tooltip="Have exactly 99 Eighth Dimensions. Reward: Eighth Dimensions are 10% stronger."><br></div>
@@ -552,7 +554,7 @@
 							<div id="You didn't need it anyway" class="achievement achievementlocked" style="background-image: url(images/20.png)"><br></div>
 						</td>
 						<td id="r35">
-							<div id="Don't you dare sleep" class="achievement achievementlocked" style="background-image: url(images/10.png)" ach-tooltip="Be offline for over 6 hours in a row."><br></div>
+							<div id="Don't you dare sleep" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Be offline for over 6 hours in a row."><br></div>
 						</td>
 						<td>
 							<div id="Claustrophobic" class="achievement achievementlocked" style="background-image: url(images/22.png)" ach-tooltip="Big Crunch with just 1 Antimatter Galaxy. Reward: Reduces starting tick interval by 2%."><br></div>
@@ -566,7 +568,7 @@
 					</tr>
 					<tr id="achRow4">
 						<td id="r41">
-							<div id="Spreading Nerd" class="achievement achievementlocked" style="background-image: url(images/placeholder.png)">Spreading Nerd</div>
+							<div id="No DLC Required" class="achievement achievementlocked" style="background-image: url(images/25.png)"></div>
 						</td>
 						<td>
 							<div id="Supersanic" class="achievement achievementlocked" style="background-image: url(images/26.png)" ach-tooltip="Have antimatter/sec exceed your current antimatter above 1 Tg (1e63)."><br></div>
@@ -613,7 +615,7 @@
 							<div id="Gift from the Gods" class="achievement achievementlocked" style="background-image: url(images/39.png)" ach-tooltip="Complete the Eighth Dimension Autobuyer challenge in 3 minutes or less. Reward: Dimensional Sacrifice is a lot stronger."><br></div>
 						</td>
 						<td>
-							<div id="Is this hell?" class="achievement achievementlocked" style="background-image: url(images/placeholder.png)">Is this hell?</div>
+							<div id="This is fine." class="achievement achievementlocked" style="background-image: url(images/40.png)"></div>
 						</td>
 					</tr>
 					<tr id="achRow6">
@@ -653,13 +655,13 @@
 							<div id="This achievement doesn't exist" class="achievement achievementlocked" style="background-image: url(images/43.png)" ach-tooltip="Get 9.9999e9999 antimatter. Reward: Dimensions are more powerful the more unspent antimatter you have."><br></div>
 						</td>
 						<td>
-							<div id="End me" class="achievement achievementlocked" style="background-image: url(images/44.png)" ach-tooltip="Get the sum of all Normal Challenge times under 5 seconds. Reward: All Antimatter Dimensions are 40% stronger in challenges."><br></div>
+							<div id="Not a second lost" class="achievement achievementlocked" style="background-image: url(images/44.png)" ach-tooltip="Get the sum of all Normal Challenge times under 5 seconds. Reward: All Antimatter Dimensions are 40% stronger in challenges."><br></div>
 						</td>
 						<td>
 							<div id="NEW DIMENSIONS???" class="achievement achievementlocked" style="background-image: url(images/45.png)"><br></div>
 						</td>
 						<td id="r76">
-							<div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/21.png)" ach-tooltip="Play for 8 days. Reward: Gain an extremely small time multiplier to your Antimatter Dimensions."><br></div>
+							<div id="One for each dimension" class="achievement achievementlocked" style="background-image: url(images/46.png)" ach-tooltip="Play for 8 days. Reward: Gain an extremely small time multiplier to your Antimatter Dimensions."><br></div>
 						</td>
 						<td>
 							<div id="How the antitables have turned" class="achievement achievementlocked" style="background-image: url(images/47.png)"><br></div>
@@ -670,7 +672,7 @@
 					</tr>
 					<tr id="achRow8">
 						<td>
-							<div id="Hevipelle did nothing wrong" class="achievement achievementlocked" style="background-image: url(images/49.png)" ach-tooltip="Beat Infinity Challenge 5 in 10 seconds or less."><br></div>
+							<div id="Game Design Is My Passion" class="achievement achievementlocked" style="background-image: url(images/49.png)" ach-tooltip="Beat Infinity Challenge 5 in 10 seconds or less."><br></div>
 						</td>
 						<td>
 							<div id="Anti-antichallenged" class="achievement achievementlocked" style="background-image: url(images/50.png)" ach-tooltip="Complete 8 Infinity Challenges."><br></div>
@@ -1606,7 +1608,7 @@
 									<button id="postcngm3_3" class="challengesbtn" onclick="startChallenge('postcngm3_3')">Start</button>
 									<br>
 									<span id="postcngm3_3goal"></span><br>
-									<span>Reward: Galaxy points boost Tickspeed Boosts.</span>
+									<span>Reward: Galaxy Points boost Tickspeed Boosts.</span>
 								</div>
 							</div>
 						</td>
@@ -1615,14 +1617,14 @@
 						<td id='icngm3_div2'></td>
 						<td>
 							<div class="infchallengediv" id="postcngm3_4div" style="height: 140px; display: none">
-								<span>The Galaxy exponent boost to Galaxy points gain is buffed, but all Galaxy upgrades that are based on Galaxy points are disabled.</span>
+								<span>The Galaxy exponent boost to Galaxy Points gain is buffed, but all Galaxy upgrades that are based on Galaxy Points are disabled.</span>
 								<br>
 								<br>
 								<div class="outer">
 									<button id="postcngm3_4" class="challengesbtn" onclick="startChallenge('postcngm3_4')"></button>
 									<br>
 									<span id="postcngm3_4goal"></span><br>
-									<span>Reward: The Galaxy exponent boost to Galaxy points gain is buffed.</span>
+									<span>Reward: The Galaxy exponent boost to Galaxy Points gain is buffed.</span>
 								</div>
 							</div>
 						</td>
@@ -1959,7 +1961,7 @@
 			<table id="tabs_gSac"></table>
 			<div id="vanillaGalaxyPoints">
 				<br>
-				<div id="galaxyPoints" style="color: #4169E1; font-size: 15px; width: 40%; margin: 0 auto">You have x galaxy points.</div>
+				<div id="galaxyPoints" style="color: #4169E1; font-size: 15px; width: 40%; margin: 0 auto">You have x Galaxy Points.</div>
 				<br>
 			</div>
 			<div id="tab_upg_gSac">
@@ -1995,10 +1997,10 @@
 							<button id="galaxy23" class="infinistorebtn3" onclick="buyGalaxyUpgrade(23)"><span id='galDesc23'></span><br>Currently: <span id='galspan23'>x</span>x more power<br>Cost: 100 GP</button>
 						</td>
 						<td>
-							<button id="galaxy24" class="infinistorebtn4" onclick="buyGalaxyUpgrade(24)">Increase the multiplier of the product of bought based on your galaxy points.<br>Currently: <span id='galspan24'>x</span>x<br>Cost: <span id='galcost24'></span> GP</button>
+							<button id="galaxy24" class="infinistorebtn4" onclick="buyGalaxyUpgrade(24)">Increase the multiplier of the product of bought based on your Galaxy Points.<br>Currently: <span id='galspan24'>x</span>x<br>Cost: <span id='galcost24'></span> GP</button>
 						</td>
 						<td>
-							<button id="galaxy25" class="infinistorebtn4" onclick="buyGalaxyUpgrade(25)">Tickspeed multiplier boosts Time Dimensions more based on your Galaxy points.<br>Currently: ^<span id='galspan25'>x</span><br>Cost: <span id='galcost25'></span> GP</button>
+							<button id="galaxy25" class="infinistorebtn4" onclick="buyGalaxyUpgrade(25)">Tickspeed multiplier boosts Time Dimensions more based on your Galaxy Points.<br>Currently: ^<span id='galspan25'>x</span><br>Cost: <span id='galcost25'></span> GP</button>
 						</td>
 						<td>
 							<button id="galaxy26" class="infinistorebtn4" onclick="buyGalaxyUpgrade(26)">Square the effect of the upgrade to the left.<br>Cost: <span id='galcost26'></span> GP</button>
@@ -2046,22 +2048,67 @@
 					</tr>
 					<tr>
 						<td>
-							<button id="galaxy51" class="infinistorebtn1" onclick="buyGalaxyUpgrade(51)">Galaxy points boost Eternity points.<br>Currently: <span id='galspan51'>?</span>x<br>Cost: <span id='galcost51'>1e4500</span> GP</button>
+							<button id="galaxy51" class="infinistorebtn1" onclick="buyGalaxyUpgrade(51)">Galaxy Points boost Eternity points.<br>Currently: <span id='galspan51'>?</span>x<br>Cost: <span id='galcost51'>1e4500</span> GP</button>
 						</td>
 						<td>
-							<button id="galaxy52" class="infinistorebtn2" onclick="buyGalaxyUpgrade(52)">Reduce the galaxy softcap of Galaxy points gain formula.<br>Cost: <span id='galcost52'>1e5500</span> GP</button>
+							<button id="galaxy52" class="infinistorebtn2" onclick="buyGalaxyUpgrade(52)">Reduce the galaxy softcap of Galaxy Points gain formula.<br>Cost: <span id='galcost52'>1e5500</span> GP</button>
 						</td>
 						<td>
-							<button id="galaxy53" class="infinistorebtn3" onclick="buyGalaxyUpgrade(53)">Galaxy points boost 2x Infinity Points multiplier upgrades<br>Cost: <span id='galcost53'>1e15000</span> GP</button>
+							<button id="galaxy53" class="infinistorebtn3" onclick="buyGalaxyUpgrade(53)">Galaxy Points boost 2x Infinity Points multiplier upgrades<br>Cost: <span id='galcost53'>1e15000</span> GP</button>
 						</td>
 						<td>
-							<button id="galaxy54" class="infinistorebtnlocked">???<br>Cost: ??? GP</button>
+							<button id="galaxy54" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(54)">???<br>Cost: ??? GP</button>
 						</td>
 						<td>
-							<button id="galaxy55" class="infinistorebtnlocked">???<br>Cost: ??? GP</button>
+							<button id="galaxy55" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(55)">???<br>Cost: ??? GP</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="galaxy61" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(61)">???<br>Cost: ??? GP</button>
 						</td>
 						<td>
-							<button id="galaxy56" class="infinistorebtnlocked">???<br>Cost: ??? GP</button>
+							<button id="galaxy62" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(62)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy63" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(63)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy64" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(64)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy65" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(65)">???<br>Cost: ??? GP</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="galaxy71" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(71)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy72" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(72)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy73" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(73)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy74" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(74)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy75" class="infinistorebtnlocked" onclick="buyGalaxyUpgrade(75)">???<br>Cost: ??? GP</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<button id="galaxy81" class="infinistorebtn1" onclick="buyGalaxyUpgrade(81)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy82" class="infinistorebtn2" onclick="buyGalaxyUpgrade(82)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy83" class="infinistorebtn3" onclick="buyGalaxyUpgrade(83)">???<br>Cost: ??? GP</button>
+						</td>
+						<td>
+							<button id="galaxy84" class="infinistorebtn4" onclick="buyGalaxyUpgrade(84)">???<br>Cost: ??? GP</button>
 						</td>
 					</tr>
 				</table>
@@ -3818,7 +3865,7 @@
 			<table id='saves'></table>
 		</div>
 		<div id="modsTab" style="height:320px;overflow-y:auto;display:none">
-			You can select various mods for this save.<br>Click 'New' to begin a save file with these mods.<br>
+			You can select various mods for this save.<br>Click 'Create' to begin a save file with these mods.<br>
 			<button class="storebtn" style="width: 360px; font-size: 15px" onclick="new_game('vanilla')" style="display: inline">Vanilla (NG=)</button><br>
 			<button class="storebtn" style="width: 360px; font-size: 15px" onclick="new_game('ngp3')" style="display: inline">New Game Plus 3 (Recommended)</button><br>
 			<button class="storebtn" style="width: 360px; font-size: 15px" onclick="new_game('grand_run')" style="display: inline">Grand Run (NG= → NG+3)</button><br>

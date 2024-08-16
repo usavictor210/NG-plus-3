@@ -23,7 +23,7 @@ const allAchievements = {
 	r36 : "Claustrophobic",
 	r37 : "That's fast!",
 	r38 : "I don't believe in Gods",
-	r41 : "Spreading Nerd",
+	r41 : "No DLC Required",
 	r42 : "Supersanic",
 	r43 : "Zero Deaths",
 	r44 : "Over in 30 seconds",
@@ -38,7 +38,7 @@ const allAchievements = {
 	r55 : "Forever isn't that long",
 	r56 : "Many Deaths",
 	r57 : "Gift from the Gods",
-	r58 : "Is this hell?",
+	r58 : "This is fine.",
 	r61 : "Bulked up",
 	r62 : "Oh hey, you're still here",
 	r63 : "A new beginning.",
@@ -50,12 +50,12 @@ const allAchievements = {
 	r71 : "ERROR 909: Dimension not found",
 	r72 : "Can't hold all these infinities",
 	r73 : "This achievement doesn't exist",
-	r74 : "End me",
+	r74 : "Not a second lost",
 	r75 : "NEW DIMENSIONS???",
 	r76 : "One for each dimension",
 	r77 : "How the antitables have turned",
 	r78 : "Blink of an eye",
-	r81 : "Hevipelle did nothing wrong",
+	r81 : "Game Design Is My Passion",
 	r82 : "Anti-antichallenged",
 	r83 : "YOU CAN GET 50 GALAXIES!??",
 	r84 : "I got a few to spare",
@@ -337,6 +337,11 @@ function giveAchievement(name, noUpdate) {
 		player.autoIP = player.autoIP.mul(4);
 		if (player.autoCrunchMode == "amount" && player.autobuyers[11].priority != undefined) player.autobuyers[11].priority = Decimal.mul(player.autobuyers[11].priority, 4);
 	}
+
+	if (inNGM4Respec() && name == "A new beginning." || name == "I brake for nobody" || name == "Ludicrous Speed") {
+		player.eternityPoints = player.eternityPoints.add(1)
+	}
+
 	if (name == "The swarm" && mod.rs) el('replicantigalaxypowerdiv').style.display=""
 	if (name == "I told you already, time is relative" || name == "I'm so meta" || name == "To the new dimension!") updateHotkeys()
 	if (name == "GAS GAS GAS") {

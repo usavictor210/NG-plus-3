@@ -20,6 +20,7 @@ function getAutobuyerData(i) {
 	if (i < 13) return player.autobuyers[i-1]
 }
 
+// The resource used changes depending on the mod you're playing
 function autobuyerUpgRes() {
 	if (inNGM(4) && id != 11) return "GP"
 	return "IP"

@@ -57,7 +57,7 @@ function getIC3Base() {
 
 	let add = 1.05
 	let mult = 0.005
-	if (inNGM(3)) mult = 0.002
+	if (inNGM(3) && !inNGM4Respec()) mult = 0.002
 	if (inQC(2)) mult = 0
 
 	let gal = player.galaxies
@@ -234,12 +234,13 @@ function updateTickspeed() {
 		label += "<br>You have "+(308-player.tickBoughtThisInf.current)+" tickspeed purchases left."
 		el("tickSpeedAmount").innerHTML = label
 	} else el("tickSpeedAmount").textContent = label
-	el("tickSpeed").textContent = "Cost: " + shortenPreInfCosts(player.tickSpeedCost);
+
+	el("tickSpeed").textContent = canBuyTickSpeed() ? "Cost: " + shortenPreInfCosts(player.tickSpeedCost) : "2nd Dimensions required"
 }
 
 
 function tickspeedButtonDisplay(){
-	if (player.tickSpeedCost.gt(player.money)) {
+	if (!canBuyTickSpeed() || player.tickSpeedCost.gt(player.money)) {
 		el("tickSpeed").className = 'unavailablebtn';
 		el("tickSpeedMax").className = 'unavailablebtn';
 	} else {

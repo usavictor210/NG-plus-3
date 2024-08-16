@@ -17,7 +17,7 @@ let TABS = {
 
 	opt: { name: "Options", stab: [ "opt_save", "opt_disp", "opt_key", "opt_other", "opt_sec" ] },
 	opt_save: { name: "Saving", update() {
-		el("save").innerHTML = noSave ? `(save disabled)` : `<b style='font-size: 20px'>Save</b><br>(Last saved: ${timeDisplayShort(autoSaveSeconds * 10)})`
+		el("save").innerHTML = noSave ? `(autosave disabled)` : `<b style='font-size: 20px'>Save</b><br><p style="font-size: 12px;">(Last saved: ${timeDisplayShort(autoSaveSeconds * 10)})</p>`
 	} },
 	opt_disp: { name: "Display" },
 	opt_key: { name: "Hotkeys" },
@@ -49,7 +49,7 @@ let TABS = {
 	} },
 	rep: { name: "Replicanti", update: _ => replicantiDisplay() },
 
-	eter: { name: "Eternity", class: "eternitybtn", stab: [ "ts", "ts_respec", "ts_master", "upg_eter", "dil", "bh", "mil_eter" ], unl: _ => eternitied(), update() {
+	eter: { name: "Eternity", class: "eternitybtn", stab: [ "ts", "ts_respec", "ts_master", "upg_eter", "dil", "bh", "mil_eter" ], unl: _ => meetEternityTabRequirement(), update() {
 		if (el("TTbuttons").style.display !== "none") updateTheoremButtons()
 	} },
 	ts: { name: "Time Studies", unl: _ => !mod.rs, update: _ => mainTimeStudyDisplay() },

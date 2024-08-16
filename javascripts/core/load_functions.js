@@ -468,10 +468,12 @@ function dov7tov10(){
 		updateAchievements()
 		if (!inERS) player.replicanti.intervalCost = player.replicanti.intervalCost.dividedBy(1e20)
 	}
+
+	// Specific achievements had different placements depending on the mod
 	el(inERS?"r22":"r35").appendChild(el("Don't you dare sleep"))
 	el(inERS?"r35":"r76").appendChild(el("One for each dimension"))
 	el(inERS?"r41":"r22").appendChild(el("Fake News"))
-	el(inERS?"r76":"r41").appendChild(el("Spreading Nerd"))
+	el(inERS?"r76":"r41").appendChild(el("No DLC Required"))
 	el("Universal harmony").style["background-image"]="url(images/"+(!mod.ngp3?104:"104-ngp3")+".png)"
 	el("Infinite time").style["background-image"]="url(images/"+(inERS?79:69)+".png)"
 
@@ -851,6 +853,7 @@ function doPostNGP3Versions() {
 			player.infinitiedBank=nMx(player.infinitiedBank,1e6)
 			var filter=["timeMult","dimMult","timeMult2","unspentBonus","27Mult","18Mult","36Mult","resetMult","passiveGen","45Mult","resetBoost","galaxyBoost"]
 			for (var u=0;u<filter.length;u++) if (!player.infinityUpgrades.includes(filter[u])) player.infinityUpgrades.push(filter[u])
+			if (!hasAch("r41")) player.infMult=Decimal.mul(player.infMult,2)
 			if (!hasAch("r85")) player.infMult=Decimal.mul(player.infMult,4)
 			if (!hasAch("r93")) player.infMult=Decimal.mul(player.infMult,4)
 			player.dimensionMultDecrease=2
@@ -861,6 +864,7 @@ function doPostNGP3Versions() {
 			player.replicanti.amount=Decimal.max(player.replicanti.amount,1)
 			if (!hasDilStudy(1)) player.dilation.studies.push(1)
 		}
+		if (!hasAch("r41")) player.achievements.push("r41")
 		if (!hasAch("r77")) player.achievements.push("r77")
 		if (!hasAch("r78")) player.achievements.push("r78")
 		if (!hasAch("r85")) player.achievements.push("r85")
@@ -1104,6 +1108,7 @@ function doERSv0tov102(){
 		delete player.eternityChallenges
 	}
 	if (aarMod.ersVersion<1.02) {
+		if (hasAch("r41")) player.infMult = player.infMult.mul(4)
 		if (hasAch("r85")) player.infMult=player.infMult.mul(4)
 		if (hasAch("r93")) player.infMult=player.infMult.mul(4)
 		aarMod.ersVersion=1.02
@@ -1169,6 +1174,28 @@ function doNGM4v0tov2111(){
 		player.challengeTimes.push(600*60*24*31)
 	}
 	if (aarMod.newGame4MinusVersion<2.111) aarMod.newGame4MinusVersion=2.111
+}
+
+function doNGM4v2111tov22(){
+	if (aarMod.newGame4MinusVersion<2.2) {
+		for(let i=1;i<=8;i++){
+			console.log(1);
+			player['timeDimension'+i].costAntimatter=player['timeDimension'+i].cost;
+			player['timeDimension'+i].boughtAntimatter=player['timeDimension'+i].bought;
+			player['timeDimension'+i].cost=timeDimStartCosts[0][i];
+			player['timeDimension'+i].bought=0;
+		}
+		
+		aarMod.newGame4MinusVersion=2.2;
+	}
+}
+
+// currently unused and will use later
+function doNGM4RespecCheck() {
+	if (aarMod.newGame4MinusRespeccedVersion != undefined) {
+		// re-add respecced variable if somehow not present
+		aarMod.newGame4MinusRespeccedVersion = 3
+	}
 }
 
 function doNGSPUpdatingVersion(){
@@ -1247,6 +1274,7 @@ function updateVersionsONLOAD(){
 	doNGSPUpdatingVersion()
 	doInitInfMultStuff()
 	dov12tov122()
+	doNGM4v2111tov22()
 }
 
 function doNGp3Init() {
@@ -1309,7 +1337,7 @@ function setOptionsDisplaysStuff1(){
 	dimDescEnd = (aarMod.logRateChange?" OoM":"%")+"/s)"
 
 	el("maxHighestTD").style.display = inNGM(4) ? "" : "none"
-	el("maxHighestTD").textContent = "Max only highest Time Dimensions: O"+(aarMod.maxHighestTD?"N":"FF")
+	el("maxHighestTD").textContent = "Max only highest tier of Time Dimensions first: O"+(aarMod.maxHighestTD?"N":"FF")
 
 	el("infmultbuyer").style.display = getEternitied()>0||mod.ngp3?"inline-block":"none"
 	if (!player.options.hotkeys) el("disablehotkeys").textContent = "Enable hotkeys"
@@ -1332,12 +1360,12 @@ function setDisplaysStuff1(){
 		el("galaxy11").innerHTML = "Antimatter"+(inNGM(4)?" and Time D":" D")+"imensions are "+(player.infinitied>0||getEternitied()!==0||quantumed?"cheaper based on your Infinities.<br>Currently: <span id='galspan11'></span>x":"99% cheaper.")+"<br>Cost: 1 GP"
 		el("galaxy15").innerHTML = "Antimatter and Time Dimensions produce "+(player.infinitied>0||getEternitied()!==0||quantumed?"faster based on your Infinities.<br>Currently: <span id='galspan15'></span>x":"100x faster")+".<br>Cost: 1 GP"
 	} else {
-		el("infi21").innerHTML = "Increase the multiplier for buying 10 Dimensions<br>"+(mod.ngep?"20x → 24x":"2x → 2.2x")+"<br>Cost: 1 IP"
-		el("infi33").innerHTML = "Increase Dimension Boost multiplier<br>2x → 2.5x<br>Cost: 7 IP"
+		el("infi21").innerHTML = "Increase the multiplier for buying 10 Dimensions<br>"+(mod.ngep?"20x �24x":"2x �2.2x")+"<br>Cost: 1 IP"
+		el("infi33").innerHTML = "Increase Dimension Boost multiplier<br>2x �2.5x<br>Cost: 7 IP"
 	}
 	var resetSkipCosts=[20,40,80]
 	for (u=1;u<4;u++) el("infi4"+u).innerHTML="You start with the "+(u+4)+"th dimension unlocked"+(!inNGM(3)?"":" and "+(u*4)+" Tickspeed Boosts")+"<br>Cost: "+resetSkipCosts[u-1]+" IP"
-	el("infi44").innerHTML="You start with the 8th dimension unlocked"+(!inNGM(3)?"":", 16 Tickspeed Boosts")+", and a Galaxy<br>Cost: 500 IP"
+	el("infi44").innerHTML="You start with the 8th Antimatter Dimension unlocked"+(!inNGM(3)?"":", 16 Tickspeed Boosts")+", and a Galaxy<br>Cost: 500 IP"
 }
 
 function setChallengeDisplay(){
@@ -1693,6 +1721,7 @@ function conToDeciTD(){
 		const data = player["timeDimension"+dim]
 		data.amount = E(data.amount)
 		data.cost = isNaN(E(data.cost).e) ? timeDimCost(dim, data.bought) : E(data.cost)
+		if(player.aarexModifications.newGame4MinusVersion)data.costAntimatter = isNaN(E(data.costAntimatter).e) ? timeDimCost(dim, data.boughtAntimatter, 1) : E(data.costAntimatter)
 		data.power = E(data.power)
 	}
 }

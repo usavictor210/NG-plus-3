@@ -22,8 +22,7 @@ function checkOnGalaxyReset() {
 	if (player.galaxies >= 2) giveAchievement("Double Galaxy");
 	if (player.galaxies >= 1) giveAchievement("You got past The Big Wall");
 	if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
-	
-	if (player.spreadingCancer >= 10) giveAchievement("Spreading Nerd")
+
 	if (player.spreadingCancer >= 1000000) giveAchievement("Cancer = Spread")
 }
 

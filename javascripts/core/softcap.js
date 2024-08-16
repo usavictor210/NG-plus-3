@@ -64,11 +64,109 @@ var softcap_data = {
 			pow: 0.8,
 			derv: true
 		}
-	}
+	},
+	
+	ts_ngm4r: {
+		name: "Effective Time Shards (NG-4R)",
+		1: {
+			func: "dilate",
+			start: function(){return E(10)},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		},
+		2: {
+			func: "dilate",
+			start: function(){
+				let ret=E(Number.MAX_VALUE);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		}
+	},
+	ts1_ngm4r: {
+		name: "Tickspeed (NG-4R)",
+		1: {
+			func: "dilate",
+			start: function(){
+				let ret=E(Number.MAX_VALUE);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		}
+	},
+	td_ngm4r: {
+		name: "Time Dimension Multipliers (NG-4R)",
+		1: {
+			func: "dilate",
+			start: function(){
+				let ret=E(Number.MAX_VALUE);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		},
+		2: {
+			func: "dilate",
+			start: function(){
+				let ret=Decimal.pow(10,50000);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		}
+	},
+	nd_ngm4r: {
+		name: "Normal Dimension Multipliers (NG-4R)",
+		1: {
+			func: "dilate",
+			start: function(){
+				let ret=E(1e25);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		},
+		2: {
+			func: "dilate",
+			start: function(){
+				let ret=E(1e35);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				if (hasAch("r51")) ret = ret.times(1e15)
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		},
+		3: {
+			func: "dilate",
+			start: function(){
+				let ret=E(Number.MAX_VALUE);
+				if (player.infinityUpgrades.includes("timeMult")) ret = ret.times(infUpg11Pow());
+				if (player.infinityUpgrades.includes("timeMult2")) ret = ret.times(infUpg13Pow());
+				return ret;
+			},
+			base: 10,
+			pow: function(){return dilationPowerStrength()}
+		}
+	},
 }
 
 var softcap_vars = {
 	pow: ["start", "pow", "derv"],
+	dilate: ["start", "base", "pow", "mul", "sub10"],
 	log: ["pow", "mul", "add"],
 	logshift: ["shift", "pow", "add"]
 }
@@ -111,7 +209,32 @@ var softcap_funcs = {
 		if (typeof add == "function") add = add()
 		var x2 = Math.pow(Math.log10(x * shift), pow) + add
 		return Math.min(x, x2)
-	}
+	},
+	dilate(x, start, base = 10, pow = 1, mul = 1, sub10 = 0) { 
+		if (x <= start) return x
+
+		var x_log = Math.log(x) / Math.log(base)
+		var start_log = Math.log(start) / Math.log(base)
+
+		var sub = sub10 / Math.log10(base)
+		x_log -= sub
+		start_log -= sub
+
+		return Math.pow(base, (Math.pow(x_log / start_log, pow) * mul - mul + 1) * start_log + sub)
+	},
+	dilate_decimal(x, start, base = 10, pow = 1, mul = 1, sub10 = 0) { 
+		if (x.lte(start)) return x
+
+		var base_log = Decimal.log10(base)
+		var x_log = x.log10() / base_log
+		var start_log = start.log10() / base_log
+
+		var sub = sub10 / base_log
+		x_log -= sub
+		start_log -= sub
+
+		return Decimal.pow(base, (Math.pow(x_log / start_log, pow) * mul - mul + 1) * start_log + sub)
+	},
 }
 
 function do_softcap(x, data, num) {
@@ -120,8 +243,20 @@ function do_softcap(x, data, num) {
 	var func = data.func
 	if (func == "log" && data["start"]) if (x < data["start"]) return x
 	var vars = softcap_vars[func]
+	var y = data[vars[0]]
+	if(typeof y === "function"){
+		y = y();
+	}
+	var z = data[vars[1]]
+	if(typeof z === "function"){
+		z = z();
+	}
+	var t = data[vars[2]]
+	if(typeof t === "function"){
+		t = t();
+	}
 	if (x + 0 != x) func += "_decimal"
-	return softcap_funcs[func](x, data[vars[0]], data[vars[1]], data[vars[2]])
+	return softcap_funcs[func](x, y, z, t)
 }
 
 function softcap(x, id, max = 1/0) {

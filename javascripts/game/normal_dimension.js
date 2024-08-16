@@ -19,6 +19,8 @@ function getDimensionProductionPerSecond(tier) {
 	if (inQC(1) && tier > 2) return E(0)
 
 	let ret = player[dimTiers[tier] + 'Amount'].floor()
+	if (aarMod.newGame4MinusRespeccedVersion) ret = player[dimTiers[tier] + 'Amount']
+
 	if ((inNC(7) || player.currentChallenge == "postcngm3_3" || inQC(4)) && !inNGM(2)) {
 		if (tier == 4) ret = ret.pow(1.3)
 		else if (tier == 2) ret = ret.pow(1.5)
@@ -27,8 +29,11 @@ function getDimensionProductionPerSecond(tier) {
 
 	if (inNC(2) || player.currentChallenge == "postc1") ret = ret.mul(player.chall2Pow)
 	if (tier == 1 && (inNC(3) || player.currentChallenge == "postc1")) ret = ret.mul(player.chall3Pow)
-	if (inNGM(3)) ret = ret.div(10)
-	if (inNGM(4)) ret = ret.div(100)
+
+	// this should be the equivalent of multiplying by 100 in NG-4R code
+	if (inNGM(3) && !inNGM4Respec()) ret = ret.div(10)
+	if (inNGM(4) && !inNGM4Respec()) ret = ret.div(100)
+
 	if (tier == 1 && (inNC(7) || player.currentChallenge == "postcngm3_3" || inQC(4))) ret = ret.add(getDimensionProductionPerSecond(2))
 	let tick = dilates(Decimal.div(1e3,getTickspeed()),"tick")
 	if (player.dilation.active && hasNanoReward("dil_exp")) tick = tick.pow(getNanorewardEff("dil_exp"))
@@ -59,6 +64,10 @@ function getDimensionRateOfChange(tier) {
 
 function getDimensionDescription(tier) {
 	var name = dimTiers[tier];
+	if(aarMod.newGame4MinusRespeccedVersion){
+		if (tier == getNormalDimensions()) return getFullExpansion(player[name + 'Bought']);
+		return shortenND(player[name + 'Amount']) + ' (' + getFullExpansion(player[name + 'Bought']) + ') (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
+	}
 	if (tier == getNormalDimensions()) return getFullExpansion(inNC(11) ? getAmount(tier) : player[name + 'Bought']) + ' (' + dimBought(tier) + ')';
 	else if (player.money.l > 1e9) return shortenND(player[name + 'Amount'])
 	else if (player.money.l > 1e6) return shortenND(player[name + 'Amount']) + ' (+' + formatValue(player.options.notation, getDimensionRateOfChange(tier), 2, 2) + dimDescEnd;
@@ -248,12 +257,12 @@ function getDimensionCostMultiplier(tier) {
 function getDimensionCostMultiplierIncrease() {
 	if (inQC(7)) return Number.MAX_VALUE
 	let ret = player.dimensionMultDecrease;
-	if (inNGM(4)) ret = Math.pow(ret, 1.25)
+	if (inNGM(4) && !inNGM4Respec()) ret = Math.pow(ret, 1.25)
 	if (player.currentChallenge === 'postcngmm_2') {
-		exp = inNGM(4) ? .9 : .5
+		exp = (inNGM(4) && !inNGM4Respec()) ? .9 : .5
 		ret = Math.pow(ret, exp)
 	} else if (player.challenges.includes('postcngmm_2')) {
-		expcomp = inNGM(4) ? .95 : .9
+		expcomp = (inNGM(4) && !inNGM4Respec()) ? .95 : .9
 		ret = Math.pow(ret, expcomp)
 	}
 	return ret;
@@ -266,6 +275,7 @@ function costIncreaseActive(cost, tier) {
 
 //Per-purchase bonuses	
 function getDimensionPowerMultiplier(focusOn, debug) {
+	if (player.tickspeedBoosts !== undefined && aarMod.newGame4MinusRespeccedVersion && inNC(9)) return 10/(Math.random()*30+1);
 	if (focusOn == "phantomal") return bigRipped() ? 2 : 3.3
 
 	let ret = focusOn || inNC(9) || player.currentChallenge=="postc1" ? getMPTBase(focusOn) : tmp.mptb
@@ -289,7 +299,7 @@ function getMPTBase(focusOn) {
 	if ((((inNC(13) && !inNGM(3)) || player.currentChallenge == "postc1" || player.currentChallenge == "postcngm3_1") && inNGM(2))) return E(1)
 
 	let ret = 2
-	if (inNGM(3)) ret = 1
+	if (inNGM(3) && !aarMod.newGame4MinusRespeccedVersion) ret = 1
 	if (mod.ngep) ret *= 10
 	if (mod.ngmu) ret *= 2.1
 	if (player.infinityUpgrades.includes("dimMult")) ret *= infUpg12Pow()
@@ -298,6 +308,7 @@ function getMPTBase(focusOn) {
 		if (inNGM(2)) {
 			let exp = 1.0666
 			if (inNGM(3)) exp = Math.min(Math.sqrt(1800 / player.challengeTimes[3] + 1), exp)
+			if (aarMod.newGame4MinusRespeccedVersion) exp = 1.1
 			ret = Math.pow(ret, exp)
 		} else ret *= 1.01
 	}
@@ -492,7 +503,7 @@ function getDimensionFinalMultiplier(tier) {
 	if (player.challenges.includes("postc4")) mult = mult.pow(1.05);
 	if (player.challenges.includes("postc8") && tier < 8 && tier > 1) mult = mult.mul(mult18);
 
-	if (isADSCRunning() || (inNGM(2) && player.currentChallenge === "postc1")) mult = mult.mul(productAllTotalBought());
+	if ((!inNGM4Respec() || inNC(13)) && isADSCRunning() || (inNGM(2) && player.currentChallenge === "postc1")) mult = mult.mul(productAllTotalBought());
 	else {
 		if (player.currentChallenge == "postc6") mult = mult.dividedBy(player.matter.max(1))
 		if (player.currentChallenge == "postc8") mult = mult.mul(player.postC8Mult)
@@ -504,6 +515,7 @@ function getDimensionFinalMultiplier(tier) {
 	if (tier == 8 && hasAch("ng3p27")) mult = mult.mul(tmp.qu.intergal.eff)
 
 	if (mult.gt(10)) mult = dilates(mult.max(1), 2)
+	if (aarMod.newGame4MinusRespeccedVersion) mult = softcap(mult, "nd_ngm4r")
 	mult = mult.mul(getAfterDefaultDilationLayerAchBonus(tier))
 	if (player.currentChallenge == "postc4" && inNGM(3)) mult = mult.sqrt()
 
@@ -518,6 +530,8 @@ function getDimensionFinalMultiplier(tier) {
 
 	return mult
 }
+
+
 
 //Challenges
 function multiplySameCosts(cost) {

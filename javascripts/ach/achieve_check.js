@@ -52,7 +52,7 @@ function checkForEndMe() {
 	var temp = 0
 	for (var i=0; i<getTotalNormalChallenges(); i++) temp += player.challengeTimes[i]
 	if (temp <= 1800) giveAchievement("Not-so-challenging")
-	if (temp <= 50) giveAchievement("End me")
+	if (temp <= 50) giveAchievement("Not a second lost")
 
 	var temp2 = 0
 	for (var i = 0; i < order.length; i++) temp2 += player.infchallengeTimes[i]
@@ -176,6 +176,7 @@ function checkOtherPreNGp3Achieve(){
 	if (player.totalTimePlayed >= 10 * 60 * 60 * 24 * 8) giveAchievement("One for each dimension")
 	if (Math.random() < 0.00001) giveAchievement("Do you feel lucky? Well do ya punk?")
 	
+	if (inNGM4Respec() && player.tickspeedBoosts >= 1) giveAchievement("Fake News")
 	// need to know if we should really decide to move these into separate functions
 	if (player.galaxies >= 50) giveAchievement("YOU CAN GET 50 GALAXIES!??")
 	if (player.galaxies >= 2) giveAchievement("Double Galaxy");
@@ -183,9 +184,9 @@ function checkOtherPreNGp3Achieve(){
 	if (player.galaxies >= 540 && player.replicanti.galaxies == 0) giveAchievement("Unique snowflakes")
 	if (player.dilation.active) giveAchievement("I told you already, time is relative")
 	if (player.resets >= 10) giveAchievement("Boosting to the max")
-	if (player.spreadingCancer >= 10) giveAchievement("Spreading Nerd")
 	if (player.spreadingCancer >= 1000000) giveAchievement("Cancer = Spread")
 	if (player.infinitied >= 10) giveAchievement("That's a lot of infinites");
+	if (player.infinityUpgrades.length == 16) giveAchievement("No DLC Required")
 	if (player.break) giveAchievement("Limit Break")
 	if (mod.ngpp) if (player.meta.resets >= 10) giveAchievement("Meta-boosting to the max")
 	if (tmp.sacPow >= 600) giveAchievement("The Gods are pleased");

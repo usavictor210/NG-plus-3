@@ -3,8 +3,10 @@ let RESETS = {
 		//lowest: Dimension Boosts
 		startingAM() {
 			let x = 10
-			if (player.challenges.includes("challenge1")) x = 100
-			if (inNGM(4)) x = 200
+			if (player.challenges.includes("challenge1")) x = 100 // To infinity; after first crunch
+			if (inNGM(4) && !inNGM4Respec()) x = 200 // this will be obsoleted following new versions of NG-4R
+
+			// The rest are from succeeding speedrun achievements
 			if (hasAch("r37")) x = 1000
 			if (hasAch("r54")) x = 2e5
 			if (hasAch("r55")) x = 1e10
@@ -26,7 +28,7 @@ let RESETS = {
 			}
 		},
 		startingTickspeed() {
-			player.tickspeed = E(mod.ngep ? 500 : 1000)
+			player.tickspeed = E(mod.ngep ? 500 : aarMod.newGame4MinusRespeccedVersion ? 1e4 : 1000)
 			player.tickSpeedCost = E(1e3)
 			player.tickspeedMultiplier = E(10)
 
@@ -39,6 +41,7 @@ let RESETS = {
 		doReset(order) {
 			let resetDims = order != "db" && order != "gal" || !postBoostMilestone()
 			if (resetDims) {
+				// reset a bunch of resources
 				this.startingAM()
 				this.startingDims()
 				player.sacrificed = E(0)
@@ -46,6 +49,9 @@ let RESETS = {
 				if (inNGM(2)) reduceDimCosts()
 			}
 			this.startingTickspeed()
+
+			// this function ends up setting tickspeed right after it is set
+			// ...it is a little odd but applies more appropriate calculations
 			setInitialDimensionPower()
 			player.chall3Pow = E(0.01)
 			player.matter = E(0)
@@ -66,6 +72,7 @@ let RESETS = {
 		doReset(order) {
 			player.tickBoughtThisInf = updateTBTIonGalaxy()
 
+			if (order == "tdb" && player.aarexModifications.newGame4MinusRespeccedVersion)return;
 			if (order == "tdb" && (hasAch("r26") && player.resets >= player.tdBoosts)) return
 			if (order == "tsb" && (hasAch("r27") && player.tickspeedBoosts < 5 * player.galaxies - 8)) return
 			if (order == "gal" && hasAch("ng3p55")) return
@@ -94,6 +101,11 @@ let RESETS = {
 			if (inNGM(2)) {
 				player.galacticSacrifice.time = 0
 				GPminpeak = E(0)
+			}
+
+			if (inNGM(4) && player.galacticSacrifice.times == 1 && player.infinitied < 1 && player.eternities == 0 && !quantumed) {
+				el("welcomeMessage").innerHTML = "Sacrificing galaxies for the first time has unlocked most of the challenges formerly present in Infinity, alongside the Galaxy tab."
+				el("welcome").style.display = "flex"
 			}
 		}
 	},
@@ -138,6 +150,7 @@ let RESETS = {
 			playerInfinityUpgradesOnEternity()
 			player.infMult = E(1)
 			player.infMultCost = E(100)
+			if (hasAch("r41")) player.infMult = player.infMult.mul(2)
 			if (hasAch("r85")) player.infMult = player.infMult.mul(4)
 			if (hasAch("r93")) player.infMult = player.infMult.mul(4)
 			el("infmultbuyer").style.display = mod.ngp3 || getEternitied() >= 1 ? "" : "none"
@@ -508,7 +521,9 @@ function setupResetData() {
 
 function doReset(order, auto) {
 	let start = RESET_INDEX[order]
-	for (var layer = start; layer >= 0; layer--) RESETS[RESET_ORDER[layer]].doReset(order, auto)
+	for (var layer = start; layer >= 0; layer--) {
+		RESETS[RESET_ORDER[layer]].doReset(order, auto)
+	}
 }
 
 //OLD CODE
@@ -581,6 +596,9 @@ function completelyResetTimeDimensions() {
 			power: E(1),
 			bought: 0
 		}
+		if(aarMod.newGame4MinusVersion)player["timeDimension"+dim].boughtAntimatter=0;
+		if(aarMod.newGame4MinusVersion)player["timeDimension"+dim].costAntimatter=timeDimCost(dim, 0, 1);
+		
 	}
 }
 
@@ -628,3 +646,10 @@ function updateResetTierButtons() {
 
 const infinitied = x => player.infinitied > 0 || eternitied()
 const eternitied = x => getEternitied() > 0 || quantumed
+
+// NG-4R has a special case for unlocking Eternity, which is much earlier in the mod
+function meetEternityTabRequirement() {
+	if (inNGM(4) && aarMod.newGame4MinusRespeccedVersion) {
+		return hasAch("r51")
+	} else return eternitied()
+}

@@ -5,12 +5,36 @@ function getTickspeedBoostRequirement(bulk = 1) {
 		if (hasGSacUpg(34)) mult = 4
 		if (player.infinityUpgrades.includes("postinfi52")) mult = 3
 	}
+	if (aarMod.newGame4MinusRespeccedVersion){
+		let amount = 30+10*resets;
+		
+		if (hasGSacUpg(34)) {
+		  amount = 30+9*resets;
+		}
+		let prefix = ""
+		
+		if(resets>=getNGM4RTBScaling1()){
+			prefix = "Distant ";
+			amount += (resets-getNGM4RTBScaling1())*(resets-getNGM4RTBScaling1()+1);
+		}
+		
+		if(resets>=getNGM4RTBScaling2()){
+			prefix = "Further ";
+			amount += (resets-getNGM4RTBScaling2())*(resets-getNGM4RTBScaling2()+1)*4;
+		}
+		
+		if(resets>=getNGM4RTBScaling3()){
+			prefix = "Remote ";
+			amount = amount * Math.pow(1.002,resets-getNGM4RTBScaling3()+1);
+		}
+	}
 	return {tier: inNC(4) ? 6 : 8, amount: resets * mult + (inNC(15) && inNGM(4) ? 10 : 30), mult: mult}
 }
 
 function tickspeedBoost(bulk) {
 	if (isNaN(bulk)) return
 	player.tickspeedBoosts += bulk
+	if (inNGM4Respec()) giveAchievement("Fake News")
 	doReset("tsb")
 }
 

@@ -167,7 +167,7 @@ function changeSaveDesc(i, exit) {
 }
 
 function reload(btn) {
-	if (btn && (aarMod.autoSaveInterval < 15 || autoSaveSeconds >= 60) && !confirm("You didn't turn on autosaving or forget to save. Be warned, you might lose progress. Are you sure?")) return
+	if (btn && (aarMod.autoSaveInterval < 15 || autoSaveSeconds >= 60) && !confirm("Are you sure you want to reload? You have either not saved recently or autosave has been turned off, which may lead to a loss of progress.")) return
 	load_game(true)
 }
 
@@ -247,7 +247,7 @@ function import_save(i = savePlacement) {
 	onImport = false
 
 	// current reality version update number is 19
-	if (save_data.version > 12.2 && save_data.split("AntimatterDimensions")[1] && save_data.split("EndOf")[1]) {
+	if (save_data?.version > 12.2 && save_data.split("AntimatterDimensions")[1] && save_data.split("EndOf")[1]) {
 		$.notify("The Reality Update is incompatible with Aarex's mods.", "error")
 		return
 	}
@@ -425,16 +425,11 @@ function reset_game() {
 
 //Creation + Mods
 function new_game(type) {
-	if (!type && modChosen.ngmm == 4) {
-		closeToolTip()
-		el("welcome").style.display = "flex"
-		el("welcomeMessage").innerHTML = `You can play <a href="https://raw.githack.com/loader3229/IvarK.github.io/Respecced/">New Game Minus 4: Respecced</a> in loader3229's NG+3R site.<br><br>
-		<a href="https://raw.githack.com/loader3229/NG-plus-3/NG-4R-porting/">Check out the current progress of this port here.</a>`
-		return
-	}
+	// Update basic description of save
 	changeSaveDesc(savePlacement, true)
 	save_game(true)
 
+	// bring save to end of list
 	meta.save.current = 1
 	while (meta.save.saveOrder.includes(meta.save.current)) meta.save.current++
 	meta.save.saveOrder.push(meta.save.current)
@@ -464,7 +459,8 @@ function adjustOfflineProgress() {
 	el("offlineInterval").textContent = "Offline progress: " + (aarMod.offline ? (aarMod.offline * 100) + " ticks" : "OFF")
 };
 
-//Player Creation
+// Player Creation
+// this is where mod selections are finalized
 var player
 function updateNewPlayer(mode, preset) {
 	if (mode == "quick") mod = modPresets[preset]
@@ -473,9 +469,9 @@ function updateNewPlayer(mode, preset) {
 	else if (mode != "reset") mod = {}
 
 	player = {
-		money: E(mod.ngmm>2?200:mod.ngp>1?20:10),
+		money: E(mod.ngmm > 2 && mod.ngmm != 4 ? 200 : mod.ngp>1 ? 20 : 10),
 		tickSpeedCost: E(1000),
-		tickspeed: E(mod.ngp>1?500:1000),
+		tickspeed: E(mod.ngp > 1 ? 500 : mod.ngmm == 4 ? 1e4 : 1000),
 		sacrificed: E(0),
 		achievements: [],
 		infinityUpgrades: [],
@@ -620,8 +616,11 @@ function updateNewPlayer(mode, preset) {
 			eternityChallRecords: {}
 		}
 	}
+
+	// assign quick alias
 	aarMod = player.aarexModifications
 
+	// Set versions and finalize the player
 	if (mod.ngpp) doNGPlusTwoNewPlayer()
 	if (mod.ngpp > 1) doNGPlusThreeNewPlayer()
 
@@ -653,6 +652,7 @@ function updateNewPlayer(mode, preset) {
 	}
 	if (mod.ngmm >= 2) doNGMinusThreeNewPlayer()
 	if (mod.ngmm >= 3) doNGMinusFourPlayer()
+	if (mod.ngmm == 4) doNGMinusFourRespeccedPlayer()
 }
 
 function doNGPlusOneNewPlayer(){ // eventually change to have multiple versions/variations of NG+
@@ -667,7 +667,7 @@ function doNGPlusOneNewPlayer(){ // eventually change to have multiple versions/
 	player.galaxies = 1
 	player.infinitiedBank = 5e9
 	player.infinityUpgrades = ["timeMult", "dimMult", "timeMult2", "unspentBonus", "27Mult", "18Mult", "36Mult", "resetMult", "passiveGen", "45Mult", "resetBoost", "galaxyBoost", "skipReset1", "skipReset2", "skipReset3", "skipResetGalaxy"]
-	player.infMult = 2048
+	player.infMult = 4096 // no dlc required is an excuse to buff this
 	player.dimensionMultDecrease = 2
 	player.tickSpeedMultDecrease = 1.65
 	player.eternities = 1012680
@@ -994,12 +994,31 @@ function doNGUDSemiprimePlayer() {
 }
 
 function doNGMinusFourPlayer(){
-	aarMod.newGame4MinusVersion = 2.111
+	aarMod.newGame4MinusVersion = 2.2
+	if (mod.ngmm == 4) {
+		aarMod.newGame4MinusRespeccedVersion = 3
+	}
+	for (let dim = 1; dim <= 8; dim++) {
+		player["timeDimension"+dim].costAntimatter=timeDimCost(dim, 0, 1);
+		player["timeDimension"+dim].boughtAntimatter=0;
+	}
 	player.tdBoosts = 0
 	player.challengeTimes.push(600 * 60 * 24 * 31)
 	player.autobuyers.push(15)
 	resetNGM4TDs()
 	reduceDimCosts()
+}
+
+function doNGMinusFourRespeccedPlayer(){
+	aarMod.newGame4MinusRespeccedVersion = 3
+	player.timeless={
+        active: false,
+        shards: new Decimal(0),
+        points: new Decimal(0),
+        upgrades: [],
+        rebuyables: {
+        }
+	}
 }
 
 function doNGMultipliedPlayer(){

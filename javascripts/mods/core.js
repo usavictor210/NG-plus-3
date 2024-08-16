@@ -15,7 +15,7 @@ function showNextModeMessage() {
 		el("welcome").style.display = "flex"
 		el("welcomeMessage").innerHTML = ngModeMessages[ngModeMessages.length-1]
 		ngModeMessages.pop()
-	} else if (ngm4retire) ngm4retiremsg()
+	} else if (!ngm4retire) ngm4retiremsg()
 	else el("welcome").style.display = "none"
 }
 
@@ -183,6 +183,7 @@ let welcomeMsgs = {
 	["-2"]: "Welcome to NG--, created by Nyan cat! You are always in Dilation and IC3, but there is a new layer called Galactic Sacrifice.",
 	["-3"]: "Welcome to NG-3, the nerfed version of NG--! This mode reduces tickspeed multiplier multiplier and nerfs galaxies, but has a new feature called \"Tickspeed Boosts\" and many more changes to NG--.",
 	["-4"]: "Welcome to NG-4: Classic, the nerfed version of NG-3! This mode features even more changes from NG---, and is very hardcore. WIP by Nyan Cat and edited by Aarex.",
+	["-4R"]: "Welcome to NG-4R v3, a completely rebalanced version of NG-4 by loader3229! The mod is made considerably faster than its original version, but features similar content from the old version. Current Endgame is: 3 Infinity Challenges completed",
 
 	["+1"]: "Welcome to NG+ v2, by usavictor and Aarex! You start with many things unlocked to make early game faster.",
 	["+2"]: "Welcome to NG++, by dan-simon! New Dilation upgrades and Meta Dimensions are added to push the endgame further. Tweaked due to NG+ updates.",
@@ -209,7 +210,8 @@ function welcomeMods(mods) {
 	let frag = modFragments(mods)
 	let type = []
 
-	for (var i = 1; i <= 4; i++) if (frag.includes("-"+i)) type.push("-"+i)
+	if (frag.includes("-5")) type.push("-4R")
+	else for (var i = 1; i <= 4; i++) if (frag.includes("-"+i)) type.push("-"+i)
 	if (frag.includes("ER")) type.push("ER")
 
 	if (frag.includes("UdSP")) type.push("UdSP")
@@ -265,8 +267,14 @@ function modAbbs(mods = mod, short) {
 	if (plus) r += "+" + (plus > 1 ? plus : "")
 
 	if (mods.ngmm) {
-		if (mods.ngmm == 3) r += "-4C"
-		else r += "-"+(mods.ngmm+1)
+		// NG-x levels will be internally corrected later
+		if (mod.ngmm == 4 && mods.ngmX == 5) {
+			r += short ? "-4R" : "-4 Respecced"
+		} else if (mod.ngmm == 3 && mods.ngmX == 4) {
+			r += short ? "-4C" : "-4 Classic"
+		} else {
+			r += "-"+(mods.ngmm+1)
+		}
 		if (mods.ngm) end += ", NG-"
 	} else if (mods.ngm) r += "-"
 
@@ -279,7 +287,8 @@ function modAbbs(mods = mod, short) {
 
 var ngm4retire = false
 function ngm4retiremsg() {
-	ngm4retire = false
+	// Do not show in respecced version
+	if (aarMod.newGame4MinusRespeccedVersion) return 
 	el("welcome").style.display = "flex"
 	el("welcomeMessage").innerHTML = `New Game Minus 4 is now retiring. Due to inactivity present on the original mod, we are now porting NG-4R into Aarex's Modifications. Don't worry, New Game Minus 4 will be moved into loader's NG-4R server. Thanks for playing!
 	<br><br>

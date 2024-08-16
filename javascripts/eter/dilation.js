@@ -163,6 +163,7 @@ function updateBestTachyonParticles() {
 	el('bestTP').innerHTML = msg
 }
 
+// this does what it states: apply dilation power to a value
 function dilates(x, m) {
 	let e = dilationPowerStrength()
 	let y = x
@@ -186,7 +187,7 @@ function dilates(x, m) {
 }
 
 function dilationPowerStrength() {
-	return inNGM(4) ? 0.7 : 0.75
+	return (inNGM(4) && !inNGM4Respec()) ? 0.7 : 0.75
 }
 
 /**
